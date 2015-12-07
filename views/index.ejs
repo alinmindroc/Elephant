@@ -1,0 +1,127 @@
+<html ng-app="app">
+<head>
+	<title>ngTodo</title>
+</head>
+<body>
+
+	<ng-view></ng-view>
+
+	<!-- Libraries -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>
+
+	<!-- Template -->
+	<script type="text/ng-template" id="/todos.html">
+		Search: <input type="text" ng-model="search.name">
+		<ul>
+			<li ng-repeat="todo in todos | filter: search">
+				<input type="checkbox" ng-model="todo.completed" 
+				ng-change="setCompleted(todo._id, todo.completed)">
+				<a href="#/{{todo._id}}">{{todo.name}}</a>
+				<button ng-click="delete(todo._id)">delete</button>
+			</li>
+		</ul>
+		<form ng-submit="save()">
+			New task <input type="text" ng-model="newTodo">
+		</save>
+	</script>
+
+	<script type="text/ng-template" id="/todoDetails.html">
+		<div ng-show = "todo._id">
+			<h1>{{ todo.name }}</h1>
+			completed: <input type="checkbox" ng-model="todo.completed" ng-change="setCompleted(todo._id, todo.completed)">
+			note: <textarea ng-model="todo.note" ng-change = "edit(todo._id, todo.note)">{{ todo.note }}</textarea>
+			<button ng-click="delete(todo._id)">delete</button>
+		</div>
+		<div ng-hide = "todo._id">
+			<h4> 404: Item not found </h4>
+		</div>
+	</script>
+
+	<script>
+		angular.module('app', ['ngRoute', 'ngResource'])
+
+//---------------
+// Services
+//---------------
+
+.factory('Todos', ['$resource', function($resource){
+	return $resource('/todos/:id', null, {
+		'update': { method:'PUT' }
+	});
+}])
+
+.factory('CRUD', ['Todos', function(Todos){
+	return {
+		delete: function(id){
+			Todos.remove({id: id});
+		},
+		setCompleted:function(id, completed){
+			Todos.update({id: id}, {completed: completed});
+		},
+		edit:function(id, text){
+			Todos.update({id: id}, {note: text});
+		}
+	};
+}])
+
+//---------------
+// Controllers
+//---------------
+
+.controller('TodoController', ['$scope', 'Todos', 'CRUD', function ($scope, Todos, CRUD) {
+	$scope.todos = Todos.query();
+
+	$scope.save = function(){
+		if(!$scope.newTodo || $scope.newTodo.length < 1) return;
+		var todo = new Todos({ name: $scope.newTodo, completed: false });
+
+		todo.$save(function(){
+			$scope.todos.push(todo);
+          $scope.newTodo = ''; // clear textbox
+      });
+	};
+
+	$scope.delete = function(id){
+		CRUD.delete(id);
+		$scope.todos = Todos.query();
+	};
+
+	$scope.setCompleted = CRUD.setCompleted;
+	$scope.edit = CRUD.edit;
+
+}])
+
+.controller('TodoDetailCtrl', ['$scope', '$routeParams', '$location', 
+	'Todos', 'CRUD', function ($scope, $routeParams, $location, Todos, CRUD) {
+	$scope.todo = Todos.get({id: $routeParams.id});
+
+	$scope.delete = function(id){
+		CRUD.delete(id);
+		$location.path('/');
+	}
+	$scope.setCompleted = CRUD.setCompleted;
+	$scope.edit = CRUD.edit;
+}])
+
+//---------------
+// Routes
+//---------------
+
+.config(['$routeProvider', function ($routeProvider) {
+	$routeProvider
+	.when('/', {
+		templateUrl: '/todos.html',
+		controller: 'TodoController'
+	})
+
+	.when('/:id', {
+		templateUrl: '/todoDetails.html',
+		controller: 'TodoDetailCtrl'
+	});
+}]);
+</script>
+
+</body>
+</html>
