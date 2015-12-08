@@ -92,18 +92,16 @@
 }])
 
 .factory('Projects', ['$resource', function($resource){
-	return $resource('/projects/:id', null, {
+	return $resource('/projects/:id', {id: '@id'}, {
 		'update': { method:'PUT' },
+		'removeTask': {
+			url: '/projects/deleteTask/:id',
+			method: 'PUT'
+		}
 	});
 }])
 
-.factory('ProjectsDelTask', ['$resource', function($resource){
-	return $resource('/projects/deleteTask/:id', {id: '@id'}, {//mai mult de un delimitator in url -> param binding
-		'update': { method:'PUT' }
-	});
-}])
-
-.factory('CRUD', ['Tasks', 'Projects', 'ProjectsDelTask', function(Tasks, Projects, ProjectsDelTask){
+.factory('CRUD', ['Tasks', 'Projects', function(Tasks, Projects){
 	return {
 		deleteTask: function(id){
 			Tasks.remove({id: id});
@@ -121,7 +119,7 @@
 			Projects.update({id: projectId}, {task: taskId});
 		},
 		removeTaskFromProject: function(id){
-			ProjectsDelTask.update({id: id});
+			Projects.removeTask({id: id});
 		}
 	};
 }])
