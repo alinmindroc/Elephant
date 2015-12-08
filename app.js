@@ -7,11 +7,12 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
-var todos = require('./routes/todos');
+var tasks = require('./routes/tasks');
+var projects = require('./routes/projects');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost/todoApp', function(err){
+mongoose.connect('mongodb://localhost/elephant-app', function(err){
 	if(err){
 		console.error('connection error', err);
 	} else {
@@ -32,7 +33,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/todos', todos);
+app.use('/tasks', tasks);
+app.use('/projects', projects);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

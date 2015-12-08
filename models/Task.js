@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var TodoSchema = new mongoose.Schema({
+var TaskSchema = new mongoose.Schema({
 	// _id: 		Number,		
 	name: 		String,
 	completed: 	Boolean,
@@ -8,4 +8,4 @@ var TodoSchema = new mongoose.Schema({
 	created_at: {type: Date, default: Date.now},
 });
 
-module.exports = mongoose.model('Todo', TodoSchema);
+module.exports = mongoose.model('Task', TaskSchema);

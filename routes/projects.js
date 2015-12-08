@@ -2,43 +2,45 @@ var express = require('express');
 var router = express.Router();
 
 var mongoose = require('mongoose');
-var Todo = require('../models/Todo.js');
 var Project = require('../models/Project.js');
 
 router.get('/', function(req, res, next) {
-	Todo.find(function(err, todos){
+	Project.find(function(err, projects){
 		if(err) return next(err);
-		res.json(todos);
+		res.json(projects);
 	});
 });
 
 router.get('/:id', function(req, res, next) {
-	Todo.findById(req.params.id, function(err, get){
+	Project.findById(req.params.id, function(err, get){
 		if(err) return next(err);
 		res.json(get);
 	});
 });
 
 router.post('/', function(req, res, next) {
-	console.log(req.body);
-	Todo.create(req.body, function(err, post){
+	Project.create(req.body, function(err, post){
 		if(err) return next(err);
 		res.json(post);
-	});
-	Project.create({'name' : 'foo', 'todo' : '566606c75542aa7a4048c16a'}, function(){
-
 	});
 });
 
 router.put('/:id', function(req, res, next){
-	Todo.findByIdAndUpdate(req.params.id, req.body, function(err, put){
+	Project.findByIdAndUpdate(req.params.id, req.body, function(err, put){
 		if(err) return next(err);
 		res.json(put);
 	});
 });
 
+router.put('/deleteTask/:id', function(req, res, next){
+	Project.update({_id: req.params.id}, {$unset: {task: ''}}, function(err, put){
+		if(err) return next(err);
+		res.json(put);
+	})
+})
+
 router.delete('/:id', function(req, res, next){
-	Todo.findByIdAndRemove(req.params.id, function(err, del){
+	Project.findByIdAndRemove(req.params.id, function(err, del){
 		if(err) return next(err);
 		res.json(del);
 	});

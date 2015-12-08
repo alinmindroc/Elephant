@@ -1,6 +1,6 @@
 <html ng-app="app">
 <head>
-	<title>ngTodo</title>
+	<title>ngTask</title>
 </head>
 <body>
 
@@ -12,31 +12,70 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>
 
 	<!-- Template -->
-	<script type="text/ng-template" id="/todos.html">
+	<script type="text/ng-template" id="/tasks.html">
 		Search: <input type="text" ng-model="search.name">
+		Tasks:
+		<br>
 		<ul>
-			<li ng-repeat="todo in todos | filter: search">
-				<input type="checkbox" ng-model="todo.completed" 
-				ng-change="setCompleted(todo._id, todo.completed)">
-				<a href="#/{{todo._id}}">{{todo.name}}</a>
-				<button ng-click="delete(todo._id)">delete</button>
+			<li ng-repeat="task in tasks | filter: search">
+				<input type="checkbox" ng-model="task.completed" 
+				ng-change="setCompletedTask(task._id, task.completed)">
+				<a href="#/tasks/{{task._id}}">{{task.name}}</a>
+				<button ng-click="deleteTask(task._id)">delete</button>
 			</li>
 		</ul>
-		<form ng-submit="save()">
-			New task <input type="text" ng-model="newTodo">
-		</save>
+		<form ng-submit="saveTask()">
+			New task <input type="text" ng-model="newTask">
+		</form>
+
+		<br>
+		<br>
+		<ul>
+			<li ng-repeat="project in projects | filter: search">
+				<a href="#/projects/{{project._id}}">{{project.name}}</a>
+				<a href="#/tasks/{{project.task}}" ng-show="project.task">{{project.task}}</a>
+				<button ng-click="deleteProject(project._id)">delete</button>
+			</li>
+		</ul>
+
+		<form ng-submit="saveProject()">
+			New project <input type="text" ng-model="newProject">
+		</form>
 	</script>
 
-	<script type="text/ng-template" id="/todoDetails.html">
-		<div ng-show = "todo._id">
-			<h1>{{ todo.name }}</h1>
-			completed: <input type="checkbox" ng-model="todo.completed" ng-change="setCompleted(todo._id, todo.completed)">
-			note: <textarea ng-model="todo.note" ng-change = "edit(todo._id, todo.note)">{{ todo.note }}</textarea>
-			<button ng-click="delete(todo._id)">delete</button>
+	<script type="text/ng-template" id="/taskDetails.html">
+		<div ng-show = "task._id">
+			<h1>{{ task.name }}</h1>
+			completed: <input type="checkbox" ng-model="task.completed" ng-change="setCompleted(task._id, task.completed)">
+			note: <textarea ng-model="task.note" ng-change = "edit(task._id, task.note)">{{ task.note }}</textarea>
+			<button ng-click="delete(task._id)">delete</button>
 		</div>
-		<div ng-hide = "todo._id">
+		<div ng-hide = "task._id">
 			<h4> 404: Item not found </h4>
 		</div>
+	</script>
+
+	<script type="text/ng-template" id="/projectDetails.html">
+		<div ng-show = "project._id">
+			<h1>{{ project.name }}</h1>
+			completed: <input type="checkbox" ng-model="project.completed" ng-change="setCompleted(project._id, project.completed)">
+			<button ng-click="delete(project._id)">delete</button>
+
+			<ul>
+				<li ng-repeat="task in tasks">
+					{{task._id}}
+				</li>
+			</ul>
+		</div>
+		<div ng-hide = "project._id">
+			<h4> 404: Item not found </h4>
+		</div>
+
+		<form ng-submit="addTask()">
+			Add task <input type="text" ng-model="taskId">
+		</form>
+
+		<button ng-click="deleteTask(project._id)">Delete task</button>
 	</script>
 
 	<script>
@@ -46,22 +85,43 @@
 // Services
 //---------------
 
-.factory('Todos', ['$resource', function($resource){
-	return $resource('/todos/:id', null, {
+.factory('Tasks', ['$resource', function($resource){
+	return $resource('/tasks/:id', null, {
 		'update': { method:'PUT' }
 	});
 }])
 
-.factory('CRUD', ['Todos', function(Todos){
+.factory('Projects', ['$resource', function($resource){
+	return $resource('/projects/:id', null, {
+		'update': { method:'PUT' },
+	});
+}])
+
+.factory('ProjectsDelTask', ['$resource', function($resource){
+	return $resource('/projects/deleteTask/:id', {id: '@id'}, {//mai mult de un delimitator in url -> param binding
+		'update': { method:'PUT' }
+	});
+}])
+
+.factory('CRUD', ['Tasks', 'Projects', 'ProjectsDelTask', function(Tasks, Projects, ProjectsDelTask){
 	return {
-		delete: function(id){
-			Todos.remove({id: id});
+		deleteTask: function(id){
+			Tasks.remove({id: id});
 		},
-		setCompleted:function(id, completed){
-			Todos.update({id: id}, {completed: completed});
+		setCompletedTask:function(id, completed){
+			Tasks.update({id: id}, {completed: completed});
 		},
-		edit:function(id, text){
-			Todos.update({id: id}, {note: text});
+		editTask:function(id, text){
+			Tasks.update({id: id}, {note: text});
+		},
+		deleteProject: function(id){
+			Projects.remove({id: id});
+		},
+		addTaskToProject: function(projectId, taskId){
+			Projects.update({id: projectId}, {task: taskId});
+		},
+		removeTaskFromProject: function(id){
+			ProjectsDelTask.update({id: id});
 		}
 	};
 }])
@@ -70,39 +130,74 @@
 // Controllers
 //---------------
 
-.controller('TodoController', ['$scope', 'Todos', 'CRUD', function ($scope, Todos, CRUD) {
-	$scope.todos = Todos.query();
+.controller('TaskController', ['$scope', 'Tasks', 'Projects', 'CRUD', function ($scope, Tasks, Projects, CRUD) {
+	$scope.tasks = Tasks.query();
+	$scope.projects = Projects.query();
 
-	$scope.save = function(){
-		if(!$scope.newTodo || $scope.newTodo.length < 1) return;
-		var todo = new Todos({ name: $scope.newTodo, completed: false });
+	$scope.saveTask = function(){
+		if(!$scope.newTask || $scope.newTask.length < 1) return;
+		var task = new Tasks({ name: $scope.newTask, completed: false });
 
-		todo.$save(function(){
-			$scope.todos.push(todo);
-          $scope.newTodo = ''; // clear textbox
+		task.$save(function(){
+			$scope.tasks.push(task);
+          	$scope.newTask = ''; // clear textbox
       });
 	};
 
-	$scope.delete = function(id){
-		CRUD.delete(id);
-		$scope.todos = Todos.query();
+	$scope.saveProject = function(){
+		if(!$scope.newProject || $scope.newProject.length < 1) return;
+
+		var project = new Projects({ name: $scope.newProject, completed: false });
+
+		project.$save(function(){
+			$scope.projects.push(project);
+			$scope.newProject = '';
+		})
+	}
+
+	$scope.deleteTask = function(id){
+		CRUD.deleteTask(id);
+		$scope.tasks = Tasks.query();
 	};
 
-	$scope.setCompleted = CRUD.setCompleted;
-	$scope.edit = CRUD.edit;
+	$scope.deleteProject = function(id){
+		CRUD.deleteProject(id);
+		$scope.projects = Projects.query();
+	};
 
+	$scope.setCompletedTask = CRUD.setCompletedTask;
+	$scope.editTask = CRUD.editTask;
 }])
 
-.controller('TodoDetailCtrl', ['$scope', '$routeParams', '$location', 
-	'Todos', 'CRUD', function ($scope, $routeParams, $location, Todos, CRUD) {
-	$scope.todo = Todos.get({id: $routeParams.id});
+.controller('TaskDetailCtrl', ['$scope', '$routeParams', '$location', 
+	'Tasks', 'CRUD', function ($scope, $routeParams, $location, Tasks, CRUD) {
+	$scope.task = Tasks.get({id: $routeParams.id});
 
 	$scope.delete = function(id){
-		CRUD.delete(id);
+		CRUD.deleteTask(id);
 		$location.path('/');
 	}
-	$scope.setCompleted = CRUD.setCompleted;
-	$scope.edit = CRUD.edit;
+	$scope.setCompleted = CRUD.setCompletedTask;
+	$scope.edit = CRUD.editTask;
+}])
+
+.controller('ProjectDetailCtrl', ['$scope', '$routeParams', '$location', 
+	'Projects', 'Tasks', 'CRUD', function ($scope, $routeParams, $location, Projects, Tasks, CRUD) {
+	$scope.project = Projects.get({id: $routeParams.id});
+
+	$scope.tasks = Tasks.query();
+
+	$scope.delete = function(id){
+		CRUD.deleteProject(id);
+		$location.path('/');
+	}
+
+	$scope.addTask = function(){
+		CRUD.addTaskToProject($scope.project._id, $scope.taskId);
+		$location.path('/');
+	}
+
+	$scope.deleteTask = CRUD.removeTaskFromProject;
 }])
 
 //---------------
@@ -112,13 +207,19 @@
 .config(['$routeProvider', function ($routeProvider) {
 	$routeProvider
 	.when('/', {
-		templateUrl: '/todos.html',
-		controller: 'TodoController'
+		templateUrl: '/tasks.html',
+		controller: 'TaskController'
 	})
 
-	.when('/:id', {
-		templateUrl: '/todoDetails.html',
-		controller: 'TodoDetailCtrl'
+	.when('/tasks/:id', {
+		templateUrl: '/taskDetails.html',
+		controller: 'TaskDetailCtrl'
+	})
+
+
+	.when('/projects/:id', {
+		templateUrl: '/projectDetails.html',
+		controller: 'ProjectDetailCtrl'
 	});
 }]);
 </script>
