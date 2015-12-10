@@ -70,6 +70,11 @@ myApp.controller('myAppCtrl', function ($scope, $http, $uibModal) {
   }
 
   $scope.filter = function(){
+    if($scope.filterType == 'all'){
+      $scope.showTasks = $scope.tasks;
+      return;
+    }
+
     $scope.showTasks = $scope.tasks.filter(function(x){
       return (x.type == $scope.filterType)
     });
