@@ -1,0 +1,22 @@
+<div class="edit-details modal-body">
+  <h3> Edit project details </h3>
+  <div class="form-group">
+    <label class="sr-only">Project Name</label>
+    <input class="form-control" id="project-name" ng-model="projectName" placeholder="Project Name">
+  </div>
+  <div class="form-group">
+    <label class="sr-only">Status</label>
+    <select placeholder="Status" class="form-control" ng-model="projectStatus">
+      <option>in progress</option>
+      <option>completed</option>
+      <option>failed</option>
+    </select>
+
+  </div>
+  <div class="form-group">
+    <label class="sr-only">Start Date</label>
+    <input class="form-control" type="date" id="project-date" ng-model="projectDate" placeholder="Start Date">
+  </div>
+  <button type="submit" class="btn btn-success" ng-click="ok()">OK</button>
+  <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+</div> 

@@ -1,0 +1,427 @@
+body {
+  font-family: "Helvetica";
+}
+.elephant {
+  height: 70px;
+  padding-left: 50px;
+  padding-top: 10px;
+  margin-bottom: 10px;
+}
+
+.header {
+  background: #000099;
+  box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.55);
+  border: 2px solid #99ccff;
+  width: 100vw;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.glyphicon-search{
+  position: absolute;
+  left: 340px;
+  top: 36px;
+}
+
+.search {
+  position: absolute;
+  left: 160px;
+  top: 30px;
+  width: 210px; 
+  border-radius: 10px 10px 10px 10px; 
+  text-align: center;
+}
+
+.fullName-header {
+  color: white;
+  height: 35px;
+  position: absolute;
+  left: 650px;
+  top: 30px; 
+  font-size: 18px; 
+}
+
+.userPic{
+  height: 45px;
+  position: absolute;
+  left: 597px;
+  top: 19px;
+}
+
+.notificationsPic {
+  height: 40px;
+  position: absolute;
+  left: 910px;
+  top: 25px; 
+}
+
+.notifications {
+  color: white;
+  height: 35px;
+  position: absolute;
+  left: 800px;
+  top: 30px; 
+  font-size: 18px;  
+} 
+
+.projects {
+  color: white;
+  height: 35px;
+  position: absolute;
+  left: 1040px;
+  top: 30px; 
+  font-size: 18px;  
+}
+
+#speech-bubble {
+   width: 30px; 
+   height: 30px; 
+   background: #ccff99;
+   position: absolute;
+   left: 960px;
+   top: 40px;
+   -moz-border-radius: 10px; 
+   -webkit-border-radius: 10px; 
+   border-radius: 10px;
+}
+
+#speech-bubble:before {
+   content:"";
+   position: absolute;
+   width: 0;
+   height: 0;
+   border-top: 8px solid transparent;
+   border-right: 20px solid #ccff99;
+   border-bottom: 10px solid transparent;
+   margin: 5px 0 0 -10px;
+}
+
+.notNumber {
+   position: absolute;
+   left: 970px;
+   top: 45px;
+   font-weight: bold;  
+}
+
+a:hover {
+  text-decoration: none;
+  color: #ffcc99;
+}
+
+.elephantProfile {
+  height: 60px;
+  position: absolute;
+  top: 110px;
+  left: 80px;
+}
+
+.userProfile {
+  position: absolute;
+  top: 120px;
+  left: 210px;
+  font-size: 30px; 
+}
+
+.details{
+  position: absolute;
+  top: 187px;
+  left: 80px;
+  font-size: 20px; 
+  background: #99ffcc;
+  width: 300px;
+  height: 30px;
+  text-align:left;
+}
+
+.pencil-details{
+  position: absolute;
+  top: 189px;
+  left: 410px;
+  font-size: 22px;  
+}
+
+.username {
+  position: absolute;
+  top: 230px;
+  left: 80px;
+  color: #990073;
+  font-weight: bold;
+  font-size: 16px;  
+}
+
+.username-value {
+  position: absolute;
+  top: 230px;
+  left: 275px;
+  font-size: 14px;  
+}
+
+.username {
+  position: absolute;
+  top: 230px;
+  left: 80px;
+  color: #990073;
+  font-weight: bold;
+  font-size: 16px;  
+}
+
+.username-value {
+  position: absolute;
+  top: 230px;
+  left: 200px;
+  font-size: 14px;  
+}
+
+.fullname {
+  position: absolute;
+  top: 250px;
+  left: 80px;
+  color: #990073;
+  font-weight: bold;
+  font-size: 16px;  
+}
+
+.fullname-value {
+  position: absolute;
+  top: 250px;
+  left: 200px;
+  font-size: 14px;  
+}
+
+.password {
+  position: absolute;
+  top: 270px;
+  left: 80px;
+  color: #990073;
+  font-weight: bold;
+  font-size: 16px;  
+}
+
+.password-change {
+  position: absolute;
+  top: 270px;
+  left: 200px;
+  font-size: 14px;  
+}
+
+.email {
+  position: absolute;
+  top: 290px;
+  left: 80px;
+  color: #990073;
+  font-weight: bold;
+  font-size: 16px;  
+}
+
+.email-value {
+  position: absolute;
+  top: 290px;
+  left: 200px;
+  font-size: 14px;  
+}
+
+.groups {
+  position: absolute;
+  top: 310px;
+  left: 80px;
+  color: #990073;
+  font-weight: bold;
+  font-size: 16px;  
+}
+
+.group-value {
+  position: absolute;
+  top: 310px;
+  left: 200px;
+  font-size: 14px;  
+}
+
+.photo {
+  position: absolute;
+  top: 330px;
+  left: 80px;
+  color: #990073;
+  font-weight: bold;
+  font-size: 16px;  
+}
+
+.photo-change {
+  position: absolute;
+  top: 330px;
+  left: 200px;
+  font-size: 14px;  
+}
+
+.preferences{
+  position: absolute;
+  top: 387px;
+  left: 80px;
+  font-size: 20px; 
+  background: #99ffcc;
+  width: 300px;
+  height: 30px;
+  text-align:left;
+}
+
+.pencil-preferences{
+  position: absolute;
+  top: 389px;
+  left: 410px;
+  font-size: 22px;  
+}
+
+.page-size {
+  position: absolute;
+  top: 430px;
+  left: 80px;
+  color: #990073;
+  font-weight: bold;
+  font-size: 16px;  
+}
+
+.page-size-value {
+  position: absolute;
+  top: 430px;
+  left: 200px;
+  font-size: 14px;  
+}
+
+.email-type {
+  position: absolute;
+  top: 450px;
+  left: 80px;
+  color: #990073;
+  font-weight: bold;
+  font-size: 16px;  
+}
+
+.email-type-value {
+  position: absolute;
+  top: 450px;
+  left: 200px;
+  font-size: 14px;  
+}
+
+.language {
+  position: absolute;
+  top: 470px;
+  left: 80px;
+  color: #990073;
+  font-weight: bold;
+  font-size: 16px;  
+}
+
+.language-change {
+  position: absolute;
+  top: 470px;
+  left: 200px;
+  font-size: 14px;  
+}
+
+.own-changes {
+  position: absolute;
+  top: 490px;
+  left: 80px;
+  color: #990073;
+  font-weight: bold;
+  font-size: 16px;  
+}
+
+.own-changes-value {
+  position: absolute;
+  top: 490px;
+  left: 200px;
+  font-size: 14px;  
+}
+
+.sharing {
+  position: absolute;
+  top: 510px;
+  left: 80px;
+  color: #990073;
+  font-weight: bold;
+  font-size: 16px;  
+}
+
+.sharing-value {
+  position: absolute;
+  top: 510px;
+  left: 200px;
+  font-size: 14px;  
+}
+
+.tasks{
+  position: absolute;
+  top: 187px;
+  left: 500px;
+  font-size: 20px; 
+  background: #99ffcc;
+  width: 300px;
+  height: 30px;
+  text-align:left;
+}
+
+.pencil-tasks{
+  position: absolute;
+  top: 189px;
+  left: 830px;
+  font-size: 22px;  
+}
+
+.glyphicon-filter{
+  position: absolute;
+  top: 189px;
+  left: 880px;
+  font-size: 22px; 
+}
+
+.tasks-list{
+  position: relative;
+  top: 209px;
+  left: 500px;
+  font-size: 18px;
+  padding-top: 10px;
+  width: 400px;
+}
+
+.task-name {
+ display: inline;
+ padding-top: 30px;
+}
+
+.current-project{
+  position: absolute;
+  top: 187px;
+  left: 970px;
+  font-size: 20px; 
+  background: #99ffcc;
+  width: 300px;
+  height: 30px;
+  text-align:left;
+}
+
+.current-application {
+  position: absolute;
+  top: 227px;
+  left: 970px;
+  color: #990073;
+  font-weight: bold;
+  font-size: 16px;  
+}
+
+#filterForm {
+  position: absolute;
+  top: 197px;
+  left: 902px;
+  background-color:#ccffe6;
+  padding: 15px;  
+  border: 2px solid #004d27;  
+  box-shadow: 10px 10px 10px 3px #00331a;
+  -webkit-border-radius: 30px 30px 30px 30px;
+}
+
+.filterButton {
+  margin-left: 30px;
+}
+

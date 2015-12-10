@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+  <title>Projects</title>
+  
+  <link rel="stylesheet" href="../stylesheets/bootstrap.min.css">
+  <link rel="stylesheet" href="projects.css">
+  <link href="../stylesheets/style.css" rel="stylesheet" />
+
+  <script src="../javascripts/angular.min.js"></script>
+  <script src="../javascripts/angular-animate.js"></script>
+  <script src="../javascripts/ui-bootstrap-tpls-0.14.3.js"></script>
+
+  <script src="../javascripts/angular-route.min.js"></script>
+  <script src="../javascripts/angular-resource.min.js"></script>
+  <script src="projects.js"></script>
+  <script src="projectDetailsCtrl.js"></script>
+</head>
+
+<body>
+  <div ng-controller="myAppCtrl">
+    <div class="header">
+      <img src="../images/elephant.png" class="elephant">
+      <form>
+        <input ng-model="searchFilter" type="text" placeholder="Search for project..." class="search" ng-change=filterTableData()>
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+      </form>
+      <img src="../images/profile_pic.png" class="userPic">
+      <a href="../UserProfile/userProfile.html" class="fullName-header">{{fullName}}</a>
+      <a href="../Notifications/notifications.html" class="notifications">Notifications</a>
+      <img src="../images/icon_notifications.png" class="notificationsPic">
+      <div id="speech-bubble"></div>
+      <p class="notNumber">{{notNumber}}</p>
+      <a href="../Projects/projects.html" class="projects">Projects</a>
+    </div>
+
+    <div class="content">
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Projects</div>
+
+        <!-- Table -->
+        <table class="table table-striped table-hover table-bordered">
+          <tr class="clickable" ng-repeat="project in shownProjects" ng-click="openModal(project._id)">
+            <td>{{project.name}}</td>
+            <td>{{project.status}}</td>
+            <td>{{project.start_date}}</td>
+            <td><button class="btn btn-danger" ng-click="delete(project._id)">delete</button></td>
+          </tr>
+        </table>
+      </div>
+
+      <nav class="navbar navbar-default">
+        <form class="navbar-form navbar-left">
+          <div class="form-group">
+            <label class="sr-only">Project Name</label>
+            <input class="form-control" id="project-name" ng-model="projectName" placeholder="Project Name">
+          </div>
+          <div class="form-group">
+            <label class="sr-only">Status</label>
+            <select placeholder="Status" class="form-control" ng-model="projectStatus">
+              <option>in progress</option>
+              <option>completed</option>
+              <option>failed</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="sr-only">Start Date</label>
+            <input class="form-control" type="date" id="project-date" ng-model="projectDate" placeholder="Start Date">
+          </div>
+          <button type="submit" class="btn btn-default" ng-click="addProject()">Add Project</button>
+        </form>
+      </nav>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+ <!DOCTYPE html>
+ <html ng-app="myApp">
+
+ <head>
+  <title>Login</title>
+
+  <link href="login.css" rel="stylesheet"/>
+
+  <script src="../javascripts/angular.min.js"></script>
+  <script src="login.js"></script>
+</head>
+
+<body>
+  <div ng-controller="myAppCtrl">
+   <img src="../images/elephant.png">
+   <h1>Elephant</h1> 
+   <p class="login">Log In</p>
+   <p class="error-message"></p>
+   <form class="user">
+    User Name <input class="input1" type="text" name="UserName" ng-model="username.value" value=""><br><br>
+    Password <input class="input2" type="password" name="Password" ng-model="password.value" value=""><br><br>
+    <button class="btn" ng-click="loginPressesd()">Log in</button>
+  </form>
+</div>
+</body>
+
+</html>

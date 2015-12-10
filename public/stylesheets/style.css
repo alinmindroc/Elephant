@@ -1,8 +1,19 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+.clickable {
+    cursor: pointer;
+    cursor: hand;
+}
+
+.userPic{
+  height: 45px;
+  position: absolute;
+  left: 597px;
+  top: 19px;
 }

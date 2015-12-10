@@ -1,0 +1,34 @@
+ <!DOCTYPE html>
+ <html ng-app="myApp">
+
+ <head>
+ 	<title>Sign up</title>
+
+ 	<link href="signup.css" rel="stylesheet" />
+
+ 	<script src="../javascripts/angular.min.js"></script>
+ 	<script src="signup.js"></script>
+ </head>
+ <body>
+ 	
+ 	<div ng-controller="myAppCtrl">
+ 		<img src="../images/elephant.png">
+ 		<h1>Elephant</h1> 
+ 		<p class="join">Join Elephants</p>
+ 		<form class="user">
+ 			First Name <input class="input1" type="text" name="FirstName" ng-model="firstName" value=""><br><br>
+ 			Last Name <input class="input2" type="text" name="LastName" ng-model="lastName" value=""><br><br>
+ 			User Name <input class="input3" type="text" name="UserName" ng-model="userName" value=""><br><br>
+ 			Email <input class="input4" type="text" name="Email" ng-model="email" value=""><br><br>
+ 			Password <input class="input5" type="password" name="Password" ng-model="password" value=""><br><br>
+ 			Confirm Password <input class="input6" type="password" name="ConfirmPassword"ng-model="confirmPassword" value=""><br><br>
+ 			<button class="btn" ng-click="joinPressed()">Join Elephants</button>
+ 		</form>
+ 		<a href="../Login/login.html" class="login">or Log In</a>
+ 		<p class="ErrorMessage"></p>
+ 	</div>
+ </body>
+
+ </html>
+
+
