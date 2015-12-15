@@ -1,34 +1,38 @@
- <html ng-app="app">
+<link rel="stylesheet" href="/stylesheets/signup.css">
+<link rel="stylesheet" href="/stylesheets/login.css">
 
- <head>
- 	<title>Sign up</title>
-
- 	<link href="/stylesheets/signup.css" rel="stylesheet">
-
- 	<script src="/javascripts/angular.min.js"></script>
- 	
- 	<script src="/javascripts/controllers/signupCtrl.js"></script>
- </head>
- <body>
- 	
- 	<div ng-controller="myAppCtrl">
- 		<img src="../images/elephant.png">
- 		<h1>Elephant</h1> 
- 		<p class="join">Join Elephants</p>
- 		<form class="user">
- 			First Name <input class="input1" type="text" name="FirstName" ng-model="firstName" value=""><br><br>
- 			Last Name <input class="input2" type="text" name="LastName" ng-model="lastName" value=""><br><br>
- 			User Name <input class="input3" type="text" name="UserName" ng-model="userName" value=""><br><br>
- 			Email <input class="input4" type="text" name="Email" ng-model="email" value=""><br><br>
- 			Password <input class="input5" type="password" name="Password" ng-model="password" value=""><br><br>
- 			Confirm Password <input class="input6" type="password" name="ConfirmPassword"ng-model="confirmPassword" value=""><br><br>
- 			<button class="btn" ng-click="joinPressed()">Join Elephants</button>
- 		</form>
- 		<a href="../Login/login.html" class="login">or Log In</a>
- 		<p class="ErrorMessage"></p>
- 	</div>
- </body>
-
- </html>
-
-
+<img src="/images/elephant.png" class="bigLogo">
+<div class="appText bigText">Elephant</div> 
+<div>
+	<div class="joinText bigText">Join Elephants</div> 
+	<a href="#/login" class="loginAlt">or Log In</a>
+</div>
+<form class="signupForm">
+	<table class="authTable">
+		<tr>
+			<td>First Name</td>
+			<td><input type="text" ng-model="firstName" value=""></td>
+		</tr>
+		<tr>
+			<td>Last Name</td>
+			<td><input type="password" ng-model="lastName" value=""></td>
+		</tr>
+		<tr>
+			<td>User Name</td>
+			<td><input type="password" ng-model="userName" value=""></td>
+		</tr>
+		<tr>
+			<td>Email</td>
+			<td><input type="text" ng-model="email" value=""></td>
+		</tr>
+		<tr>
+			<td>Password</td>
+			<td><input type="text" ng-model="password" value=""></td>
+		</tr>
+		<tr>
+			<td>Confirm Password</td>
+			<td><input type="text" ng-model="confirmPassword" value=""></td>
+		</tr>								
+	</table>
+	<button class="authButton" ng-click="joinPressed()">Join Elephants</button>
+</form>

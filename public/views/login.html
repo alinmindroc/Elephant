@@ -1,9 +1,17 @@
-<img src="/images/elephant.png">
-<h1>Elephant</h1> 
-<p class="login">Log In</p>
-<p class="error-message"></p>
-<form class="user">
-	User Name <input class="input1" type="text" name="UserName" ng-model="username.value" value=""><br><br>
-	Password <input class="input2" type="password" name="Password" ng-model="password.value" value=""><br><br>
-	<button class="btn" ng-click="loginPressesd()">Log in</button>
+<link rel="stylesheet" href="/stylesheets/login.css">
+
+<img src="/images/elephant.png" class="bigLogo">
+<div class="appText bigText">Elephant</div> 
+<form class="loginForm">
+	<table class="authTable">
+		<tr>
+			<td>User Name</td>
+			<td><input type="text" ng-model="username" value=""></td>
+		</tr>
+		<tr>
+			<td>Password</td>
+			<td><input type="password" ng-model="password" value=""></td>
+		</tr>
+	</table>
+	<button class="authButton" ng-click="loginPressed()">Log in</button>
 </form>
