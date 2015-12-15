@@ -1,12 +1,11 @@
 <div class="edit-details modal-body">
   <h3> Edit project details </h3>
   <div class="form-group">
-    <label class="sr-only">Project Name</label>
-    <input class="form-control" id="project-name" ng-model="projectName" placeholder="Project Name">
+    <input class="form-control" id="project-name" ng-model="project.name" placeholder="Project Name">
   </div>
   <div class="form-group">
     <label class="sr-only">Status</label>
-    <select placeholder="Status" class="form-control" ng-model="projectStatus">
+    <select placeholder="Status" class="form-control" ng-model="project.status">
       <option>in progress</option>
       <option>completed</option>
       <option>failed</option>
@@ -14,9 +13,12 @@
 
   </div>
   <div class="form-group">
-    <label class="sr-only">Start Date</label>
-    <input class="form-control" type="date" id="project-date" ng-model="projectDate" placeholder="Start Date">
+    <input class="form-control" type="date" id="project-date" ng-model="project.date" placeholder="Start Date">
   </div>
+  <a href="/#/{{project.id}}/tasks">asda</a>
+  <button  class="btn btn-success">Configure Tasks <span class="glyphicon glyphicon-th-list"></button>
+  <br>
+  <br>
   <button type="submit" class="btn btn-success" ng-click="ok()">OK</button>
   <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
 </div> 

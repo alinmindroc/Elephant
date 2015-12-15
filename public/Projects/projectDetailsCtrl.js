@@ -1,20 +1,48 @@
-angular.module('myApp')
-.controller('projectDetailsCtrl', function ($scope, $uibModalInstance, Projects, CRUD, projectId) {
+angular.module('app')
+.controller('projectDetailsCtrl', function ($scope, $uibModal, $uibModalInstance, Projects, Tasks, CRUD, projectId) {
+    $scope.project = {};
+    $scope.project.id = projectId;
+
     var project = Projects.get({id: projectId}, function(){
-    	$scope.projectName = project.name;
-    	$scope.projectStatus = project.status;
-    	$scope.projectDate = new Date(project.start_date);
+    	$scope.project = project;
+    	$scope.project.date = new Date(project.start_date);
+
+        var tasks = Tasks.query({id: project.task}, function(){
+            $scope.tasks = tasks;
+            console.log(tasks);
+        })
     });
 
     $scope.cancel = function(){
     	$uibModalInstance.dismiss();
     }
 
+    $scope.openTaskModal = function(){
+        var modalInstance = $uibModal.open({      
+            templateUrl: 'addTaskModal.html',
+            controller: 'addTaskCtrl',
+            size: 'sm',
+            resolve : {
+                currentProject: function(){
+                    return $scope.project;
+                }
+            }
+        })
+    };
+
     $scope.ok = function(){
-    	Projects.update(
-    		{id: projectId},
-    		{name: $scope.projectName, status: $scope.projectStatus, start_date: new Date($scope.projectDate).toISOString()}
-    	);
-    	$uibModalInstance.close();
+        Projects.update(
+            {id: projectId},
+            {name: $scope.project.name, status: $scope.project.status, start_date: new Date($scope.project.date).toISOString()}
+            );
+        $uibModalInstance.close();
     }
-});
+})
+
+.config(['$routeProvider', function ($routeProvider) {
+  $routeProvider
+  .when('/:id/tasks/', {
+    templateUrl: '../Tasks/tasks.html',
+    controller: '../Tasks/tasks.js'
+  });
+}]);

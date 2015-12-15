@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="projects.css">
+
+<div class="edit-details modal-body">
+  <h4> Add Task to Project {{project.name}} </h4>
+  <div class="form-group">
+    <input class="form-control" id="project-name" ng-model="taskName" placeholder="Task Name">
+  </div>
+
+  <div class="form-group">
+    <textarea class="form-control" cols="40" rows="5" ng-model="taskDescription" placeholder="Description"></textarea>
+  </div>
+ 
+  <br>
+  <button type="submit" class="btn btn-success" ng-click="ok()">OK</button>
+  <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+</div> 

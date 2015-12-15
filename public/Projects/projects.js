@@ -1,4 +1,4 @@
-angular.module('myApp', ['ngRoute', 'ngResource', 'ngAnimate', 'ui.bootstrap'])
+angular.module('app', ['ngRoute', 'ngResource', 'ngAnimate', 'ui.bootstrap'])
 
 .factory('Projects', ['$resource', function($resource){
   return $resource('/api/projects/:id', {id: '@id'}, {
@@ -7,6 +7,12 @@ angular.module('myApp', ['ngRoute', 'ngResource', 'ngAnimate', 'ui.bootstrap'])
       url: '/api/projects/deleteTask/:id',
       method: 'PUT'
     }
+  });
+}])
+
+.factory('Tasks', ['$resource', function($resource){
+  return $resource('/tasks/:id', {id: '@id'}, {
+    'query':  {method:'get', isArray:true}
   });
 }])
 
@@ -24,7 +30,7 @@ angular.module('myApp', ['ngRoute', 'ngResource', 'ngAnimate', 'ui.bootstrap'])
   };
 }])
 
-.controller('myAppCtrl', ['$scope', 'Projects', 'CRUD', '$uibModal', function ($scope, Projects, CRUD, $uibModal) {
+.controller('projectCtrl', ['$scope', 'Projects', 'CRUD', '$uibModal', function ($scope, Projects, CRUD, $uibModal) {
   $scope.fullName = "Adriana Ene";
   $scope.notNumber = 6;
   $scope.projectStatus = "in progress";
@@ -48,7 +54,7 @@ angular.module('myApp', ['ngRoute', 'ngResource', 'ngAnimate', 'ui.bootstrap'])
         var filter = $scope.searchFilter.toLowerCase();
         return (name.indexOf(filter) > -1 || status.indexOf(filter) > -1);
       }
-    )
+      )
   }
 
   $scope.delete = function(id){
@@ -65,8 +71,6 @@ angular.module('myApp', ['ngRoute', 'ngResource', 'ngAnimate', 'ui.bootstrap'])
     if(!$scope.projectStatus || $scope.projectStatus.length < 1) return;
     if(!$scope.projectDate) return;
 
-    console.log($scope.projectDate);
-
     var project = new Projects({
       name: $scope.projectName,
       status: $scope.projectStatus,
@@ -81,7 +85,7 @@ angular.module('myApp', ['ngRoute', 'ngResource', 'ngAnimate', 'ui.bootstrap'])
     })
   };
 
-  $scope.openModal = function(id){
+  $scope.openProjectModal = function(id){
     var modalInstance = $uibModal.open({      
       templateUrl: 'projectDetailsModal.html',
       controller: 'projectDetailsCtrl',

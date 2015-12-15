@@ -121,6 +121,15 @@ a:hover {
 .navbar .container-fluid, .navbar-collapse {
     padding-left:0;
 }
+
 .navbar-collapse.in {
     padding-left:30px;
+}
+
+.projectTd{
+  width: 200px;
+}
+
+textarea {
+  max-width: 100%;
 }
