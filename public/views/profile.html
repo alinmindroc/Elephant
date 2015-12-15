@@ -1,0 +1,93 @@
+<link rel="stylesheet" href="/stylesheets/profile.css">
+
+<div style="float: left; margin-left: 20px">
+  <h3>User Profile</h3>
+  <div class="panel panel-default">
+    <div class="panel-heading" style="background-color: #CCFFE6">Details</div>
+    <table class="table table-bordered">
+      <tr>
+        <td class="coloredText">Username:</td>
+        <td>{{username}}</td>
+      </tr>
+      <tr>
+        <td class="coloredText">Full name:</td>
+        <td>{{fullName}}</td>
+      </tr>
+      <tr>
+        <td class="coloredText">Password:</td>
+        <td><a>Change Password</a></td>
+      </tr>
+      <tr>
+        <td class="coloredText">Email:</td>
+        <td>{{email}}</td>
+      </tr>
+      <tr>
+        <td class="coloredText">Group:</td>
+        <td>{{group}}</td>
+      </tr> 
+      <tr>
+        <td class="coloredText">Profile Picture:</td>
+        <td><a>Change Photo</a></td>
+      </tr>                            
+    </table>
+  </div>
+  <br>
+
+  <div class="panel panel-default">
+    <div class="panel-heading"style="background-color: #CCFFE6">Preferences</div>
+    <table class="table table-bordered profileTd">
+      <tr>
+        <td class="coloredText">Language:</td>
+        <td>{{language}}</td>
+      </tr>
+      <tr>
+        <td class="coloredText">Notifications:</td>
+        <td>{{notifications}}</td>
+      </tr>
+      <tr>
+        <td class="coloredText">Sharing:</td>
+        <td>{{sharing}}</td>
+      </tr>                           
+    </table>
+  </div>
+</div>
+
+<div style="float: left; margin-left: 200px">
+  <h3>Current Project: <span class="coloredText">{{currentProject}}</span></h3>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" style="background-color: #CCFFE6">
+      Tasks
+      <span title="filter" style="float: right" class="glyphicon glyphicon-filter clickable" ng-click="showFilters = !showFilters">
+      </span>    
+    </div>
+    <ul class="list-group">
+      <li ng-repeat="task in showTasks" class="list-group-item">
+        <span ng-class="{'glyphicon glyphicon-remove' : task.type  =='bug', 'glyphicon glyphicon-circle-arrow-up' : task.type  =='feature', 'glyphicon glyphicon-flash' : task.type  =='build'}">
+        </span>
+        {{task.value}}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div style="float: left; margin-left: 20px" id="filterForm" ng-show="showFilters">
+  <form>
+    <label>
+      <input ng-change="filter()" type="radio" ng-model="filterType" value="bug">
+      Bug
+    </label><br/>
+    <label>
+      <input ng-change="filter()" type="radio" ng-model="filterType" value="feature">
+      Feature
+    </label><br/>
+    <label>
+      <input ng-change="filter()" type="radio" ng-model="filterType" value="build">
+      Broken Build
+    </label><br/>
+    <label>
+      <input ng-change="filter()" type="radio" ng-model="filterType" value="all">
+      All tasks
+    </label><br/>
+  </form>
+</div> 

@@ -1,6 +1,6 @@
-var myApp = angular.module('myApp', []);
-
-myApp.controller('myAppCtrl', function ($scope) {
+angular.module('taskManagerApp')
+.controller('tasksCtrl', function ($scope, $rootScope) {
+  $rootScope.currentController = 'tasks';
 
   $scope.fullName = "Adriana Ene";
   $scope.notNumber = 6;

@@ -1,4 +1,4 @@
-angular.module('app', ['ngRoute', 'ngResource', 'ngAnimate', 'ui.bootstrap'])
+angular.module('taskManagerApp')
 
 .factory('Projects', ['$resource', function($resource){
   return $resource('/api/projects/:id', {id: '@id'}, {
@@ -30,7 +30,9 @@ angular.module('app', ['ngRoute', 'ngResource', 'ngAnimate', 'ui.bootstrap'])
   };
 }])
 
-.controller('projectCtrl', ['$scope', 'Projects', 'CRUD', '$uibModal', function ($scope, Projects, CRUD, $uibModal) {
+.controller('projectsCtrl', ['$scope', '$rootScope', 'Projects', 'CRUD', '$uibModal', function ($scope, $rootScope, Projects, CRUD, $uibModal) {
+  $rootScope.currentController = 'projects';
+
   $scope.fullName = "Adriana Ene";
   $scope.notNumber = 6;
   $scope.projectStatus = "in progress";

@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Task = require('./Task.js');
+var Task = require('./Project.js');
 
 var UserSchema = new mongoose.Schema({
 	username: 		String,
@@ -8,7 +8,7 @@ var UserSchema = new mongoose.Schema({
 	email: 			String,
 	groups: 		[String],
 	photo:  		{data: Buffer, contentType: String},
-	projects: 		[{type: mongoose.Schema.Types.ObjectId, ref: 'Task'}]
+	projects: 		[{type: mongoose.Schema.Types.ObjectId, ref: 'Project'}]
 });
 
 module.exports = mongoose.model('User', UserSchema);

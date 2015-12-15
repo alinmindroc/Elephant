@@ -1,6 +1,7 @@
-var myApp = angular.module('myApp', []);
+angular.module('taskManagerApp')
+.controller('notificationsCtrl', function ($scope, $rootScope) {
+	$rootScope.currentController = 'notifications';
 
-myApp.controller('myAppCtrl', function ($scope) {
 	$scope.fullName = "Adriana Ene";
 	$scope.notNumber = 6;
 	$scope.notifications = ['Deadline Task 2 from Project Pizza Shop Online is tomorrow'];

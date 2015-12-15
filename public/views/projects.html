@@ -1,0 +1,41 @@
+<div class="content">
+  <div class="panel panel-default" style="margin:20 20">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Projects</div>
+    <!-- Table -->
+    <table class="table table-striped table-hover table-bordered">
+      <tr class="clickable" ng-repeat="project in shownProjects" ng-click="openProjectModal(project._id)">
+        <td class="projectTd">{{project.name}}</td>
+        <td>{{project.status}}</td>
+        <td>{{project.start_date}}</td>
+        <td><button class="btn btn-danger" ng-click="delete(project._id)">delete</button></td>
+      </tr>
+    </table>
+  </div>
+  <h3 style="color:red">de adaugat useri la proiecte</h3>
+  <h3 style="color:red">de pus are you sure la delete: all task tree</h3>
+  <h3 style="color:red">foloseste ui datepicker pt data la edit proiect</h3>
+
+
+  <nav class="navbar navbar-default" style="margin:20 20">
+    <form class="navbar-form navbar-left">
+      <div class="form-group">
+        <label class="sr-only">Project Name</label>
+        <input class="form-control" id="project-name" ng-model="projectName" placeholder="Project Name">
+      </div>
+      <div class="form-group">
+        <label class="sr-only">Status</label>
+        <select placeholder="Status" class="form-control" ng-model="projectStatus">
+          <option>in progress</option>
+          <option>completed</option>
+          <option>failed</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="sr-only">Start Date</label>
+        <input class="form-control" type="date" id="project-date" ng-model="projectDate" placeholder="Start Date">
+      </div>
+      <button type="submit" class="btn btn-primary" ng-click="addProject()">Add Project</button>
+    </form>
+  </nav>
+</div>

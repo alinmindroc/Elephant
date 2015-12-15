@@ -1,235 +1,42 @@
-<html ng-app="app">
+<html>
 <head>
-	<title>ngTask</title>
+	<title>Elefant</title>
+	<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+	<link rel="stylesheet" href="/stylesheets/style.css">
+
+	<script src="/javascripts/angular.min.js"></script>
+	<script src="/javascripts/angular-resource.min.js"></script>
+	<script src="/javascripts/angular-route.min.js"></script>
+	<script src="/javascripts/angular-animate.js"></script>
+
+	<script src="/javascripts/ui-bootstrap-tpls-0.14.3.js"></script>
+
+	<script src="/javascripts/controllers/indexCtrl.js"></script>
+	<script src="/javascripts/controllers/profileCtrl.js"></script>
+	<script src="/javascripts/controllers/projectsCtrl.js"></script>
+	<script src="/javascripts/controllers/loginCtrl.js"></script>
+	<script src="/javascripts/controllers/notificationsCtrl.js"></script>
+	<script src="/javascripts/controllers/signupCtrl.js"></script>
+	<script src="/javascripts/controllers/tasksCtrl.js"></script>
+
+	<script src="/javascripts/controllers/modals/addTaskCtrl.js"></script>
+	<script src="/javascripts/controllers/modals/projectDetailsCtrl.js"></script>
 </head>
-<body>
+<body ng-app="taskManagerApp" ng-controller="indexCtrl">
+	<div class="header" ng-show="currentController!='login' && currentController!='signup'">
+		<img src="/images/elephant.png" class="header_logo">
 
-	<ng-view></ng-view>
+		<div style="float: right">
+			<img src="/images/profile_pic.png" class="header_profilePic">
+			<a href="#/profile" class="header_nameURL">{{fullName}}</a>
 
-	<!-- Libraries -->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>
+			<a href="#/notifications">Notifications ({{notificationsNumber}})</a>
+			<img src="/images/icon_notifications.png" class="header_notificationsPic">
 
-
-	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-
-
-	<!-- Template -->
-	<script type="text/ng-template" id="/tasks.html">
-		Search: <input type="text" ng-model="search.name">
-		Tasks:
-		<br>
-		<ul>
-			<li ng-repeat="task in tasks | filter: search">
-				<input type="checkbox" ng-model="task.completed" 
-				ng-change="setCompletedTask(task._id, task.completed)">
-				<a href="#/tasks/{{task._id}}">{{task.name}}</a>
-				<button ng-click="deleteTask(task._id)">delete</button>
-			</li>
-		</ul>
-		<form ng-submit="saveTask()">
-			New task <input type="text" ng-model="newTask">
-		</form>
-
-		<br>
-		<br>
-		<ul>
-			<li ng-repeat="project in projects | filter: search">
-				<a href="#/projects/{{project._id}}">{{project.name}}</a>
-				<a href="#/tasks/{{project.task}}" ng-show="project.task">{{project.task}}</a>
-				<button ng-click="deleteProject(project._id)">delete</button>
-			</li>
-		</ul>
-
-		<form ng-submit="saveProject()">
-			New project <input type="text" ng-model="newProject">
-		</form>
-	</script>
-
-	<script type="text/ng-template" id="/taskDetails.html">
-		<div ng-show = "task._id">
-			<h1>{{ task.name }}</h1>
-			completed: <input type="checkbox" ng-model="task.completed" ng-change="setCompleted(task._id, task.completed)">
-			note: <textarea ng-model="task.note" ng-change = "edit(task._id, task.note)">{{ task.note }}</textarea>
-			<button ng-click="delete(task._id)">delete</button>
+			<a href="#/projects" class="header_projectsURL">Projects</a>
 		</div>
-		<div ng-hide = "task._id">
-			<h4> 404: Item not found </h4>
-		</div>
-	</script>
+	</div>
 
-	<script type="text/ng-template" id="/projectDetails.html">
-		<div ng-show = "project._id">
-			<h1>{{ project.name }}</h1>
-			completed: <input type="checkbox" ng-model="project.completed" ng-change="setCompleted(project._id, project.completed)">
-			<button ng-click="delete(project._id)">delete</button>
-
-			<ul>
-				<li ng-repeat="task in tasks">
-					{{task._id}}
-				</li>
-			</ul>
-		</div>
-		<div ng-hide = "project._id">
-			<h4> 404: Item not found </h4>
-		</div>
-
-		<form ng-submit="addTask()">
-			Add task <input type="text" ng-model="taskId">
-		</form>
-
-		<button ng-click="deleteTask(project._id)">Delete task</button>
-	</script>
-
-	<script>
-		angular.module('app', ['ngRoute', 'ngResource'])
-
-//---------------
-// Services
-//---------------
-
-.factory('Tasks', ['$resource', function($resource){
-	return $resource('/tasks/:id', null, {
-		'update': { method:'PUT' }
-	});
-}])
-
-.factory('Projects', ['$resource', function($resource){
-	return $resource('/projects/:id', {id: '@id'}, {
-		'update': { method:'PUT' },
-		'removeTask': {
-			url: '/projects/deleteTask/:id',
-			method: 'PUT'
-		}
-	});
-}])
-
-.factory('CRUD', ['Tasks', 'Projects', function(Tasks, Projects){
-	return {
-		deleteTask: function(id){
-			Tasks.remove({id: id});
-		},
-		setCompletedTask:function(id, completed){
-			Tasks.update({id: id}, {completed: completed});
-		},
-		editTask:function(id, text){
-			Tasks.update({id: id}, {note: text});
-		},
-		deleteProject: function(id){
-			Projects.remove({id: id});
-		},
-		addTaskToProject: function(projectId, taskId){
-			Projects.update({id: projectId}, {task: taskId});
-		},
-		removeTaskFromProject: function(id){
-			Projects.removeTask({id: id});
-		}
-	};
-}])
-
-//---------------
-// Controllers
-//---------------
-
-.controller('TaskController', ['$scope', 'Tasks', 'Projects', 'CRUD', function ($scope, Tasks, Projects, CRUD) {
-	$scope.tasks = Tasks.query();
-	$scope.projects = Projects.query();
-
-	$scope.saveTask = function(){
-		if(!$scope.newTask || $scope.newTask.length < 1) return;
-		var task = new Tasks({ name: $scope.newTask, completed: false });
-
-		task.$save(function(){
-			$scope.tasks.push(task);
-          	$scope.newTask = ''; // clear textbox
-      });
-	};
-
-	$scope.saveProject = function(){
-		if(!$scope.newProject || $scope.newProject.length < 1) return;
-
-		var project = new Projects({ name: $scope.newProject, completed: false });
-
-		project.$save(function(){
-			$scope.projects.push(project);
-			$scope.newProject = '';
-		})
-	}
-
-	$scope.deleteTask = function(id){
-		CRUD.deleteTask(id);
-		$scope.tasks = Tasks.query();
-	};
-
-	$scope.deleteProject = function(id){
-		CRUD.deleteProject(id);
-		$scope.projects = Projects.query();
-	};
-
-	$scope.setCompletedTask = CRUD.setCompletedTask;
-	$scope.editTask = CRUD.editTask;
-}])
-
-.controller('TaskDetailCtrl', ['$scope', '$routeParams', '$location', 
-	'Tasks', 'CRUD', function ($scope, $routeParams, $location, Tasks, CRUD) {
-	$scope.task = Tasks.get({id: $routeParams.id});
-
-	$scope.delete = function(id){
-		CRUD.deleteTask(id);
-		$location.path('/');
-	}
-	$scope.setCompleted = CRUD.setCompletedTask;
-	$scope.edit = CRUD.editTask;
-}])
-
-.controller('ProjectDetailCtrl', ['$scope', '$routeParams', '$location', 
-	'Projects', 'Tasks', 'CRUD', function ($scope, $routeParams, $location, Projects, Tasks, CRUD) {
-	$scope.project = Projects.get({id: $routeParams.id});
-
-	$scope.tasks = Tasks.query();
-
-	$scope.delete = function(id){
-		CRUD.deleteProject(id);
-		$location.path('/');
-	}
-
-	$scope.addTask = function(){
-		CRUD.addTaskToProject($scope.project._id, $scope.taskId);
-		$location.path('/');
-	}
-
-	$scope.deleteTask = CRUD.removeTaskFromProject;
-}])
-
-//---------------
-// Routes
-//---------------
-
-.config(['$routeProvider', function ($routeProvider) {
-	$routeProvider
-	.when('/', {
-		templateUrl: '/tasks.html',
-		controller: 'TaskController'
-	})
-
-	.when('/projects', {
-		templateUrl: '/Projects/projects.html',
-		controller: 'projectCtrl'
-	})
-
-	.when('/tasks/:id', {
-		templateUrl: '/taskDetails.html',
-		controller: 'TaskDetailCtrl'
-	})
-
-
-	.when('/projects/:id', {
-		templateUrl: '/projectDetails.html',
-		controller: 'ProjectDetailCtrl'
-	});
-}]);
-</script>
-
+	<div ng-view=""></div>
 </body>
 </html>

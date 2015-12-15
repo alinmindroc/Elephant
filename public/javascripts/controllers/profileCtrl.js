@@ -1,14 +1,16 @@
-var myApp = angular.module('myApp', ['ngAnimate', 'ui.bootstrap']);
-
-myApp.controller('myAppCtrl', function ($scope, $http, $uibModal) {
+angular.module('taskManagerApp')
+.controller('profileCtrl', function ($scope, $rootScope, $http, $uibModal) {
+  $rootScope.currentController = 'profile';
 
   $scope.notNumber = 6;
+
+  $scope.currentProject = "Online Shop Application";
 
   $scope.username = "adriaene";
   $scope.fullName = "Adriana Ene";
   $scope.email = "adriana.ene93@gmail.com";
   $scope.group = "Front-End";
-  
+
   $scope.language = "English";
   $scope.notifications = "On";
   $scope.sharing = "Public";
