@@ -1,0 +1,74 @@
+{
+ "name": "Web Application",
+ "children": [ 
+ 
+  {
+   "name": "Backend",
+   "children": [
+    {
+     "name": "Choose tehnologies stack",
+     "children": [ {
+      "name": "Research on tehnologies stack",
+        "children": [ 
+            {"name" : "DataBase Tutorial"},            
+            {"name" : "Java Tutorial"},
+            {"name": "JavaScript Tutorial"}
+        ]
+      }
+      ]     
+
+    },
+    {
+      "name": "Backend Logic",
+        "children": [ 
+            {"name" : "DataBase"},            
+            {"name" : "Email"},
+            {
+            "name": "End Point",
+            "children": [ 
+              {"name": "Get Task"},
+              {"name": "Create Task"},
+              {"name": "End Task"}
+            ]
+            }     
+      ] 
+    }
+  ]
+  },
+
+  {
+   "name": "Frontend",
+   "children": [
+    {
+     "name": "Choose tehnologies stack",
+     "children": [ {
+      "name": "Research on tehnologies stack",
+        "children": [ 
+            {"name" : "HTML Tutorial"},            
+            {"name" : "CSS Tutorial"},
+            {"name": "Webstorm Tutorial"}
+        ]
+      }
+      ]     
+
+    },
+    {
+      "name": "Frontend Logic",
+        "children": [ 
+            {"name" : "Backend Connection"},            
+            {"name" : "Style interface"},
+            {
+            "name": "Interface Implementation",
+            "children": [ 
+              {"name": "Create Template"},
+              {"name": "Create style"},
+              {"name": "Create Script"}
+            ]
+            }     
+      ] 
+    }
+  ]
+  }
+
+ ]
+}

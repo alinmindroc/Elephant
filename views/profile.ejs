@@ -4,31 +4,33 @@
 <head>
   <title>Profile</title>
 
-  <link rel="stylesheet" href="../stylesheets/bootstrap.min.css">
-  <link href="userProfile.css" rel="stylesheet" />
-  <link href="../stylesheets/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/profile.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
 
-  <script src="../javascripts/angular.min.js"></script>
-  <script src="../javascripts/angular-animate.js"></script>
-  <script src="../javascripts/ui-bootstrap-tpls-0.14.3.js"></script>
+  <script src="/javascripts/angular.min.js"></script>
+  <script src="/javascripts/angular-animate.js"></script>
+  <script src="/javascripts/ui-bootstrap-tpls-0.14.3.js"></script>
   
-  <script src="userProfile.js"></script>
-  <script src="detailsCtrl.js"></script>
-  <script src="preferencesCtrl.js"></script>
+  <script src="/javascripts/controllers/userProfile.js"></script>
+  <script src="/javascripts/controllers/detailsCtrl.js"></script>
+  <script src="/javascripts/controllers/preferencesCtrl.js"></script>
 </head>
 
 <body>
 
   <div ng-controller="myAppCtrl">
     <div class="header">
-      <img src="../images/elephant.png" class="elephant">
-      <img src="../images/profile_pic.png" class="userPic">
-      <a href="../UserProfile/userProfile.html" class="fullName-header">{{fullName}}</a>
-      <a href="../Notifications/notifications.html" class="notifications">Notifications</a>
-      <img src="../images/icon_notifications.png" class="notificationsPic">
+      <img src="/images/elephant.png" class="elephant">
+      <img src="/images/profile_pic.png" class="userPic">
+      
+      <a href="/profile" class="fullName-header">{{fullName}}</a>
+      <a href="/notifications" class="notifications">Notifications</a>
+      
+      <img src="/images/icon_notifications.png" class="notificationsPic">
       <div id="speech-bubble"></div>
       <p class="notNumber">{{notNumber}}</p>
-      <a href="../Projects/projects.html" class="projects">Projects</a>
+      <a href="/projects" class="projects">Projects</a>
     </div>
     <div class="content">
         <img src="../images/elephant_profile.png" class="elephantProfile">

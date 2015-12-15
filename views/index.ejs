@@ -11,6 +11,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-resource.min.js"></script>
 
+
 	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 
 
@@ -210,6 +211,11 @@
 	.when('/', {
 		templateUrl: '/tasks.html',
 		controller: 'TaskController'
+	})
+
+	.when('/projects', {
+		templateUrl: '/Projects/projects.html',
+		controller: 'projectCtrl'
 	})
 
 	.when('/tasks/:id', {

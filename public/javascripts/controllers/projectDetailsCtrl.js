@@ -19,7 +19,7 @@ angular.module('app')
 
     $scope.openTaskModal = function(){
         var modalInstance = $uibModal.open({      
-            templateUrl: 'addTaskModal.html',
+            templateUrl: '/templates/addTaskModal.html',
             controller: 'addTaskCtrl',
             size: 'sm',
             resolve : {

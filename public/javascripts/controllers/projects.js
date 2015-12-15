@@ -87,7 +87,7 @@ angular.module('app', ['ngRoute', 'ngResource', 'ngAnimate', 'ui.bootstrap'])
 
   $scope.openProjectModal = function(id){
     var modalInstance = $uibModal.open({      
-      templateUrl: 'projectDetailsModal.html',
+      templateUrl: '/templates/projectDetailsModal.html',
       controller: 'projectDetailsCtrl',
       resolve: {
         projectId: function(){

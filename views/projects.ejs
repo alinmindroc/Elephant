@@ -4,36 +4,37 @@
 <head>
   <title>Projects</title>
   
-  <link rel="stylesheet" href="../stylesheets/bootstrap.min.css">
-  <link rel="stylesheet" href="projects.css">
-  <link href="../stylesheets/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/projects.css">
+  <link rel="stylesheet" href="/stylesheets/style.css"/>
 
-  <script src="../javascripts/angular.min.js"></script>
-  <script src="../javascripts/angular-animate.js"></script>
-  <script src="../javascripts/ui-bootstrap-tpls-0.14.3.js"></script>
+  <script src="/javascripts/angular.min.js"></script>
+  <script src="/javascripts/angular-animate.js"></script>
+  <script src="/javascripts/ui-bootstrap-tpls-0.14.3.js"></script>
 
-  <script src="../javascripts/angular-route.min.js"></script>
-  <script src="../javascripts/angular-resource.min.js"></script>
-  <script src="projects.js"></script>
-  <script src="projectDetailsCtrl.js"></script>
-  <script src="addTaskCtrl.js"></script>
+  <script src="/javascripts/angular-route.min.js"></script>
+  <script src="/javascripts/angular-resource.min.js"></script>
+
+  <script src="/javascripts/controllers/projects.js"></script>
+  <script src="/javascripts/controllers/projectDetailsCtrl.js"></script>
+  <script src="/javascripts/controllers/addTaskCtrl.js"></script>
 </head>
 
 <body>
   <div ng-controller="projectCtrl">
     <div class="header">
-      <img src="../images/elephant.png" class="elephant">
+      <img src="/images/elephant.png" class="elephant">
       <form>
         <input ng-model="searchFilter" type="text" placeholder="Search for project..." class="search" ng-change=filterTableData()>
         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
       </form>
-      <img src="../images/profile_pic.png" class="userPic">
-      <a href="../UserProfile/userProfile.html" class="fullName-header">{{fullName}}</a>
-      <a href="../Notifications/notifications.html" class="notifications">Notifications</a>
-      <img src="../images/icon_notifications.png" class="notificationsPic">
+      <img src="/images/profile_pic.png" class="userPic">
+      <a href="/profile" class="fullName-header">{{fullName}}</a>
+      <a href="/notifications" class="notifications">Notifications</a>
+      <img src="/images/icon_notifications.png" class="notificationsPic">
       <div id="speech-bubble"></div>
       <p class="notNumber">{{notNumber}}</p>
-      <a href="../Projects/projects.html" class="projects">Projects</a>
+      <a href="/projects" class="projects">Projects</a>
     </div>
 
     <div class="content">
@@ -51,8 +52,8 @@
           </tr>
         </table>
       </div>
-    <h3 style="color:red">de adaugat useri la proiecte</h3>
-    <h3 style="color:red">de pus are you sure la delete: all task tree</h3>
+      <h3 style="color:red">de adaugat useri la proiecte</h3>
+      <h3 style="color:red">de pus are you sure la delete: all task tree</h3>
 
       <nav class="navbar navbar-default">
         <form class="navbar-form navbar-left">

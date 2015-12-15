@@ -25,7 +25,7 @@ myApp.controller('myAppCtrl', function ($scope, $http, $uibModal) {
 
   $scope.openDetailsModal = function(){
     var modalInstance = $uibModal.open({      
-      templateUrl: 'detailsModal.html',
+      templateUrl: '/templates/userDetailsModal.html',
       controller: 'detailsCtrl',
       resolve: {
         userData: function(){
@@ -49,7 +49,7 @@ myApp.controller('myAppCtrl', function ($scope, $http, $uibModal) {
 
   $scope.openPreferencesModal = function(){
     var modalInstance = $uibModal.open({      
-      templateUrl: 'preferencesModal.html',
+      templateUrl: '/templates/userPreferencesModal.html',
       controller: 'preferencesCtrl',
       resolve: {
         preferencesData: function(){
