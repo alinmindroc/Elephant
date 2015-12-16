@@ -1,41 +1,11 @@
 angular.module('taskManagerApp')
-
-.factory('Projects', ['$resource', function($resource){
-  return $resource('/api/projects/:id', {id: '@id'}, {
-    'update': { method:'PUT' },
-    'removeTask': {
-      url: '/api/projects/deleteTask/:id',
-      method: 'PUT'
-    }
-  });
-}])
-
-.factory('Tasks', ['$resource', function($resource){
-  return $resource('/tasks/:id', {id: '@id'}, {
-    'query':  {method:'get', isArray:true}
-  });
-}])
-
-.factory('CRUD', ['Projects', function(Projects){
-  return {
-    deleteProject: function(id){
-      Projects.remove({id: id});
-    },
-    addTaskToProject: function(projectId, taskId){
-      Projects.update({id: projectId}, {task: taskId});
-    },
-    removeTaskFromProject: function(id){
-      Projects.removeTask({id: id});
-    } 
-  };
-}])
-
 .controller('projectsCtrl', ['$scope', '$rootScope', 'Projects', 'CRUD', '$uibModal', function ($scope, $rootScope, Projects, CRUD, $uibModal) {
   $rootScope.currentController = 'projects';
 
   $scope.fullName = "Adriana Ene";
   $scope.notNumber = 6;
   $scope.projectStatus = "in progress";
+
   function updateProjects(){
     $scope.projects = Projects.query(function(){
       $scope.projects.map(function(i){

@@ -1,15 +1,12 @@
 angular.module('taskManagerApp')
-.controller('profileCtrl', function ($scope, $rootScope, $http, $uibModal) {
+.controller('profileCtrl', function ($scope, $rootScope, $http, $uibModal, Users) {
   $rootScope.currentController = 'profile';
 
-  $scope.notNumber = 6;
+  $scope.crtUser = Users.query(function(){
+    $scope.crtUser = $scope.crtUser[0];
+  })
 
   $scope.currentProject = "Online Shop Application";
-
-  $scope.username = "adriaene";
-  $scope.fullName = "Adriana Ene";
-  $scope.email = "adriana.ene93@gmail.com";
-  $scope.group = "Front-End";
 
   $scope.language = "English";
   $scope.notifications = "On";

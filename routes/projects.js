@@ -4,7 +4,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Project = require('../models/Project.js');
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
 	Project.find(function(err, projects){
 		if(err) return next(err);
 		res.json(projects);

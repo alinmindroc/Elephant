@@ -7,6 +7,48 @@ angular
 	'ngAnimate',
 	'ui.bootstrap'
 	])
+
+.factory('Projects', ['$resource', function($resource){
+	return $resource('/api/projects/:id', {id: '@id'}, {
+		'update': { method:'PUT' },
+		'removeTask': {
+			url: '/api/projects/deleteTask/:id',
+			method: 'PUT'
+		}
+	});
+}])
+
+.factory('Tasks', ['$resource', function($resource){
+	return $resource('/tasks/:id', {id: '@id'}, {
+		'query':  { method:'GET', isArray:true }
+	});
+}])
+
+.factory('Users', ['$resource', function($resource){
+	return $resource('/users/:id', {id: '@id'}, {
+		'findMany': {
+			url: '/users/findMany/:id',
+			method:'GET',
+			isArray:true
+		},
+		'query':  	{ method:'GET', isArray:true },
+		'update': 	{ method:'PUT' }
+	});
+}])
+
+.factory('CRUD', ['Projects', function(Projects){
+	return {
+		deleteProject: function(id){
+			Projects.remove({id: id});
+		},
+		addTaskToProject: function(projectId, taskId){
+			Projects.update({id: projectId}, {task: taskId});
+		},
+		removeTaskFromProject: function(id){
+			Projects.removeTask({id: id});
+		} 
+	};
+}])
 .config(['$routeProvider',
 	function ($routeProvider) {
 		$routeProvider.

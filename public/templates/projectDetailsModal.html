@@ -1,3 +1,7 @@
+<style>
+  uib-accordion * {outline: 0 !important;}
+</style>
+
 <div class="edit-details modal-body">
   <h3> Edit project details </h3>
   <div class="form-group">
@@ -15,10 +19,35 @@
   <div class="form-group">
     <input class="form-control" type="date" id="project-date" ng-model="project.date" placeholder="Start Date">
   </div>
-  <a href="/#/{{project.id}}/tasks">asda</a>
-  <button  class="btn btn-success">Configure Tasks <span class="glyphicon glyphicon-th-list"></button>
-  <br>
-  <br>
-  <button type="submit" class="btn btn-success" ng-click="ok()">OK</button>
-  <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+
+  <div class="well">
+    Assignees: 
+    <ul>
+      <li ng-repeat="user in assignedUsers">
+        {{user.fullName}}
+      </li>
+    </ul>
+  </div>
+
+  <uib-accordion style="outline: 0" >
+  <uib-accordion-group heading="Edit Asignees">
+  <p>Select users to asign to this project:</p>
+  <label ng-repeat="user in allUsers" style="display: block">
+    <input
+    type="checkbox"
+    name="selectedUsers[]"
+    value="{{user.userName}}"
+    ng-model="user.selected">
+    {{user.fullName}}
+  </label>
+</uib-accordion-group>
+</uib-accordion>
+
+<a href="#/tasks">
+  <button class="btn btn-success" ng-click="cancel()">Configure Tasks <span class="glyphicon glyphicon-th-list"/></button>
+</a>
+<br>
+<br>
+<button type="submit" class="btn btn-success" ng-click="ok()">OK</button>
+<button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
 </div> 
