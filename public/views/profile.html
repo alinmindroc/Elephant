@@ -33,7 +33,6 @@
       </tr>                            
     </table>
   </div>
-  <br>
 
   <div class="panel panel-default">
     <div class="panel-heading"style="background-color: #CCFFE6">Preferences</div>
@@ -54,9 +53,16 @@
   </div>
 </div>
 
-<div style="float: left; margin-left: 200px">
-  <h3>Current Project: <span class="coloredText">{{currentProject}}</span></h3>
-
+<div style="float: left; margin-left: 150px; margin-top: 56px; width: 400px">
+  <div class="panel panel-default">
+    <div class="panel-heading" style="background-color: #CCFFE6">
+      Assigned Projects
+      </span>    
+    </div>
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="project in crtProjects"><a href="#/tasks">{{project.name}}</a></li>
+    </ul>
+  </div>
   <div class="panel panel-default">
     <div class="panel-heading" style="background-color: #CCFFE6">
       Tasks
@@ -73,7 +79,7 @@
   </div>
 </div>
 
-<div style="float: left; margin-left: 20px" id="filterForm" ng-show="showFilters">
+<div style="float: left; margin-top: 200px" id="filterForm" ng-show="showFilters">
   <form>
     <label>
       <input ng-change="filter()" type="radio" ng-model="filterType" value="bug">
@@ -92,4 +98,4 @@
       All tasks
     </label><br/>
   </form>
-</div> 
+</div>

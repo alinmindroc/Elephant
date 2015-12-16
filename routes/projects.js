@@ -11,6 +11,23 @@ router.get('/', function(req, res) {
 	});
 });
 
+router.get('/findMany', function(req, res){
+	var ids = []
+
+	for(key in req.query){
+		ids.push(req.query[key]);
+	}
+
+	console.log(ids);
+
+	Project.find({
+		'_id': { $in: ids }
+	}, function(err, users){
+		if(err) return next(err);
+		res.json(users);
+	});
+});
+
 router.get('/:id', function(req, res, next) {
 	Project.findById(req.params.id, function(err, get){
 		if(err) return next(err);

@@ -1,10 +1,10 @@
 angular.module('taskManagerApp')
-.controller('profileCtrl', function ($scope, $rootScope, $http, $uibModal, Users) {
+.controller('profileCtrl', function ($scope, $rootScope, $http, $uibModal, Users, Projects) {
   $rootScope.currentController = 'profile';
 
-  $scope.crtUser = Users.query(function(){
-    $scope.crtUser = $scope.crtUser[0];
-  })
+  $scope.crtUser = Users.get({id: '56703baed60f96def3880146'}, function(get){
+    $scope.crtProjects = Projects.findMany(get.projects);
+  });
 
   $scope.currentProject = "Online Shop Application";
 

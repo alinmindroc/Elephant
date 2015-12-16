@@ -14,6 +14,11 @@ angular
 		'removeTask': {
 			url: '/api/projects/deleteTask/:id',
 			method: 'PUT'
+		},
+		'findMany': {
+			url: '/api/projects/findMany/:id',
+			method: 'GET',
+			isArray: true
 		}
 	});
 }])
