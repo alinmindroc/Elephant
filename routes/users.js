@@ -33,6 +33,25 @@ router.get('/:id', function(req, res, next) {
 	});
 });
 
+router.post('/addProjectToSet/:userId/:projectId', function(req, res, next){
+	//only add the project if it doesn't already exist
+	User.findById(req.params.userId, function(err, get){
+		if(get.projects.indexOf(req.params.projectId) != -1){
+			res.json(get);
+		} else {
+			User.findByIdAndUpdate(
+				{_id: req.params.userId},
+				{$push: {projects: req.params.projectId}},
+				{safe: true, upsert: true},
+				function(err, post) {
+					if(err) return next(err);
+					res.json(post);
+				}
+			);
+		}
+	});
+});
+
 router.post('/', function(req, res, next) {
 	User.create(req.body, function(err, post){
 		console.log(req.body);
@@ -53,6 +72,18 @@ router.delete('/:id', function(req, res, next){
 		if(err) return next(err);
 		res.json(del);
 	});
+});
+
+router.delete('/removeProject/:userId/:projectId', function(req, res, next){
+	User.findByIdAndUpdate(
+		{_id: req.params.userId},
+		{$pull: {projects: req.params.projectId}},
+		{safe: true, upsert: true},
+		function(err, del) {
+			if(err) return next(err);
+			res.json(del);
+		}
+	);
 });
 
 module.exports = router;

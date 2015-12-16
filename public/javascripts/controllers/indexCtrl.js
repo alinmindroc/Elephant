@@ -28,11 +28,27 @@ angular
 	return $resource('/users/:id', {id: '@id'}, {
 		'findMany': {
 			url: '/users/findMany/:id',
-			method:'GET',
-			isArray:true
+			method: 'GET',
+			isArray: true
 		},
 		'query':  	{ method:'GET', isArray:true },
-		'update': 	{ method:'PUT' }
+		'update': 	{ method:'PUT' },
+		'addProject': {
+			url: '/users/addProjectToSet/:userId/:projectId',
+			method: 'POST',
+			params: {
+				userId: '@userId',
+				projectId: '@projectId'
+			}
+		},
+		'removeProject': {
+			url: '/users/removeProject/:userId/:projectId',
+			method: 'delete',
+			params: {
+				userId: '@userId',
+				projectId: '@projectId'
+			}
+		}
 	});
 }])
 

@@ -57,6 +57,7 @@ angular.module('taskManagerApp')
             return x._id;
         })
         
+        //set users to projects
         Projects.update(
             {id: projectId},
             {
@@ -66,6 +67,26 @@ angular.module('taskManagerApp')
                 users: assignedUserIds
             }
             );
+
+        var allIds = $scope.allUsers.map(function(x){
+            return x._id;
+        })
+
+        //set projects to users
+        for(var i in allIds){
+            //if a user id is checker, add the project to that user; otherwise, delete it
+            if(assignedUserIds.indexOf(allIds[i]) != -1){
+                Users.addProject({
+                    userId: allIds[i],
+                    projectId: projectId
+                });
+            } else {
+                Users.removeProject({
+                    userId: allIds[i],
+                    projectId: projectId
+                });
+            }
+        }
 
         $uibModalInstance.close();
     }
