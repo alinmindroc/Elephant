@@ -1,3 +1,27 @@
+<style>
+  .headerForm {
+    z-index: -1;
+    margin-top: -50px; 
+    padding-bottom: 50px; 
+    margin-left: 160px;
+  }
+  .searchInput {
+    border-radius: 10px 10px 10px 10px;
+    text-align: center;
+    outline: 0;
+  }
+</style>
+
+<form class="headerForm">
+  <input
+  ng-model="searchFilter"
+  type="text"
+  placeholder="Search for project..." 
+  class="searchInput"
+  ng-change=filterTableData()>
+  <span class="glyphicon glyphicon-search" style="margin-left: -25px"></span>
+</form>
+
 <div class="content">
   <div class="panel panel-default" style="margin:20 20">
     <!-- Default panel contents -->
@@ -12,10 +36,10 @@
       </tr>
     </table>
   </div>
-  <h3 style="color:red">de adaugat useri la proiecte</h3>
-  <h3 style="color:red">de pus bara de search</h3>
+  <h3 style="color:red; text-decoration: line-through;">de adaugat useri la proiecte</h3>
+  <h3 style="color:red">de adaugat proiecte la useri</h3>
+  <h3 style="color:red; text-decoration: line-through;">de pus bara de search</h3>
   <h3 style="color:red">de pus are you sure la delete: all task tree</h3>
-  <h3 style="color:red">foloseste ui datepicker pt data la edit proiect</h3>
 
   <nav class="navbar navbar-default" style="margin:20 20">
     <form class="navbar-form navbar-left">
