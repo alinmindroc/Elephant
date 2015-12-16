@@ -1,4 +1,4 @@
-angular.module('app').controller('detailsCtrl', function ($scope, $uibModalInstance, userData) {
+angular.module('taskManagerApp').controller('profileDetailsCtrl', function ($scope, $uibModalInstance, userData) {
 	$scope.email = userData.email;
 	$scope.username = userData.username;
 	$scope.fullName = userData.fullName;

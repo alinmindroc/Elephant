@@ -25,31 +25,31 @@ angular.module('taskManagerApp')
   $scope.openDetailsModal = function(){
     var modalInstance = $uibModal.open({      
       templateUrl: '/templates/userDetailsModal.html',
-      controller: 'detailsCtrl',
+      controller: 'profileDetailsCtrl',
       resolve: {
         userData: function(){
           return {
-            'username': $scope.username,
-            'fullName': $scope.fullName,
-            'email':    $scope.email,
-            'group':    $scope.group
+            'username': $scope.crtUser.username,
+            'fullName': $scope.crtUser.fullName,
+            'email':    $scope.crtUser.email,
+            'group':    $scope.crtUser.group
           }
         }
       }
     });
 
     modalInstance.result.then(function(result){
-      $scope.username = result.username;
-      $scope.fullName = result.fullName;
-      $scope.email = result.email;
-      $scope.group = result.group;
+      $scope.crtUser.username = result.username;
+      $scope.crtUser.fullName = result.fullName;
+      $scope.crtUser.email = result.email;
+      $scope.crtUser.group = result.group;
     });
   }
 
   $scope.openPreferencesModal = function(){
     var modalInstance = $uibModal.open({      
       templateUrl: '/templates/userPreferencesModal.html',
-      controller: 'preferencesCtrl',
+      controller: 'profilePreferencesCtrl',
       resolve: {
         preferencesData: function(){
           return {

@@ -1,4 +1,4 @@
-angular.module('myApp').controller('preferencesCtrl', function ($scope, $uibModalInstance, preferencesData) {
+angular.module('taskManagerApp').controller('profilePreferencesCtrl', function ($scope, $uibModalInstance, preferencesData) {
 	$scope.language = preferencesData.language;
 	$scope.notifications = preferencesData.notifications;
 	$scope.sharing = preferencesData.sharing;

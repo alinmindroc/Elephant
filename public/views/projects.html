@@ -32,14 +32,19 @@
         <td class="projectTd">{{project.name}}</td>
         <td>{{project.status}}</td>
         <td>{{project.start_date}}</td>
-        <td><button class="btn btn-danger" ng-click="delete(project._id)">delete</button></td>
+        <td>
+          <button 
+            class="btn btn-danger"
+            ng-click="delete(project._id)"
+            uib-tooltip="WARNING! Deleting a project will also remove its whole task tree"
+            tooltip-placement="top"
+            tooltip-trigger="mouseenter">
+            delete
+          </button>
+        </td>
       </tr>
     </table>
   </div>
-  <h3 style="color:red; text-decoration: line-through;">de adaugat useri la proiecte</h3>
-  <h3 style="color:red; text-decoration: line-through;">de adaugat proiecte la useri</h3>
-  <h3 style="color:red; text-decoration: line-through;">de pus bara de search</h3>
-  <h3 style="color:red">de pus are you sure la delete: all task tree</h3>
 
   <nav class="navbar navbar-default" style="margin:20 20">
     <form class="navbar-form navbar-left">

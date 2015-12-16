@@ -1,11 +1,12 @@
 <link rel="stylesheet" href="/stylesheets/profile.css">
 
-<h3 style="color: red">de pus butoane de editare profil si preferences</h3>
-
 <div style="float: left; margin-left: 20px">
   <h3>User Profile</h3>
   <div class="panel panel-default">
-    <div class="panel-heading" style="background-color: #CCFFE6">Details</div>
+    <div class="panel-heading" style="background-color: #CCFFE6">
+      Details
+      <span class="glyphicon glyphicon-pencil clickable" style="float: right" ng-click="openDetailsModal()" title="edit"></span>
+    </div>
     <table class="table table-bordered">
       <tr>
         <td class="coloredText">Username:</td>
@@ -35,7 +36,10 @@
   </div>
 
   <div class="panel panel-default">
-    <div class="panel-heading"style="background-color: #CCFFE6">Preferences</div>
+    <div class="panel-heading"style="background-color: #CCFFE6">
+      Preferences
+      <span class="glyphicon glyphicon-pencil clickable" style="float: right" ng-click="openPreferencesModal()" title="edit"></span>
+    </div>
     <table class="table table-bordered profileTd">
       <tr>
         <td class="coloredText">Language:</td>
@@ -79,7 +83,7 @@
   </div>
 </div>
 
-<div style="float: left; margin-top: 200px" id="filterForm" ng-show="showFilters">
+<div style="float: left; margin-top: 200px; margin-left: 5px" id="filterForm" ng-show="showFilters">
   <form>
     <label>
       <input ng-change="filter()" type="radio" ng-model="filterType" value="bug">
