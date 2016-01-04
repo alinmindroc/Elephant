@@ -11,6 +11,21 @@ router.get('/', function(req, res, next) {
 	});
 });
 
+router.get('/findMany', function(req, res){
+	var ids = []
+
+	for(key in req.query){
+		ids.push(req.query[key]);
+	}
+
+	Task.find({
+		'_id': { $in: ids }
+	}, function(err, tasks){
+		if(err) return next(err);
+		res.json(tasks);
+	});
+});
+
 router.get('/:id', function(req, res, next) {
 	Task.findById(req.params.id, function(err, get){
 		if(err) return next(err);

@@ -1,5 +1,13 @@
-<script src="/javascripts/d3.v3.min.js"></script>
 <link rel="stylesheet" href="/stylesheets/tasks.css">
-
-<div class="content" id="taskTree">
+<div style="margin:20 20">
+	<h3>{{project.name}}</h3>
+	<button ng-click="addTask()">add root task</button>
 </div>
+
+<treecontrol class="tree-light"
+tree-model="dataForTheTree"
+options="treeOptions"
+on-selection="showSelected(node)"
+selected-node="node1">
+{{node.name}}
+</treecontrol>

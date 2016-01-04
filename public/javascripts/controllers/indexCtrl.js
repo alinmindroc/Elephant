@@ -5,7 +5,8 @@ angular
 	'ngRoute',
 	'ngResource',
 	'ngAnimate',
-	'ui.bootstrap'
+	'ui.bootstrap',
+	'treeControl'
 	])
 
 .factory('Projects', ['$resource', function($resource){
@@ -19,13 +20,26 @@ angular
 			url: '/api/projects/findMany/:id',
 			method: 'GET',
 			isArray: true
+		},
+		'addTask': {
+			url: '/api/projects/addTask/:projectId/:taskId',
+			method: 'POST',
+			params: {
+				projectId: '@projectId',
+				taskId: '@taskId'
+			}
 		}
 	});
 }])
 
 .factory('Tasks', ['$resource', function($resource){
 	return $resource('/tasks/:id', {id: '@id'}, {
-		'query':  { method:'GET', isArray:true }
+		'query':  { method:'GET', isArray:true },
+		'findMany': {
+			url: '/tasks/findMany/:id',
+			method: 'GET',
+			isArray: true
+		}
 	});
 }])
 
@@ -78,7 +92,7 @@ angular
 		when('/notifications', {templateUrl: 'views/notifications.html', controller: 'notificationsCtrl'}).
 		when('/signup', {templateUrl: 'views/signup.html', controller: 'signupCtrl'}).
 		when('/login', {templateUrl: 'views/login.html', controller: 'loginCtrl'}).
-		when('/tasks', {templateUrl: 'views/tasks.html', controller: 'tasksCtrl'}).
+		when('/tasks/:id', {templateUrl: 'views/tasks.html', controller: 'tasksCtrl'}).
 		otherwise({redirectTo: '/profile'});
 	}])
 .controller('indexCtrl', function($scope, $rootScope){

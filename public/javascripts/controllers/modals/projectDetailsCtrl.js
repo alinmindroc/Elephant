@@ -2,7 +2,7 @@ angular.module('taskManagerApp')
 .controller('projectDetailsCtrl', function ($scope, $uibModal, $uibModalInstance, Projects, Tasks, Users, CRUD, projectId) {
     $scope.project = {};
     $scope.project.id = projectId;
-
+    
     $scope.allUsers = Users.query();
 
     function cleanResponse(resp) {
@@ -34,19 +34,6 @@ angular.module('taskManagerApp')
     $scope.cancel = function(){
     	$uibModalInstance.dismiss();
     }
-
-    $scope.openTaskModal = function(){
-        var modalInstance = $uibModal.open({      
-            templateUrl: '/templates/addTaskModal.html',
-            controller: 'addTaskCtrl',
-            size: 'sm',
-            resolve : {
-                currentProject: function(){
-                    return $scope.project;
-                }
-            }
-        })
-    };
 
     $scope.ok = function(){
         var assignedUsers = $scope.allUsers.filter(function(x){
@@ -91,11 +78,3 @@ angular.module('taskManagerApp')
         $uibModalInstance.close();
     }
 })
-
-.config(['$routeProvider', function ($routeProvider) {
-  $routeProvider
-  .when('/:id/tasks/', {
-    templateUrl: '../Tasks/tasks.html',
-    controller: '../Tasks/tasks.js'
-});
-}]);

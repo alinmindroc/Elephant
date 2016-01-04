@@ -18,13 +18,11 @@ router.get('/findMany', function(req, res){
 		ids.push(req.query[key]);
 	}
 
-	console.log(ids);
-
 	Project.find({
 		'_id': { $in: ids }
-	}, function(err, users){
+	}, function(err, projects){
 		if(err) return next(err);
-		res.json(users);
+		res.json(projects);
 	});
 });
 
@@ -33,6 +31,18 @@ router.get('/:id', function(req, res, next) {
 		if(err) return next(err);
 		res.json(get);
 	});
+});
+
+router.post('/addTask/:projectId/:taskId', function(req, res, next){
+	Project.findByIdAndUpdate(
+		{_id: req.params.projectId},
+		{$push: {tasks: req.params.taskId}},
+		{safe: true, upsert: true},
+		function(err, post) {
+			if(err) return next(err);
+			res.json(post);
+		}
+	);
 });
 
 router.post('/', function(req, res, next) {

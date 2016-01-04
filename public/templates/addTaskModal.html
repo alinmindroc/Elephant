@@ -1,16 +1,29 @@
-<link rel="stylesheet" href="projects.css">
-
 <div class="edit-details modal-body">
   <h4> Add Task to Project {{project.name}} </h4>
   <div class="form-group">
-    <input class="form-control" id="project-name" ng-model="taskName" placeholder="Task Name">
+    <input class="form-control" id="project-name" ng-model="taskName" placeholder="Name">
   </div>
 
   <div class="form-group">
     <textarea class="form-control" cols="40" rows="5" ng-model="taskDescription" placeholder="Description"></textarea>
   </div>
- 
+
+  <p>Select users to assign to this task:</p>
+  <div ng-hide="users.length == 0">
+  <label ng-repeat="user in users" style="display: block">
+    <input
+    type="checkbox"
+    name="selectedUsers[]"
+    value="{{user.userName}}"
+    ng-model="user.selected">
+    {{user.fullName}}
+  </label>
+  </div>
+  <div ng-show="users.length == 0">
+    No users assigned to project
+  </div>
+
   <br>
-  <button type="submit" class="btn btn-success" ng-click="ok()">OK</button>
+  <button type="submit" class="btn btn-success" ng-disabled="!taskName || taskName.length == 0" ng-click="ok()">OK</button>
   <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
 </div> 
