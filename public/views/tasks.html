@@ -1,14 +1,27 @@
 <link rel="stylesheet" href="/stylesheets/tasks.css">
 <div style="margin:20 20">
 	<h3>{{project.name}}</h3>
-	<button ng-click="addTask()">add root task</button>
+	<button ng-click="addTask()">Add Root task</button>
 </div>
 
 <treecontrol class="tree-light"
 tree-model="dataForTheTree"
 options="treeOptions"
 on-selection="showSelected(node)"
-selected-node="node1">
+expanded-nodes="expandedNodes"
+selected-node="selectedNode"
+>
+<span ng-switch="" on="node.type">
+             <span ng-switch-when="folder" class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+             <span ng-switch-when="pic" class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+             <span ng-switch-when="doc" class="glyphicon glyphicon-file" aria-hidden="true"></span>
+             <span ng-switch-when="file" class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+             <span ng-switch-when="movie" class="glyphicon glyphicon-film" aria-hidden="true"></span>
+             <span ng-switch-when="email" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+             <span ng-switch-when="home" class="glyphicon glyphicon-home" aria-hidden="true"></span>
+             <span ng-switch-when="trash" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+         </span>
+
 {{node.name}}
 <span class="glyphicon glyphicon-plus glyphicon-green" ng-click="addSubTask($event, node)"></span>
 </treecontrol>

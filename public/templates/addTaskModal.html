@@ -10,15 +10,16 @@
 
   <p>Assign users:</p>
   <div ng-hide="users.length == 0">
-  <label ng-repeat="user in users" style="display: block">
-    <input
-    type="checkbox"
-    name="selectedUsers[]"
-    value="{{user.userName}}"
-    ng-model="user.selected">
-    {{user.fullName}}
-  </label>
+    <label ng-repeat="user in users" style="display: block">
+      <input
+      type="checkbox"
+      name="selectedUsers[]"
+      value="{{user.userName}}"
+      ng-model="user.selected">
+      {{user.fullName}}
+    </label>
   </div>
+
   <div ng-show="users.length == 0">
     No users assigned to {{parentType}}
   </div>

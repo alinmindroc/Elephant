@@ -3,14 +3,51 @@ angular.module('taskManagerApp')
 
 	$rootScope.currentController = 'tasks';
 
+	function cleanResponse(resp) {
+		return JSON.parse(angular.toJson(resp));
+	}
+
+	//return an array containing the path from root to a node
+	//with a specific id in a tree
+	function getNodePath(tree, nodeId){
+		function dfs(node, nodeId){
+			if(node._id == nodeId){
+				$scope.selectedNode = node;
+				return true;
+			} else {
+				for(var i in node.children){
+					path.push(node.children[i]);
+
+					//return result only if the searched node has been found
+					var res = dfs(node.children[i], nodeId);
+					if(res == true)
+						return res;
+				}
+			}
+		}
+
+		tree = cleanResponse(tree);
+		var path = [];
+
+		for(var i in tree){
+			var res = undefined;
+			path = [tree[i]];
+
+			res = dfs(tree[i], nodeId);
+			if(res)
+				return path;
+		}
+	}
+
 	function updateTasks(){
-		var project = Projects.get({id: $routeParams.id}, function(){
+		var project = Projects.get({id: $routeParams.projectId}, function(){
 			$scope.project = project;
 
-			console.log("here");
 			Tasks.getTree({projectId: project._id}, function(taskTree){
-				console.log(taskTree);
 				$scope.dataForTheTree = taskTree;
+				if($routeParams.taskId != undefined){
+					$scope.expandedNodes = getNodePath(taskTree, $routeParams.taskId);
+				}
 			})
 		});
 	};
@@ -48,8 +85,8 @@ angular.module('taskManagerApp')
 		nodeChildren: "children",
 		dirSelectable: true,
 		injectClasses: {
-			ul: "a1",
-			li: "a2",
+			ul: "task_tree_ul",
+			li: "task_tree_li",
 			liSelected: "a7",
 			iExpanded: "a3",
 			iCollapsed: "a4",

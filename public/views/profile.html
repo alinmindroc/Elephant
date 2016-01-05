@@ -64,42 +64,17 @@
       </span>    
     </div>
     <ul class="list-group">
-      <li class="list-group-item" ng-repeat="project in crtProjects"><a href="#/tasks">{{project.name}}</a></li>
+      <li class="list-group-item" ng-repeat="project in crtProjects"><a href="#/tasks/{{project._id}}">{{project.name}}</a></li>
     </ul>
   </div>
   <div class="panel panel-default">
     <div class="panel-heading" style="background-color: #CCFFE6">
-      Tasks
-      <span title="filter" style="float: right" class="glyphicon glyphicon-filter clickable" ng-click="showFilters = !showFilters">
-      </span>    
+      Assigned Tasks
     </div>
     <ul class="list-group">
-      <li ng-repeat="task in showTasks" class="list-group-item">
-        <span ng-class="{'glyphicon glyphicon-remove' : task.type  =='bug', 'glyphicon glyphicon-circle-arrow-up' : task.type  =='feature', 'glyphicon glyphicon-flash' : task.type  =='build'}">
-        </span>
-        {{task.value}}
+      <li ng-repeat="task in crtTasks" class="list-group-item">
+        <a href="#/tasks/{{task.project}}/{{task._id}}">{{task.name}}</a>
       </li>
     </ul>
   </div>
-</div>
-
-<div style="float: left; margin-top: 200px; margin-left: 5px" id="filterForm" ng-show="showFilters">
-  <form>
-    <label>
-      <input ng-change="filter()" type="radio" ng-model="filterType" value="bug">
-      Bug
-    </label><br/>
-    <label>
-      <input ng-change="filter()" type="radio" ng-model="filterType" value="feature">
-      Feature
-    </label><br/>
-    <label>
-      <input ng-change="filter()" type="radio" ng-model="filterType" value="build">
-      Broken Build
-    </label><br/>
-    <label>
-      <input ng-change="filter()" type="radio" ng-model="filterType" value="all">
-      All tasks
-    </label><br/>
-  </form>
 </div>

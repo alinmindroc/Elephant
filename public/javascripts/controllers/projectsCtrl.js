@@ -34,6 +34,7 @@ angular.module('taskManagerApp')
     CRUD.deleteProject(id);
     //delete the project from each user
     Users.removeProjectFromAllUsers({projectId:id});
+    //TODO: remove the project's tasks from each user
     updateProjects();
   }
 

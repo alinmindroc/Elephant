@@ -122,7 +122,8 @@ angular
 		when('/notifications', {templateUrl: 'views/notifications.html', controller: 'notificationsCtrl'}).
 		when('/signup', {templateUrl: 'views/signup.html', controller: 'signupCtrl'}).
 		when('/login', {templateUrl: 'views/login.html', controller: 'loginCtrl'}).
-		when('/tasks/:id', {templateUrl: 'views/tasks.html', controller: 'tasksCtrl'}).
+		when('/tasks/:projectId', {templateUrl: 'views/tasks.html', controller: 'tasksCtrl'}).
+		when('/tasks/:projectId/:taskId', {templateUrl: 'views/tasks.html', controller: 'tasksCtrl'}).
 		otherwise({redirectTo: '/profile'});
 	}])
 .controller('indexCtrl', function($scope, $rootScope){

@@ -12,6 +12,21 @@ router.get('/', function(req, res, next) {
 	});
 });
 
+router.get('/findMany', function(req, res){
+	var ids = []
+
+	for(key in req.query){
+		ids.push(req.query[key]);
+	}
+
+	Task.find({
+		'_id': { $in: ids }
+	}, function(err, tasks){
+		if(err) return next(err);
+		res.json(tasks);
+	});
+});
+
 //the horror
 router.get('/getTree/:projectId', function(req, res){
 	//puts the traversed nodes in the children array and calls the callback function when reaches a leaf
@@ -61,21 +76,6 @@ router.get('/getTree/:projectId', function(req, res){
 				}
 			});
 		});
-	});
-});
-
-router.get('/findMany', function(req, res){
-	var ids = []
-
-	for(key in req.query){
-		ids.push(req.query[key]);
-	}
-
-	Task.find({
-		'_id': { $in: ids }
-	}, function(err, tasks){
-		if(err) return next(err);
-		res.json(tasks);
 	});
 });
 

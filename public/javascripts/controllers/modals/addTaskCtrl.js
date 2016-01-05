@@ -16,6 +16,8 @@ angular.module('taskManagerApp')
 		$uibModalInstance.dismiss();
 	}
 
+	$scope.taskType = "feature";
+
 	function addTaskToProject(taskId){
 		Projects.addTask({
 			projectId: $scope.parent._id,
@@ -67,6 +69,7 @@ angular.module('taskManagerApp')
 						userId: allUsers[i]._id,
 						taskId: task._id
 					});
+					console.log("added task: ", task._id);
 				}
 			};
 		});
