@@ -6,12 +6,14 @@ angular.module('taskManagerApp')
 	function updateTasks(){
 		var project = Projects.get({id: $routeParams.id}, function(){
 			$scope.project = project;
-			$scope.project.date = new Date(project.start_date);
 
 			Tasks.findMany(project.tasks, function(tasks){
-				$scope.tasks = tasks;
 				$scope.dataForTheTree = tasks;
 			});
+
+			Tasks.getTree({projectId: project._id}, function(taskTree){
+				$scope.dataForTheTree = taskTree;
+			})
 		});
 	};
 
@@ -23,6 +25,9 @@ angular.module('taskManagerApp')
 			controller: 'addTaskCtrl',
 			size: 'sm',
 			resolve : {
+				projectId: function(){
+					return $scope.project._id;
+				},
 				parentType : function(){
 					return parentType
 				},

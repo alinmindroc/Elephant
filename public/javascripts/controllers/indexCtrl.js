@@ -39,6 +39,19 @@ angular
 			url: '/tasks/findMany/:id',
 			method: 'GET',
 			isArray: true
+		},
+		'addSubTask': {
+			url: '/tasks/addSubTask/:taskId/:subTaskId',
+			method: 'POST',
+			params: {
+				taskId: '@taskId',
+				subTaskId: '@subTaskId'
+			}
+		},
+		'getTree': {
+			url: '/tasks/getTree/:projectId',
+			method: 'GET',
+			isArray: true
 		}
 	});
 }])

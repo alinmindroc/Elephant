@@ -1,5 +1,5 @@
 angular.module('taskManagerApp')
-.controller('addTaskCtrl', function ($scope, $uibModalInstance, Projects, Users, Tasks, CRUD, parent, parentType) {
+.controller('addTaskCtrl', function ($scope, $uibModalInstance, Projects, Users, Tasks, CRUD, projectId, parent, parentType) {
 	$scope.parent = parent;
 	$scope.parentType = parentType;
 
@@ -17,7 +17,6 @@ angular.module('taskManagerApp')
 	}
 
 	function addTaskToProject(taskId){
-		//add task to project
 		Projects.addTask({
 			projectId: $scope.parent._id,
 			taskId: taskId
@@ -26,8 +25,13 @@ angular.module('taskManagerApp')
 		});
 	}
 
-	function addSubTaskToTask(){
-
+	function addSubTaskToTask(taskId){
+		Tasks.addSubTask({
+			taskId: $scope.parent._id,
+			subTaskId: taskId
+		}, function(){
+			$uibModalInstance.close();
+		});
 	}
 
 	$scope.ok = function(){
@@ -38,7 +42,9 @@ angular.module('taskManagerApp')
 		var task = new Tasks({
 			name: $scope.taskName,
 			description: $scope.taskDescription,
-			users: selectedUserIds
+			users: selectedUserIds,
+			project: projectId,
+			parent: $scope.parent._id
 		});
 
 		task.$save(function(){

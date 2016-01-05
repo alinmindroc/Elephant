@@ -42,7 +42,7 @@ router.post('/addTask/:projectId/:taskId', function(req, res, next){
 			if(err) return next(err);
 			res.json(post);
 		}
-	);
+		);
 });
 
 router.post('/', function(req, res, next) {
