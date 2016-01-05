@@ -7,11 +7,9 @@ angular.module('taskManagerApp')
 		var project = Projects.get({id: $routeParams.id}, function(){
 			$scope.project = project;
 
-			Tasks.findMany(project.tasks, function(tasks){
-				$scope.dataForTheTree = tasks;
-			});
-
+			console.log("here");
 			Tasks.getTree({projectId: project._id}, function(taskTree){
+				console.log(taskTree);
 				$scope.dataForTheTree = taskTree;
 			})
 		});

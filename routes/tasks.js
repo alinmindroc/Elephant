@@ -12,46 +12,56 @@ router.get('/', function(req, res, next) {
 	});
 });
 
-function dfs(nodeId, children, callback){
-	Task.findById(nodeId, function(err, task){
-		Task.find({
-			'_id': { $in: task.subTasks }
-		}).lean().exec(function(err, tasks){
-			if(tasks.length == 0)
-				callback();
-			for(var i in tasks){
-				children.push(tasks[i]);
-				tasks[i].children = [];
-				dfs(tasks[i]._id, tasks[i].children, callback);
-			}
-		});
-	});
-}
-
+//the horror
 router.get('/getTree/:projectId', function(req, res){
-	//get the root tasks of the tree
+	//puts the traversed nodes in the children array and calls the callback function when reaches a leaf
+	function dfs(nodeId, children, callback){
+		Task.findById(nodeId, function(err, task){
+			Task.find({
+				'_id': { $in: task.subTasks }
+			}).lean().exec(function(err, subTasks){
+				//a leaf has been reached
+				if(subTasks.length == 0)
+					callback();
+
+				for(var i in subTasks){
+					children.push(subTasks[i]);
+					subTasks[i].children = [];
+
+					dfs(subTasks[i]._id, subTasks[i].children, callback);
+				}
+			});
+		});
+	}
+
+	//first, find the array of root tasks
+	//then, for each root task, call dfs until all the leaves have been visited
 	Project.findById(req.params.projectId, function(err, proj){
 		if(err) return next(err);
 		Task.find({
 			'_id': { $in: proj.tasks }
-		}).lean().exec(function(err, tasks){
-			if(err) return next(err);
+		}).lean().exec(function(err, rootTasks){
+			
+			Task.find({
+				'project': req.params.projectId,
+				'subTasks': {$exists: true, $size: 0}
+			}, function(err, leaves){
 
-			var rootsLeft = tasks.length;
-			function ready(){
-				rootsLeft--;
-				if(rootsLeft == 0)
-					res.send(tasks);
-			}
+				var leafsLeft = leaves.length;
+				function ready(){
+					leafsLeft--;
+					if(leafsLeft == 0){
+						res.send(rootTasks);
+					}
+				}
 
-			for(var i in tasks){
-				tasks[i].children = [];
-				dfs(tasks[i]._id, tasks[i].children, ready);
-			}
+				for(var i in rootTasks){
+					rootTasks[i].children = [];
+					dfs(rootTasks[i]._id, rootTasks[i].children, ready);
+				}
+			});
 		});
 	});
-
-
 });
 
 router.get('/findMany', function(req, res){
