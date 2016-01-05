@@ -10,4 +10,5 @@ options="treeOptions"
 on-selection="showSelected(node)"
 selected-node="node1">
 {{node.name}}
+<span class="glyphicon glyphicon-plus glyphicon-green" ng-click="addSubTask($event, node)"></span>
 </treecontrol>

@@ -1,70 +1,80 @@
 <style>
-  .headerForm {
-    z-index: -1;
-    margin-top: -50px; 
-    padding-bottom: 50px; 
-    margin-left: 160px;
-  }
-  .searchInput {
-    border-radius: 10px 10px 10px 10px;
-    text-align: center;
-    outline: 0;
-  }
+	.headerForm {
+		z-index: -1;
+		margin-top: -50px; 
+		padding-bottom: 50px; 
+		margin-left: 160px;
+	}
+	.searchInput {
+		border-radius: 10px 10px 10px 10px;
+		text-align: center;
+		outline: 0;
+	}
 </style>
 
 <form class="headerForm">
-  <input
-  ng-model="searchFilter"
-  type="text"
-  placeholder="Search for project..." 
-  class="searchInput"
-  ng-change=filterTableData()>
-  <span class="glyphicon glyphicon-search" style="margin-left: -25px"></span>
+	<input
+	ng-model="searchFilter"
+	type="text"
+	placeholder="Search for project..." 
+	class="searchInput"
+	ng-change=filterTableData()>
+	<span class="glyphicon glyphicon-search" style="margin-left: -25px"></span>
 </form>
 
 <div class="content">
-  <div class="panel panel-default" style="margin:20 20">
-    <!-- Default panel contents -->
-    <div class="panel-heading">Projects</div>
-    <!-- Table -->
-    <table class="table table-striped table-hover table-bordered">
-      <tr class="clickable" ng-repeat="project in shownProjects" title="Edit details" ng-click="openProjectModal(project._id)">
-        <td class="projectTd">{{project.name}}</td>
-        <td>{{project.status}}</td>
-        <td>{{project.start_date}}</td>
-        <td>
-          <button 
-            class="btn btn-danger"
-            ng-click="delete(project._id)"
-            uib-tooltip="WARNING! Deleting a project will also remove its whole task tree"
-            tooltip-placement="top"
-            tooltip-trigger="mouseenter">
-            delete
-          </button>
-        </td>
-      </tr>
-    </table>
-  </div>
+	<div class="panel panel-default" style="margin:20 20">
+		<!-- Default panel contents -->
+		<div class="panel-heading">Projects</div>
+		<!-- Table -->
+		<table class="table table-striped table-hover table-bordered">
+			<tr ng-repeat="project in shownProjects">
+				<td class="projectTd">{{project.name}}</td>
+				<td>{{project.status}}</td>
+				<td>{{project.start_date}}</td>
+				<td width=1>
+					<button class="btn btn-primary" ng-click="openProjectModal(project._id)">
+						Edit details
+					</button>
+				</td>
+				<td width=1>
+					<a href="#/tasks/{{project._id}}">
+						<button class="btn btn-success" ng-click="cancel()">Configure Tasks <span class="glyphicon glyphicon-th-list"/></button>
+					</a>
+				</td>				
+				<td width=1>
+					<button 
+					class="btn btn-danger"
+					ng-click="delete(project._id)"
+					uib-tooltip="WARNING! Deleting a project will also remove its whole task tree"
+					tooltip-placement="left"
+					tooltip-trigger="mouseenter">
+					Delete
+				</button>
+			</td>
+		</tr>
+	</table>
+</div>
 
-  <nav class="navbar navbar-default" style="margin:20 20">
-    <form class="navbar-form navbar-left">
-      <div class="form-group">
-        <label class="sr-only">Project Name</label>
-        <input class="form-control" id="project-name" ng-model="projectName" placeholder="Project Name">
-      </div>
-      <div class="form-group">
-        <label class="sr-only">Status</label>
-        <select placeholder="Status" class="form-control" ng-model="projectStatus">
-          <option>in progress</option>
-          <option>completed</option>
-          <option>failed</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="sr-only">Start Date</label>
-        <input class="form-control" type="date" id="project-date" ng-model="projectDate" placeholder="Start Date">
-      </div>
-      <button type="submit" class="btn btn-primary" ng-click="addProject()">Add Project</button>
-    </form>
-  </nav>
+<nav class="navbar navbar-default" style="margin:20 20">
+	<form class="navbar-form navbar-left">
+		<div class="form-group">
+			<label class="sr-only">Project Name</label>
+			<input class="form-control" id="project-name" ng-model="projectName" placeholder="Project Name">
+		</div>
+		<div class="form-group">
+			<label class="sr-only">Status</label>
+			<select placeholder="Status" class="form-control" ng-model="projectStatus">
+				<option>in progress</option>
+				<option>completed</option>
+				<option>failed</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label class="sr-only">Start Date</label>
+			<input class="form-control" type="date" id="project-date" ng-model="projectDate" placeholder="Start Date">
+		</div>
+		<button type="submit" class="btn btn-primary" ng-click="addProject()">Add Project</button>
+	</form>
+</nav>
 </div>
