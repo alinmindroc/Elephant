@@ -9,7 +9,6 @@ angular.module('taskManagerApp')
       $scope.project.date = new Date(project.start_date);
 
       Tasks.findMany(project.tasks, function(tasks){
-        console.log(tasks);
         $scope.tasks = tasks;
         $scope.dataForTheTree = tasks;
       });
@@ -31,7 +30,6 @@ angular.module('taskManagerApp')
     });
 
     modalInstance.result.then(function(){
-      console.log("gata");
       updateTasks();
     });
   };

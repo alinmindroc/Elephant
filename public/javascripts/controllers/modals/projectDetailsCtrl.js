@@ -55,25 +55,23 @@ angular.module('taskManagerApp')
             }
             );
 
-        var allIds = $scope.allUsers.map(function(x){
-            return x._id;
-        })
-
         //set projects to users
-        for(var i in allIds){
-            //if a user id is checker, add the project to that user; otherwise, delete it
-            if(assignedUserIds.indexOf(allIds[i]) != -1){
+        var allUsers = cleanResponse($scope.allUsers);
+
+        for(var i in allUsers){
+            //if a user id is checked, add the project to that user; otherwise, delete it
+            if(allUsers[i].selected == true){
                 Users.addProject({
-                    userId: allIds[i],
+                    userId: allUsers[i]._id,
                     projectId: projectId
                 });
             } else {
                 Users.removeProject({
-                    userId: allIds[i],
+                    userId: allUsers[i]._id,
                     projectId: projectId
                 });
             }
-        }
+        };
 
         $uibModalInstance.close();
     }

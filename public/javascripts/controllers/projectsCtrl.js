@@ -1,5 +1,5 @@
 angular.module('taskManagerApp')
-.controller('projectsCtrl', ['$scope', '$rootScope', 'Projects', 'CRUD', '$uibModal', function ($scope, $rootScope, Projects, CRUD, $uibModal) {
+.controller('projectsCtrl', ['$scope', '$rootScope', 'Projects', 'Users', 'CRUD', '$uibModal', function ($scope, $rootScope, Projects, Users, CRUD, $uibModal) {
   $rootScope.currentController = 'projects';
 
   $scope.fullName = "Adriana Ene";
@@ -30,7 +30,10 @@ angular.module('taskManagerApp')
   }
 
   $scope.delete = function(id){
+    //delete the project from the database
     CRUD.deleteProject(id);
+    //delete the project from each user
+    Users.removeProjectFromAllUsers({projectId:id});
     updateProjects();
   }
 

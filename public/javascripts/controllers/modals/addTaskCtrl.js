@@ -16,20 +16,32 @@ angular.module('taskManagerApp')
 	}
 
 	$scope.ok = function(){
-		var task = new Tasks({ name: $scope.taskName, description: $scope.taskDescription });
+		var task = new Tasks({ name: $scope.taskName, description: $scope.taskDescription, users: ids });
 
 		task.$save(function(){
 			$scope.taskName = '';
 			$scope.taskDescription = '';
 
+			//add task to project
 			Projects.addTask({
 				projectId: $scope.project._id,
 				taskId: task._id
 			}, function(){
 				$uibModalInstance.close();
 			});
-		});
 
-		//todo: add task to user
+			//add task to users
+			var allUsers = $scope.users;
+
+			for(var i in allUsers){
+				//if a user id is checked, add the project to that user
+				if(allUsers[i].selected == true){
+					Users.addTask({
+						userId: allUsers[i]._id,
+						taskId: task._id
+					});
+				}
+			};
+		});
 	}
 });

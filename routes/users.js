@@ -47,7 +47,26 @@ router.post('/addProjectToSet/:userId/:projectId', function(req, res, next){
 					if(err) return next(err);
 					res.json(post);
 				}
-			);
+				);
+		}
+	});
+});
+
+router.post('/addTaskToSet/:userId/:taskId', function(req, res, next){
+	//only add the task if it doesn't already exist
+	User.findById(req.params.userId, function(err, get){
+		if(get.tasks.indexOf(req.params.taskId) != -1){
+			res.json(get);
+		} else {
+			User.findByIdAndUpdate(
+				{_id: req.params.userId},
+				{$push: {tasks: req.params.taskId}},
+				{safe: true, upsert: true},
+				function(err, post) {
+					if(err) return next(err);
+					res.json(post);
+				}
+				);
 		}
 	});
 });
@@ -83,7 +102,31 @@ router.delete('/removeProject/:userId/:projectId', function(req, res, next){
 			if(err) return next(err);
 			res.json(del);
 		}
-	);
+		);
+});
+
+router.delete('/removeTask/:userId/:taskId', function(req, res, next){
+	User.findByIdAndUpdate(
+		{_id: req.params.userId},
+		{$pull: {tasks: req.params.taskId}},
+		{safe: true, upsert: true},
+		function(err, del) {
+			if(err) return next(err);
+			res.json(del);
+		}
+		);
+});
+
+router.delete('/removeProjectFromAllUsers/:projectId', function(req, res, next){
+	User.update(
+		{},
+		{$pull: {projects: req.params.projectId}},
+		{multi: true},
+		function(err, del){
+			if(err) return next(err);
+			res.json(del);
+		}
+		)
 });
 
 module.exports = router;

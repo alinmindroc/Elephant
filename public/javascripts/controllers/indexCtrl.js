@@ -67,6 +67,29 @@ angular
 				userId: '@userId',
 				projectId: '@projectId'
 			}
+		},
+		'addTask': {
+			url: '/users/addTaskToSet/:userId/:taskId',
+			method: 'POST',
+			params: {
+				userId: '@userId',
+				taskId: '@taskId'
+			}
+		},
+		'removeTask': {
+			url: '/users/removeTask/:userId/:taskId',
+			method: 'delete',
+			params: {
+				userId: '@userId',
+				taskId: '@taskId'
+			}
+		},
+		'removeProjectFromAllUsers': {
+			url: '/users/removeProjectFromAllUsers/:projectId',
+			method: 'delete',
+			params: {
+				projectId: '@projectId'
+			}
 		}
 	});
 }])
@@ -75,13 +98,7 @@ angular
 	return {
 		deleteProject: function(id){
 			Projects.remove({id: id});
-		},
-		addTaskToProject: function(projectId, taskId){
-			Projects.update({id: projectId}, {task: taskId});
-		},
-		removeTaskFromProject: function(id){
-			Projects.removeTask({id: id});
-		} 
+		}
 	};
 }])
 .config(['$routeProvider',
