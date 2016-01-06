@@ -23,6 +23,7 @@ angular.module('taskManagerApp')
 			projectId: $scope.parent._id,
 			taskId: taskId
 		}, function(){
+			console.log("GATA ADD TASK");
 			$uibModalInstance.close();
 		});
 	}

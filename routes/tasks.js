@@ -61,6 +61,9 @@ router.get('/getTree/:projectId', function(req, res){
 				'project': req.params.projectId,
 				'subTasks': {$exists: true, $size: 0}
 			}, function(err, leaves){
+				//if there are no leaves, make sure the client doesn't wait till forever for an answer
+				if(leaves.length == 0)
+					res.send([]);
 
 				var leafsLeft = leaves.length;
 				function ready(){

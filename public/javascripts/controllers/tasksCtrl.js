@@ -3,6 +3,10 @@ angular.module('taskManagerApp')
 
 	$rootScope.currentController = 'tasks';
 
+	Projects.get({id: $routeParams.projectId}, function(res){
+		$scope.project = res;
+	});
+
 	function cleanResponse(resp) {
 		return JSON.parse(angular.toJson(resp));
 	}
@@ -40,15 +44,12 @@ angular.module('taskManagerApp')
 	}
 
 	function updateTasks(){
-		var project = Projects.get({id: $routeParams.projectId}, function(){
-			$scope.project = project;
-
-			Tasks.getTree({projectId: project._id}, function(taskTree){
-				$scope.dataForTheTree = taskTree;
-				if($routeParams.taskId != undefined){
-					$scope.expandedNodes = getNodePath(taskTree, $routeParams.taskId);
-				}
-			})
+		console.log('update');
+		Tasks.getTree({projectId: $routeParams.projectId}, function(taskTree){
+			$scope.dataForTheTree = taskTree;
+			if($routeParams.taskId != undefined){
+				$scope.expandedNodes = getNodePath(taskTree, $routeParams.taskId);
+			}
 		});
 	};
 
