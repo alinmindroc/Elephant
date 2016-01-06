@@ -98,8 +98,7 @@
 			</select>
 		</div>
 		<div class="form-group">
-			<label class="sr-only">Start Date</label>
-			<input class="form-control" type="date" id="project-date" ng-model="projectDate" placeholder="Start Date">
+			<input class="form-control" type="date" ng-model="projectDate" placeholder="Start Date">
 		</div>
 		<button ng-disabled="!projectDate || !projectName || projectName.length == 0" type="submit" class="btn btn-primary" ng-click="addProject()">Add Project</button>
 	</form>

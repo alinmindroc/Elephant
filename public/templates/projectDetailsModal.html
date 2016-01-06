@@ -1,45 +1,46 @@
 <style>
-  uib-accordion * {outline: 0 !important;}
+	uib-accordion * {outline: 0 !important;}
 </style>
 
 <div class="edit-details modal-body">
-  <h3> Edit project details </h3>
-  <div class="form-group">
-    <input class="form-control" id="project-name" ng-model="project.name" placeholder="Project Name">
-  </div>
-  <div class="form-group">
-    <label class="sr-only">Status</label>
-    <select placeholder="Status" class="form-control" ng-model="project.status">
-      <option>in progress</option>
-      <option>completed</option>
-      <option>failed</option>
-    </select>
+	<h3> Edit project details </h3>
+	<div class="form-group">
+		<input class="form-control" id="project-name" ng-model="project.name" placeholder="Project Name">
+	</div>
 
-  </div>
-  <div class="form-group">
-    <input class="form-control" type="date" id="project-date" ng-model="project.date" placeholder="Start Date">
-  </div>
+	<div class="form-group">
+		<label class="sr-only">Status</label>
+		<select placeholder="Status" class="form-control" ng-model="project.status">
+			<option>in progress</option>
+			<option>completed</option>
+			<option>failed</option>
+		</select>
+	</div>
 
-  <div class="well">
-    Assignees: 
-    <ul>
-      <li ng-repeat="user in assignedUsers">
-        {{user.fullName}}
-      </li>
-    </ul>
-  </div>
+	<div class="form-group">
+		<input class="form-control" type="date" ng-model="project.date" placeholder="Start Date">
+	</div>
 
-  <uib-accordion style="outline: 0" >
-  <uib-accordion-group heading="Edit Asignees">
-  <p>Select users to assign to this project:</p>
-  <label ng-repeat="user in allUsers" style="display: block">
-    <input
-    type="checkbox"
-    name="selectedUsers[]"
-    value="{{user.userName}}"
-    ng-model="user.selected">
-    {{user.fullName}}
-  </label>
+	<hr>
+
+	Assignees: 
+	<ul>
+		<li ng-repeat="user in assignedUsers">
+			{{user.fullName}}
+		</li>
+	</ul>
+
+	<uib-accordion style="outline: 0" >
+	<uib-accordion-group heading="Edit Asignees">
+	<p>Select users to assign to this project:</p>
+	<label ng-repeat="user in allUsers" style="display: block">
+		<input
+		type="checkbox"
+		name="selectedUsers[]"
+		value="{{user.userName}}"
+		ng-model="user.selected">
+		{{user.fullName}}
+	</label>
 </uib-accordion-group>
 </uib-accordion>
 

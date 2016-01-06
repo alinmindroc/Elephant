@@ -1,6 +1,5 @@
 angular.module('taskManagerApp')
-.controller('tasksCtrl', function ($scope, $uibModal, $rootScope, $routeParams, $location, Projects, Tasks) {
-
+.controller('tasksCtrl', function ($scope, $uibModal, $rootScope, $routeParams, $location, Projects, Tasks, Users) {
 	$rootScope.currentController = 'tasks';
 
 	Projects.get({id: $routeParams.projectId}, function(res){
@@ -17,6 +16,7 @@ angular.module('taskManagerApp')
 		function dfs(node, nodeId){
 			if(node._id == nodeId){
 				$scope.selectedNode = node;
+				$scope.setSelected(node);
 				return true;
 			} else {
 				for(var i in node.children){
@@ -121,7 +121,10 @@ angular.module('taskManagerApp')
 		$event.stopPropagation();
 	}
 
-	$scope.showSelected = function(node){
-		console.log(node);
+	$scope.setSelected = function(node){
+		var userIds = node.users;
+		Users.findMany(userIds, function(res){
+			$scope.assignedUsers = cleanResponse(res);
+		});
 	}
 });

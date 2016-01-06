@@ -2,6 +2,7 @@ angular.module('taskManagerApp')
 .controller('addTaskCtrl', function ($scope, $uibModalInstance, Projects, Users, Tasks, projectId, parent, parentType) {
 	$scope.parent = parent;
 	$scope.parentType = parentType;
+	$scope.taskStatus = "in progress";
 
 	function cleanResponse(resp) {
 		return JSON.parse(angular.toJson(resp));
@@ -46,7 +47,9 @@ angular.module('taskManagerApp')
 			description: $scope.taskDescription,
 			users: selectedUserIds,
 			project: projectId,
-			parent: $scope.parent._id
+			parent: $scope.parent._id,
+			status: $scope.taskStatus,
+			created_at: new Date($scope.taskDate).toISOString()
 		});
 
 		task.$save(function(){

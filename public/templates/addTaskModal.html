@@ -1,30 +1,49 @@
 <div class="edit-details modal-body modal-large">
-  <h4> Add {{parentType == "task" ? "sub" : ""}}task to {{parentType}} <b>{{parent.name}}</b> </h4>
-  <div class="form-group">
-    <input class="form-control" id="project-name" ng-model="taskName" placeholder="Name">
-  </div>
+	<h3> Add {{parentType == "task" ? "sub" : ""}}task to {{parentType}} <b>{{parent.name}}</b> </h3>
+	
+	<div class="form-group">
+		<input class="form-control" ng-model="taskName" placeholder="Name">
+	</div>
 
-  <div class="form-group">
-    <textarea class="form-control" cols="40" rows="5" ng-model="taskDescription" placeholder="Description"></textarea>
-  </div>
+	<div class="form-group">
+		<textarea class="form-control" cols="40" rows="5" ng-model="taskDescription" placeholder="Description"></textarea>
+	</div>
 
-  <p>Assign users:</p>
-  <div ng-hide="users.length == 0">
-    <label ng-repeat="user in users" style="display: block">
-      <input
-      type="checkbox"
-      name="selectedUsers[]"
-      value="{{user.userName}}"
-      ng-model="user.selected">
-      {{user.fullName}}
-    </label>
-  </div>
+	<div class="form-group">
+		<label class="sr-only">Status</label>
+		<select placeholder="Status" class="form-control" ng-model="taskStatus">
+			<option>in progress</option>
+			<option>completed</option>
+			<option>failed</option>
+		</select>
+	</div>
 
-  <div ng-show="users.length == 0">
-    No users assigned to {{parentType}}
-  </div>
+	<hr>
 
-  <br>
-  <button type="submit" class="btn btn-success" ng-disabled="!taskName || taskName.length == 0" ng-click="ok()">OK</button>
-  <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+	<div class="form-group">
+		<input class="form-control" type="date" ng-model="taskDate" placeholder="Start Date">
+	</div>
+
+	<hr>
+
+	<p>Assign users:</p>
+	<div ng-hide="users.length == 0">
+		<label ng-repeat="user in users" style="display: block">
+			<input
+			type="checkbox"
+			name="selectedUsers[]"
+			value="{{user.userName}}"
+			ng-model="user.selected">
+			{{user.fullName}}
+		</label>
+	</div>
+
+	<div ng-show="users.length == 0">
+		No users assigned to {{parentType}}
+	</div>
+
+	<hr>
+
+	<button type="submit" class="btn btn-success" ng-disabled="!taskName || taskName.length == 0" ng-click="ok()">OK</button>
+	<button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
 </div> 
