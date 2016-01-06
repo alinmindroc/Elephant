@@ -127,4 +127,13 @@ angular.module('taskManagerApp')
 			$scope.assignedUsers = cleanResponse(res);
 		});
 	}
+
+	$scope.delete = function(){
+		// TODO: delete:
+		// the task object
+		// the task reference from every user
+		// the task reference from the project
+		// all the task's children
+		// the task from the parent
+	}
 });

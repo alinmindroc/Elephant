@@ -1,34 +1,35 @@
 <link rel="stylesheet" href="/stylesheets/tasks.css">
-<div style="margin:30 20">
-	<h3>
-		Project:
-		<span style="font-weight: bold">{{project.name}}</span>
-		<span 
-		ng-class="{'text-danger' : (project.status=='failed'),
-		'text-success' : (project.status=='completed'),
-		'text-info' : (project.status=='in progress')}">
-		({{project.status}})
-	</span>
-</h3>
-<button class="btn btn-primary btn-xs" ng-click="addTask()">Add root task</button>
+<div class="bigContainer">
+	<div class="row">
+		<div class="col-md-4">
+			<h3>
+				Project:
+				<span style="font-weight: bold">{{project.name}}</span>
+				<span 
+				ng-class="{'text-danger' : (project.status=='failed'),
+				'text-success' : (project.status=='completed'),
+				'text-info' : (project.status=='in progress')}">
+				({{project.status}})
+			</span>
+		</h3>
+		<button class="btn btn-primary btn-xs" ng-click="addTask()">Add root task</button>
+	</div>
 </div>
-
 <hr>
-
-<div class="col-md-4">
-	<treecontrol class="tree-light"
-	tree-model="dataForTheTree"
-	options="treeOptions"
-	on-selection="setSelected(node)"
-	expanded-nodes="expandedNodes"
-	selected-node="selectedNode"
-	>
-	{{node.name}}
-	<span class="glyphicon glyphicon-plus glyphicon-green" ng-click="addSubTask($event, node)"></span>
-</treecontrol>
+<div class="row">
+	<div class="col-md-3">
+		<treecontrol class="tree-light"
+		tree-model="dataForTheTree"
+		options="treeOptions"
+		on-selection="setSelected(node)"
+		expanded-nodes="expandedNodes"
+		selected-node="selectedNode"
+		>
+		{{node.name}}
+		<span class="glyphicon glyphicon-plus glyphicon-green" ng-click="addSubTask($event, node)"></span>
+	</treecontrol>
 </div>
-
-<div class="col-md-3">
+<div class="col-md-9">
 	<div ng-show="selectedNode" class="panel panel-default">
 		<div class="panel-heading" style="background-color: #CCFFE6">
 			Task Details
@@ -69,9 +70,11 @@
 	</tr>
 	<tr>
 		<td>
-			<button class="btn btn-danger">Delete</button>
+			<button class="btn btn-danger" ng-click="delete()">Delete</button>
 		</td>
 	</tr>
 </table>
+</div>
+</div>
 </div>
 </div>

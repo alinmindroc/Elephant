@@ -1,80 +1,88 @@
 <link rel="stylesheet" href="/stylesheets/profile.css">
+<div class="bigContainer">
+	<div class="row">
+		<div class="col-md-4">
+			<h3>User Profile</h3>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading" style="background-color: #CCFFE6">
+					Details
+					<span class="glyphicon glyphicon-pencil clickable" style="float: right" ng-click="openDetailsModal()" title="edit"></span>
+				</div>
+				<table class="table table-bordered">
+					<tr>
+						<td class="coloredText">Username:</td>
+						<td>{{crtUser.username}}</td>
+					</tr>
+					<tr>
+						<td class="coloredText">Full name:</td>
+						<td>{{crtUser.fullName}}</td>
+					</tr>
+					<tr>
+						<td class="coloredText">Password:</td>
+						<td><a>Change Password</a></td>
+					</tr>
+					<tr>
+						<td class="coloredText">Email:</td>
+						<td>{{crtUser.email}}</td>
+					</tr>
+					<tr>
+						<td class="coloredText">Group:</td>
+						<td>{{crtUser.group}}</td>
+					</tr> 
+					<tr>
+						<td class="coloredText">Profile Picture:</td>
+						<td><a>Change Photo</a></td>
+					</tr>                            
+				</table>
+			</div>
 
-<div style="float: left; margin-left: 20px">
-  <h3>User Profile</h3>
-  <div class="panel panel-default">
-    <div class="panel-heading" style="background-color: #CCFFE6">
-      Details
-      <span class="glyphicon glyphicon-pencil clickable" style="float: right" ng-click="openDetailsModal()" title="edit"></span>
-    </div>
-    <table class="table table-bordered">
-      <tr>
-        <td class="coloredText">Username:</td>
-        <td>{{crtUser.username}}</td>
-      </tr>
-      <tr>
-        <td class="coloredText">Full name:</td>
-        <td>{{crtUser.fullName}}</td>
-      </tr>
-      <tr>
-        <td class="coloredText">Password:</td>
-        <td><a>Change Password</a></td>
-      </tr>
-      <tr>
-        <td class="coloredText">Email:</td>
-        <td>{{crtUser.email}}</td>
-      </tr>
-      <tr>
-        <td class="coloredText">Group:</td>
-        <td>{{crtUser.group}}</td>
-      </tr> 
-      <tr>
-        <td class="coloredText">Profile Picture:</td>
-        <td><a>Change Photo</a></td>
-      </tr>                            
-    </table>
-  </div>
+			<div class="panel panel-default">
+				<div class="panel-heading"style="background-color: #CCFFE6">
+					Preferences
+					<span class="glyphicon glyphicon-pencil clickable" style="float: right" ng-click="openPreferencesModal()" title="edit"></span>
+				</div>
+				<table class="table table-bordered profileTd">
+					<tr>
+						<td class="coloredText">Language:</td>
+						<td>{{language}}</td>
+					</tr>
+					<tr>
+						<td class="coloredText">Notifications:</td>
+						<td>{{notifications}}</td>
+					</tr>
+					<tr>
+						<td class="coloredText">Sharing:</td>
+						<td>{{sharing}}</td>
+					</tr>                           
+				</table>
+			</div>
+		</div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading"style="background-color: #CCFFE6">
-      Preferences
-      <span class="glyphicon glyphicon-pencil clickable" style="float: right" ng-click="openPreferencesModal()" title="edit"></span>
-    </div>
-    <table class="table table-bordered profileTd">
-      <tr>
-        <td class="coloredText">Language:</td>
-        <td>{{language}}</td>
-      </tr>
-      <tr>
-        <td class="coloredText">Notifications:</td>
-        <td>{{notifications}}</td>
-      </tr>
-      <tr>
-        <td class="coloredText">Sharing:</td>
-        <td>{{sharing}}</td>
-      </tr>                           
-    </table>
-  </div>
-</div>
-
-<div style="float: left; margin-left: 150px; margin-top: 56px; width: 400px">
-  <div class="panel panel-default">
-    <div class="panel-heading" style="background-color: #CCFFE6">
-      Assigned Tasks
-    </div>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Task</th>
-          <th>Project</th>          
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="task in crtTasks">
-          <td><a href="#/tasks/{{task.project}}/{{task._id}}">{{task.name}}</a></td>
-          <td><a href="#/tasks/{{task.project}}">{{projectMap[task.project]}}</a></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+		<div class="col-md-9">
+			<div class="panel panel-default">
+				<div class="panel-heading" style="background-color: #CCFFE6">
+					Assigned Tasks
+				</div>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Task</th>
+							<th>Project</th>          
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="task in crtTasks">
+							<td><a href="#/tasks/{{task.project}}/{{task._id}}">{{task.name}}</a></td>
+							<td><a href="#/tasks/{{task.project}}">{{projectMap[task.project]}}</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>

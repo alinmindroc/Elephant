@@ -28,7 +28,8 @@
 	<script src="/javascripts/controllers/modals/projectDetailsCtrl.js"></script>
 	<script src="/javascripts/controllers/modals/profileDetailsCtrl.js"></script>
 	<script src="/javascripts/controllers/modals/profilePreferencesCtrl.js"></script>
-
+	
+	<link rel="icon" type="img/ico" href="favicon.ico">
 </head>
 <body ng-app="taskManagerApp" ng-controller="indexCtrl">
 	<div class="header" ng-show="currentController!='login' && currentController!='signup'">
@@ -38,7 +39,7 @@
 			<img src="/images/profile_pic.png" class="header_profilePic">
 			<a href="#/profile" class="header_nameURL">{{fullName}}</a>
 
-			<a href="#/notifications">Notifications ({{notificationsNumber}})</a>
+			<a href="#/notifications">Notifications (1)</a>
 			<img src="/images/icon_notifications.png" class="header_notificationsPic">
 
 			<a href="#/projects" class="header_projectsURL">Projects</a>

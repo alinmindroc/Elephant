@@ -35,10 +35,6 @@ angular
 .factory('Tasks', ['$resource', function($resource){
 	return $resource('/tasks/:id', {id: '@id'}, {
 		'query':  { method:'GET', isArray:true },
-		'delete': {
-			method: 'DELETE',
-
-		},
 		'findMany': {
 			url: '/tasks/findMany/:id',
 			method: 'GET',

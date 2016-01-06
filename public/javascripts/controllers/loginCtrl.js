@@ -1,8 +1,10 @@
 angular.module('taskManagerApp')
-.controller('loginCtrl', function ($scope, $rootScope) {
-	$rootScope.currentController = 'login';	
-	$scope.loginPressesd = function(){
-		if($scope.username == '' || $scope.password == '')
-			alert("Please insert all the credentials!");
+.controller('loginCtrl', function ($scope, $rootScope, $location) {
+	$rootScope.currentController = 'login';
+
+	$scope.login = function(){
+		if($scope.username == 'adrianaene' && $scope.password == 'adrianaene'){
+			$location.url("/profile");
+		}
 	}
 });
