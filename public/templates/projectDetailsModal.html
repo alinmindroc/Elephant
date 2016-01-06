@@ -44,6 +44,6 @@
 </uib-accordion-group>
 </uib-accordion>
 
-<button type="submit" class="btn btn-success" ng-click="ok()">OK</button>
+<button ng-disabled="!project || !project.date" type="submit" class="btn btn-success" ng-click="ok()">OK</button>
 <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
 </div> 
