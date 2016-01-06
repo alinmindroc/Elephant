@@ -28,7 +28,7 @@ router.get('/findMany', function(req, res){
 });
 
 //the horror
-router.get('/getTree/:projectId', function(req, res){
+router.get('/getTree/:projectId', function(req, res, next){
 	//puts the traversed nodes in the children array and calls the callback function when reaches a leaf
 	function dfs(nodeId, children, callback){
 		Task.findById(nodeId, function(err, task){
@@ -52,7 +52,8 @@ router.get('/getTree/:projectId', function(req, res){
 	//first, find the array of root tasks
 	//then, for each root task, call dfs until all the leaves have been visited
 	Project.findById(req.params.projectId, function(err, proj){
-		if(err) return next(err);
+		if(err || proj == null)
+			return next(err);
 		Task.find({
 			'_id': { $in: proj.tasks }
 		}).lean().exec(function(err, rootTasks){

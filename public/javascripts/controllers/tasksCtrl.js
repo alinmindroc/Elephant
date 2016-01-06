@@ -1,5 +1,5 @@
 angular.module('taskManagerApp')
-.controller('tasksCtrl', function ($scope, $uibModal, $rootScope, $routeParams, Projects, Tasks) {
+.controller('tasksCtrl', function ($scope, $uibModal, $rootScope, $routeParams, $location, Projects, Tasks) {
 
 	$rootScope.currentController = 'tasks';
 
@@ -44,7 +44,6 @@ angular.module('taskManagerApp')
 	}
 
 	function updateTasks(){
-		console.log('update');
 		Tasks.getTree({projectId: $routeParams.projectId}, function(taskTree){
 			$scope.dataForTheTree = taskTree;
 			if($routeParams.taskId != undefined){
@@ -73,8 +72,9 @@ angular.module('taskManagerApp')
 			}
 		});
 
-		modalInstance.result.then(function(){
+		modalInstance.result.then(function(addedTaskId){
 			updateTasks();
+			$location.url('/tasks/' + $scope.project._id + '/' + addedTaskId);
 		});
 	}
 

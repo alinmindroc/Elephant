@@ -23,8 +23,7 @@ angular.module('taskManagerApp')
 			projectId: $scope.parent._id,
 			taskId: taskId
 		}, function(){
-			console.log("GATA ADD TASK");
-			$uibModalInstance.close();
+			$uibModalInstance.close(taskId);
 		});
 	}
 
@@ -33,7 +32,7 @@ angular.module('taskManagerApp')
 			taskId: $scope.parent._id,
 			subTaskId: taskId
 		}, function(){
-			$uibModalInstance.close();
+			$uibModalInstance.close(taskId);
 		});
 	}
 
