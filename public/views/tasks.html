@@ -1,27 +1,70 @@
 <link rel="stylesheet" href="/stylesheets/tasks.css">
-<div style="margin:20 20">
-	<h3>{{project.name}}</h3>
-	<button ng-click="addTask()">Add Root task</button>
+<div style="margin:60 20">
+	<h3>
+		Project:
+		<span style="font-weight: bold">{{project.name}}</span>
+		<span 
+		ng-class="{'text-danger' : (project.status=='failed'),
+		'text-success' : (project.status=='completed'),
+		'text-info' : (project.status=='in progress')}">
+		({{project.status}})
+	</span>
+</h3>
+<button class="btn btn-primary btn-xs" ng-click="addTask()">Add root task</button>
 </div>
 
-<treecontrol class="tree-light"
-tree-model="dataForTheTree"
-options="treeOptions"
-on-selection="showSelected(node)"
-expanded-nodes="expandedNodes"
-selected-node="selectedNode"
->
-<span ng-switch="" on="node.type">
-             <span ng-switch-when="folder" class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
-             <span ng-switch-when="pic" class="glyphicon glyphicon-picture" aria-hidden="true"></span>
-             <span ng-switch-when="doc" class="glyphicon glyphicon-file" aria-hidden="true"></span>
-             <span ng-switch-when="file" class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
-             <span ng-switch-when="movie" class="glyphicon glyphicon-film" aria-hidden="true"></span>
-             <span ng-switch-when="email" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-             <span ng-switch-when="home" class="glyphicon glyphicon-home" aria-hidden="true"></span>
-             <span ng-switch-when="trash" class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-         </span>
-
-{{node.name}}
-<span class="glyphicon glyphicon-plus glyphicon-green" ng-click="addSubTask($event, node)"></span>
+<div class="col-md-4">
+	<treecontrol class="tree-light"
+	tree-model="dataForTheTree"
+	options="treeOptions"
+	on-selection="showSelected(node)"
+	expanded-nodes="expandedNodes"
+	selected-node="selectedNode"
+	>
+	{{node.name}}
+	<span class="glyphicon glyphicon-plus glyphicon-green" ng-click="addSubTask($event, node)"></span>
 </treecontrol>
+</div>
+
+<div class="col-md-3">
+	<div class="panel panel-default">
+		<div class="panel-heading" style="background-color: #CCFFE6">
+			Task Details
+			<span class="glyphicon glyphicon-pencil clickable" style="float: right" ng-click="openDetailsModal()" title="edit"></span>
+		</div>
+		<table class="table table-bordered">
+			<tr>
+				<td class="coloredText">Name:</td>
+				<td>{{selectedNode.name}}</td>
+			</tr>
+			<tr>
+				<td class="coloredText">Start Date:</td>
+				<td>{{selectedNode.stringDate}}</td>
+			</tr>
+			<tr>
+				<td class="coloredText">Assigned Users:</td>
+				<td>
+					<ul>
+						<li>
+							Adriana Ene
+						</li>
+						<li>
+							Alin Mindroc
+						</li>
+						<li>
+							Irina Niculescu
+						</li>
+						<li ng-repeat="user in assignedUsers">
+							{{user.fullName}}
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<button class="btn btn-danger">Delete</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

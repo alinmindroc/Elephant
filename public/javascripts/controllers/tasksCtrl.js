@@ -43,9 +43,23 @@ angular.module('taskManagerApp')
 		}
 	}
 
+	function dfsSetStringDate(node){
+		function dfs(node){
+			node.stringDate = new Date(node.created_at).toDateString();
+			for(var i in node.children){
+				dfs(node.children[i]);
+			}
+		}
+
+		for(var i in node){
+			dfs(node[i]);
+		}
+	}
+
 	function updateTasks(){
 		Tasks.getTree({projectId: $routeParams.projectId}, function(taskTree){
 			$scope.dataForTheTree = taskTree;
+			dfsSetStringDate($scope.dataForTheTree);
 			if($routeParams.taskId != undefined){
 				$scope.expandedNodes = getNodePath(taskTree, $routeParams.taskId);
 			}
@@ -58,7 +72,6 @@ angular.module('taskManagerApp')
 		var modalInstance = $uibModal.open({      
 			templateUrl: '/templates/addTaskModal.html',
 			controller: 'addTaskCtrl',
-			size: 'sm',
 			resolve : {
 				projectId: function(){
 					return $scope.project._id;
