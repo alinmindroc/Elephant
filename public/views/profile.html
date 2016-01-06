@@ -60,21 +60,21 @@
 <div style="float: left; margin-left: 150px; margin-top: 56px; width: 400px">
   <div class="panel panel-default">
     <div class="panel-heading" style="background-color: #CCFFE6">
-      Assigned Projects
-      </span>    
-    </div>
-    <ul class="list-group">
-      <li class="list-group-item" ng-repeat="project in crtProjects"><a href="#/tasks/{{project._id}}">{{project.name}}</a></li>
-    </ul>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading" style="background-color: #CCFFE6">
       Assigned Tasks
     </div>
-    <ul class="list-group">
-      <li ng-repeat="task in crtTasks" class="list-group-item">
-        <a href="#/tasks/{{task.project}}/{{task._id}}">{{task.name}}</a>
-      </li>
-    </ul>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Project</th>          
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="task in crtTasks">
+          <td><a href="#/tasks/{{task.project}}/{{task._id}}">{{task.name}}</a></td>
+          <td><a href="#/tasks/{{task.project}}">{{projectMap[task.project]}}</a></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

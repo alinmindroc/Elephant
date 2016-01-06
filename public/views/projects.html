@@ -53,22 +53,22 @@
 				'bg-success' : (project.status=='completed'),
 				'bg-info' : (project.status=='in progress')}"
 				>
-				<td class="projectTd">{{project.name}}</td>
-				<td >
+				<td>{{project.name}}</td>
+				<td>
 					{{project.status}}
 				</td>
-				<td >{{project.dateString}}</td>
-				<td width="3%">
-					<button class="btn btn-primary" ng-click="openProjectModal(project._id)">
+				<td>{{project.dateString}}</td>
+				<td width="1%">
+					<button class="btn btn-primary" ng-click="openProjectModal(project._id)" title="Project Details">
 						Edit details
 					</button>
 				</td>
-				<td width="3%">
+				<td width="1%">
 					<a href="#/tasks/{{project._id}}">
-						<button class="btn btn-success" ng-click="cancel()">Configure Tasks <span class="glyphicon glyphicon-th-list"/></button>
+						<button class="btn btn-success" ng-click="cancel()" title="Edit Tasks">Tasks <span class="glyphicon glyphicon-th-list"/></button>
 					</a>
 				</td>				
-				<td width="3%">
+				<td width="1%">
 					<button 
 					class="btn btn-danger"
 					ng-click="delete(project._id)"
