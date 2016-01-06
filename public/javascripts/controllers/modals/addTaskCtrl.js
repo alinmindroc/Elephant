@@ -1,5 +1,5 @@
 angular.module('taskManagerApp')
-.controller('addTaskCtrl', function ($scope, $uibModalInstance, Projects, Users, Tasks, CRUD, projectId, parent, parentType) {
+.controller('addTaskCtrl', function ($scope, $uibModalInstance, Projects, Users, Tasks, projectId, parent, parentType) {
 	$scope.parent = parent;
 	$scope.parentType = parentType;
 
@@ -69,7 +69,6 @@ angular.module('taskManagerApp')
 						userId: allUsers[i]._id,
 						taskId: task._id
 					});
-					console.log("added task: ", task._id);
 				}
 			};
 		});

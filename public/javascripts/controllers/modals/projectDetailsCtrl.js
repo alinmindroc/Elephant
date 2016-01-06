@@ -1,5 +1,5 @@
 angular.module('taskManagerApp')
-.controller('projectDetailsCtrl', function ($scope, $uibModal, $uibModalInstance, Projects, Tasks, Users, CRUD, projectId) {
+.controller('projectDetailsCtrl', function ($scope, $uibModal, $uibModalInstance, Projects, Tasks, Users, projectId) {
     $scope.project = {};
     $scope.project.id = projectId;
     

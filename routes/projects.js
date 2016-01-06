@@ -47,7 +47,6 @@ router.post('/addTask/:projectId/:taskId', function(req, res, next){
 
 router.post('/', function(req, res, next) {
 	Project.create(req.body, function(err, post){
-		console.log(req.body);
 		if(err) return next(err);
 		res.json(post);
 	});

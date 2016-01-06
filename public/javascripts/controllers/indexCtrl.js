@@ -35,6 +35,10 @@ angular
 .factory('Tasks', ['$resource', function($resource){
 	return $resource('/tasks/:id', {id: '@id'}, {
 		'query':  { method:'GET', isArray:true },
+		'delete': {
+			method: 'DELETE',
+
+		},
 		'findMany': {
 			url: '/tasks/findMany/:id',
 			method: 'GET',
@@ -46,6 +50,13 @@ angular
 			params: {
 				taskId: '@taskId',
 				subTaskId: '@subTaskId'
+			}
+		},
+		'removeTaskTree': {
+			url: '/tasks/removeTaskTree/:projectId',
+			method: 'delete',
+			params: {
+				projectId: '@projectId',
 			}
 		},
 		'getTree': {
@@ -97,6 +108,13 @@ angular
 				taskId: '@taskId'
 			}
 		},
+		'removeTaskTreeFromAllUsers': {
+			url: '/users/removeTaskTreeFromAllUsers/:projectId',
+			method: 'delete',
+			params: {
+				projectId: '@projectId',
+			}
+		},
 		'removeProjectFromAllUsers': {
 			url: '/users/removeProjectFromAllUsers/:projectId',
 			method: 'delete',
@@ -107,13 +125,6 @@ angular
 	});
 }])
 
-.factory('CRUD', ['Projects', function(Projects){
-	return {
-		deleteProject: function(id){
-			Projects.remove({id: id});
-		}
-	};
-}])
 .config(['$routeProvider',
 	function ($routeProvider) {
 		$routeProvider.

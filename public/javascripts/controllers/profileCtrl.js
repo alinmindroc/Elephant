@@ -2,7 +2,7 @@ angular.module('taskManagerApp')
 .controller('profileCtrl', function ($scope, $rootScope, $http, $uibModal, Users, Tasks, Projects) {
   $rootScope.currentController = 'profile';
 
-  $scope.crtUser = Users.get({id: '568c455545c7d4dc4277bbb6'}, function(user){
+  $scope.crtUser = Users.get({id: '568cf96c6d42cc1cd4b3b222'}, function(user){
     $scope.crtProjects = Projects.findMany(user.projects);
     $scope.crtTasks = Tasks.findMany(user.tasks);
   });

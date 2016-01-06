@@ -79,13 +79,6 @@ router.get('/getTree/:projectId', function(req, res){
 	});
 });
 
-router.get('/:id', function(req, res, next) {
-	Task.findById(req.params.id, function(err, get){
-		if(err) return next(err);
-		res.json(get);
-	});
-});
-
 router.post('/addSubTask/:taskId/:subTaskId', function(req, res, next){
 	Task.findByIdAndUpdate(
 		{_id: req.params.taskId},
@@ -102,6 +95,19 @@ router.post('/', function(req, res, next) {
 	Task.create(req.body, function(err, post){
 		if(err) return next(err);
 		res.json(post);
+	});
+});
+
+router.delete('/removeTaskTree/:projectId', function(req, res, next){
+	Task.remove({'project': req.params.projectId}, function(err, tasks){
+		res.send(tasks);
+	});
+});
+
+router.get('/:id', function(req, res, next) {
+	Task.findById(req.params.id, function(err, get){
+		if(err) return next(err);
+		res.json(get);
 	});
 });
 

@@ -3,6 +3,7 @@ var router = express.Router();
 
 var mongoose = require('mongoose');
 var User = require('../models/User.js');
+var Task = require('../models/Task.js');
 
 router.get('/', function(req, res, next) {
 	User.find(function(err, users){
@@ -11,8 +12,9 @@ router.get('/', function(req, res, next) {
 	});
 });
 
-router.get('/findMany', function(req, res){
-	var ids = []
+router.get('/findMany', function(req, res, next){
+
+	var ids = [];
 
 	for(key in req.query){
 		ids.push(req.query[key]);
@@ -23,13 +25,6 @@ router.get('/findMany', function(req, res){
 	}, function(err, users){
 		if(err) return next(err);
 		res.json(users);
-	});
-});
-
-router.get('/:id', function(req, res, next) {
-	User.findById(req.params.id, function(err, get){
-		if(err) return next(err);
-		res.json(get);
 	});
 });
 
@@ -71,28 +66,6 @@ router.post('/addTaskToSet/:userId/:taskId', function(req, res, next){
 	});
 });
 
-router.post('/', function(req, res, next) {
-	User.create(req.body, function(err, post){
-		console.log(req.body);
-		if(err) return next(err);
-		res.json(post);
-	});
-});
-
-router.put('/:id', function(req, res, next){
-	User.findByIdAndUpdate(req.params.id, req.body, function(err, put){
-		if(err) return next(err);
-		res.json(put);
-	});
-});
-
-router.delete('/:id', function(req, res, next){
-	User.findByIdAndRemove(req.params.id, function(err, del){
-		if(err) return next(err);
-		res.json(del);
-	});
-});
-
 router.delete('/removeProject/:userId/:projectId', function(req, res, next){
 	User.findByIdAndUpdate(
 		{_id: req.params.userId},
@@ -127,6 +100,51 @@ router.delete('/removeProjectFromAllUsers/:projectId', function(req, res, next){
 			res.json(del);
 		}
 		)
+});
+
+router.delete('/removeTaskTreeFromAllUsers/:projectId', function(req, res, next){
+	console.log(req.params.projectId);
+	Task.find({'project': req.params.projectId}, function(err, tasks){
+		var ids = tasks.map(function(x){return x._id});
+		User.update(
+			{},
+			{$pull: {tasks: {$in: ids}}},
+			{multi: true},
+			function(err, del){
+				if(err) return next(err);
+				res.json(del);
+			}
+			);
+
+	});
+});
+
+router.get('/:id', function(req, res, next) {
+	User.findById(req.params.id, function(err, get){
+		if(err) return next(err);
+		res.json(get);
+	});
+});
+
+router.post('/', function(req, res, next) {
+	User.create(req.body, function(err, post){
+		if(err) return next(err);
+		res.json(post);
+	});
+});
+
+router.put('/:id', function(req, res, next){
+	User.findByIdAndUpdate(req.params.id, req.body, function(err, put){
+		if(err) return next(err);
+		res.json(put);
+	});
+});
+
+router.delete('/:id', function(req, res, next){
+	User.findByIdAndRemove(req.params.id, function(err, del){
+		if(err) return next(err);
+		res.json(del);
+	});
 });
 
 module.exports = router;
