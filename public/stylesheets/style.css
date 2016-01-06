@@ -4,8 +4,8 @@
 }
 
 .clickable {
-    cursor: pointer;
-    cursor: hand;
+  cursor: pointer;
+  cursor: hand;
 }
 
 .header {
@@ -46,3 +46,6 @@
   font-size: 13px;
 }
 
+/*.projectTd {*/
+  /*font-weight: bold;*/
+/*}*/

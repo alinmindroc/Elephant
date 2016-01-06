@@ -5,6 +5,8 @@ angular.module('taskManagerApp')
 	$scope.fullName = "Adriana Ene";
 	$scope.notNumber = 6;
 	$scope.projectStatus = "in progress";
+	$scope.sortField = "name";
+	$scope.sortAsc = true;
 
 	function cleanResponse(resp) {
 		return JSON.parse(angular.toJson(resp));
@@ -18,12 +20,16 @@ angular.module('taskManagerApp')
 			//set date string from object
 			$scope.projects.map(function(i){
 				var date = new Date(i.start_date);
-				i.start_date = date.toDateString();
+				i.start_date = date;
+				i.dateString = date.toDateString();
 			})
 
 			$scope.shownProjects.sort(function(x, y){
-				return x.name.localeCompare(y.name)
+				return x.name.localeCompare(y.name);
 			});
+			
+			$scope.sortField = "name";
+			$scope.sortAsc = true;
 		});
 	}
 
@@ -37,7 +43,40 @@ angular.module('taskManagerApp')
 				var filter = $scope.searchFilter.toLowerCase();
 				return (name.indexOf(filter) > -1 || status.indexOf(filter) > -1);
 			}
-			).sort(function(x, y){return y.name.localeCompare(x.name)});
+			);
+	}
+
+	$scope.sortBy = function(field){
+		$scope.sortAsc = !$scope.sortAsc;
+		$scope.sortField = field;
+		switch(field){
+			case "name":{
+				$scope.shownProjects.sort(function(x, y){
+					if($scope.sortAsc)
+						return x.name.localeCompare(y.name);
+					else
+						return y.name.localeCompare(x.name);
+				});
+				break;
+			}
+			case "status":{
+				$scope.shownProjects.sort(function(x, y){
+					if($scope.sortAsc)
+						return x.status.localeCompare(y.status);
+					else
+						return y.status.localeCompare(x.status);
+				});
+				break;
+			}
+			case "date":{
+				$scope.shownProjects.sort(function(x, y){
+					if($scope.sortAsc)
+						return x.start_date > y.start_date;
+					else
+						return y.start_date > x.start_date;
+				});
+			}
+		}
 	}
 
 	$scope.delete = function(projectId){
@@ -55,10 +94,6 @@ angular.module('taskManagerApp')
 
 		updateProjects();
 	}
-
-	$scope.searchPressed = function(){
-		console.log($scope.search.value);
-	};
 
 	$scope.addProject = function(){
 		if(!$scope.projectName || $scope.projectName.length < 1) return;
