@@ -126,14 +126,31 @@ angular.module('taskManagerApp')
 		Users.findMany(userIds, function(res){
 			$scope.assignedUsers = cleanResponse(res);
 		});
+		$location.url('/tasks/' + $scope.project._id + '/' + node._id);
 	}
 
 	$scope.delete = function(){
-		// TODO: delete:
-		// the task object
-		// the task reference from every user
-		// the task reference from the project
-		// all the task's children
-		// the task from the parent
+		var task = $scope.selectedNode;
+
+		Users.removeTaskTreeFromAllUsers({rootTaskId:task._id});
+		//for every child of the task:
+		//       remove child from every user
+		//       delete child
+		// remove the task reference from every user
+		
+		// remove the task from the parent
+		if(task.project == task.parent){
+			// if it is a root task, delete it from the project
+			Projects.removeTask({taskId: task._id, projectId: $scope.project._id});
+		} else {
+			// else, delete it from its parent task
+			Tasks.removeSubTask({taskId: task.parent, subTaskId: task._id})
+		}
+
+		// delete the task object
+		Tasks.remove({id: task._id});
+
+		updateTasks();
+		$scope.selectedNode = undefined;
 	}
 });

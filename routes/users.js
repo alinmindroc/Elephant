@@ -102,8 +102,37 @@ router.delete('/removeProjectFromAllUsers/:projectId', function(req, res, next){
 		)
 });
 
-router.delete('/removeTaskTreeFromAllUsers/:projectId', function(req, res, next){
-	console.log(req.params.projectId);
+router.delete('/removeTaskTreeFromAllUsers/:rootTaskId', function(req, res, next){
+	//puts the traversed nodes in the children array and calls the callback function when reaches a leaf
+	function dfs(nodeId){
+		Task.findById(nodeId, function(err, task){
+			Task.find({
+				'_id': { $in: task.subTasks }
+			}).lean().exec(function(err, subTasks){
+				for(var i in subTasks){
+					dfs(subTasks[i]._id);
+				}
+			});
+		});
+		User.update(
+			{},
+			{$pull: {tasks: nodeId}},
+			{multi: true},
+			function(err, del){
+				if(err) return next(err);
+			}
+			);
+	}
+
+	dfs(req.params.rootTaskId);
+
+	//hopefully half a second will be enough to parse all the task tree
+	setTimeout(function(){
+		res.sendStatus(200);
+	}, 500)
+});
+
+router.delete('/removeProjectTaskTreeFromAllUsers/:projectId', function(req, res, next){
 	Task.find({'project': req.params.projectId}, function(err, tasks){
 		var ids = tasks.map(function(x){return x._id});
 		User.update(
@@ -115,7 +144,6 @@ router.delete('/removeTaskTreeFromAllUsers/:projectId', function(req, res, next)
 				res.json(del);
 			}
 			);
-
 	});
 });
 

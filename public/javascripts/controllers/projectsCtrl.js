@@ -81,7 +81,7 @@ angular.module('taskManagerApp')
 
 	$scope.delete = function(projectId){
 		//remove the project's tasks from each user
-		Users.removeTaskTreeFromAllUsers({projectId: projectId});
+		Users.removeProjectTaskTreeFromAllUsers({projectId: projectId});
 
 		//remove the project from each user
 		Users.removeProjectFromAllUsers({projectId:projectId});

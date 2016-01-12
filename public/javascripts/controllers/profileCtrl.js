@@ -2,7 +2,7 @@ angular.module('taskManagerApp')
 .controller('profileCtrl', function ($scope, $rootScope, $http, $uibModal, Users, Tasks, Projects) {
 	$rootScope.currentController = 'profile';
 
-	Users.get({id: '568cf96c6d42cc1cd4b3b222'}, function(user){
+	Users.get({id: '56955e3a1f8727630b873a25'}, function(user){
 		$scope.crtUser = user;
 		Projects.findMany(user.projects, function(projects){
 			$scope.crtProjects = projects;
@@ -13,7 +13,8 @@ angular.module('taskManagerApp')
 			}
 		});
 
-		$scope.crtTasks = Tasks.findMany(user.tasks);
+		$scope.tasks = Tasks.findMany(user.tasks);
+		$scope.filteredTasks = $scope.tasks;
 	});
 
 	$scope.language = "English";
@@ -63,6 +64,16 @@ angular.module('taskManagerApp')
 			$scope.language = result.language;
 			$scope.notifications = result.notifications;
 			$scope.sharing = result.sharing;
+		});
+	}
+
+	$scope.filterTasks = function(status){
+		if(status == 'all'){
+			$scope.filteredTasks = $scope.tasks;
+			return;
+		}
+		$scope.filteredTasks = $scope.tasks.filter(function(x){
+			return x.status.localeCompare(status) == 0;
 		});
 	}
 });

@@ -12,10 +12,6 @@ angular
 .factory('Projects', ['$resource', function($resource){
 	return $resource('/api/projects/:id', {id: '@id'}, {
 		'update': { method:'PUT' },
-		'removeTask': {
-			url: '/api/projects/deleteTask/:id',
-			method: 'PUT'
-		},
 		'findMany': {
 			url: '/api/projects/findMany/:id',
 			method: 'GET',
@@ -24,6 +20,14 @@ angular
 		'addTask': {
 			url: '/api/projects/addTask/:projectId/:taskId',
 			method: 'POST',
+			params: {
+				projectId: '@projectId',
+				taskId: '@taskId'
+			}
+		},
+		'removeTask': {
+			url: '/api/projects/removeTask/:projectId/:taskId',
+			method: 'DELETE',
 			params: {
 				projectId: '@projectId',
 				taskId: '@taskId'
@@ -43,6 +47,14 @@ angular
 		'addSubTask': {
 			url: '/tasks/addSubTask/:taskId/:subTaskId',
 			method: 'POST',
+			params: {
+				taskId: '@taskId',
+				subTaskId: '@subTaskId'
+			}
+		},
+		'removeSubTask': {
+			url: '/tasks/removeSubTask/:taskId/:subTaskId',
+			method: 'DELETE',
 			params: {
 				taskId: '@taskId',
 				subTaskId: '@subTaskId'
@@ -104,11 +116,18 @@ angular
 				taskId: '@taskId'
 			}
 		},
-		'removeTaskTreeFromAllUsers': {
-			url: '/users/removeTaskTreeFromAllUsers/:projectId',
+		'removeProjectTaskTreeFromAllUsers': {
+			url: '/users/removeProjectTaskTreeFromAllUsers/:projectId',
 			method: 'delete',
 			params: {
 				projectId: '@projectId',
+			}
+		},
+		'removeTaskTreeFromAllUsers': {
+			url: '/users/removeTaskTreeFromAllUsers/:rootTaskId',
+			method: 'delete',
+			params: {
+				rootTaskId: '@rootTaskId',
 			}
 		},
 		'removeProjectFromAllUsers': {

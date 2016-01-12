@@ -62,7 +62,6 @@
 				</table>
 			</div>
 		</div>
-
 		<div class="col-md-9">
 			<div class="panel panel-default">
 				<div class="panel-heading" style="background-color: #CCFFE6">
@@ -71,13 +70,33 @@
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th>Task</th>
-							<th>Project</th>          
+							<th style="width: 33%">Task</th>
+							<th style="width: 33%">
+								<div class="dropdown">
+									<a class="dropdown-toggle clickable" data-toggle="dropdown">
+										Status
+										<span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu">
+										<li><a class="clickable bg-info" ng-click="filterTasks('in progress')">In progress</a></li>
+										<li><a class="clickable bg-success" ng-click="filterTasks('completed')">Completed</a></li>
+										<li><a class="clickable bg-danger" ng-click="filterTasks('failed')">Failed</a></li>
+										<li role="separator" class="divider"></li>
+										<li><a class="clickable" ng-click="filterTasks('all')">All</a></li>
+									</ul>
+								</div>
+							</th>          
+							<th style="width: 33%">Project</th>          
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="task in crtTasks">
+						<tr ng-repeat="task in filteredTasks">
 							<td><a href="#/tasks/{{task.project}}/{{task._id}}">{{task.name}}</a></td>
+							<td 
+							ng-class="{	'bg-danger' : (task.status=='failed'),
+							'bg-success' : (task.status=='completed'),
+							'bg-info' : (task.status=='in progress')}"
+							>{{task.status}}</td>
 							<td><a href="#/tasks/{{task.project}}">{{projectMap[task.project]}}</a></td>
 						</tr>
 					</tbody>

@@ -59,11 +59,16 @@ router.put('/:id', function(req, res, next){
 	});
 });
 
-router.put('/deleteTask/:id', function(req, res, next){
-	Project.update({_id: req.params.id}, {$unset: {task: ''}}, function(err, put){
-		if(err) return next(err);
-		res.json(put);
-	})
+router.delete('/removeTask/:projectId/:taskId', function(req, res, next){
+	Project.findByIdAndUpdate(
+		{_id: req.params.projectId},
+		{$pull: {tasks: req.params.taskId}},
+		{safe: true, upsert: true},
+		function(err, del) {
+			if(err) return next(err);
+			res.json(del);
+		}
+		);
 })
 
 router.delete('/:id', function(req, res, next){

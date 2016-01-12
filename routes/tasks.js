@@ -108,6 +108,18 @@ router.delete('/removeTaskTree/:projectId', function(req, res, next){
 	});
 });
 
+router.delete('/removeSubTask/:taskId/:subTaskId', function(req, res, next){
+	Task.findByIdAndUpdate(
+		{_id: req.params.taskId},
+		{$pull: {subTasks: req.params.subTaskId}},
+		{safe: true, upsert: true},
+		function(err, post) {
+			if(err) return next(err);
+			res.json(post);
+		}
+		);
+});
+
 router.get('/:id', function(req, res, next) {
 	Task.findById(req.params.id, function(err, get){
 		if(err) return next(err);
