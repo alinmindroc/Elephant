@@ -7,7 +7,6 @@ var UserSchema = new mongoose.Schema({
 	fullName: 		String,
 	password: 		String,
 	email: 			String,
-	groups: 		[String],
 	photo:  		{data: Buffer, contentType: String},
 	projects: 		[{type: mongoose.Schema.Types.ObjectId, ref: 'Project'}],
 	tasks: 			[{type: mongoose.Schema.Types.ObjectId, ref: 'Task'}]

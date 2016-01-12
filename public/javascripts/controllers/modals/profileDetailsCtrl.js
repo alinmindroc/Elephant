@@ -1,21 +1,20 @@
-angular.module('taskManagerApp').controller('profileDetailsCtrl', function ($scope, $uibModalInstance, userData) {
-	$scope.email = userData.email;
-	$scope.username = userData.username;
-	$scope.fullName = userData.fullName;
-	$scope.group = userData.group;
+angular.module('taskManagerApp').controller('profileDetailsCtrl', function ($scope, $uibModalInstance, Users, userData) {
+	$scope.userData = userData;
 
 	$scope.cancel = function(){
 		$uibModalInstance.dismiss();
 	}
 
 	$scope.ok = function(){
-		$uibModalInstance.close(
-		{
-			'username': $scope.username,
-			'fullName': $scope.fullName,
-			'email': $scope.email,
-			'group': $scope.group
-		}
-		);
+		Users.update(
+			{id: userData._id},
+			{
+				username: $scope.userData.username,
+				fullName: $scope.userData.fullName,
+				email: $scope.userData.email,
+				group: $scope.userData.group
+			}
+			);
+		$uibModalInstance.close();
 	}
 });
