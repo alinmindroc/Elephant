@@ -53,7 +53,6 @@ angular.module('taskManagerApp')
 				preferencesData: function(){
 					return {
 						'language': $scope.language,
-						'notifications': $scope.notifications,
 						'sharing': $scope.sharing,
 					}
 				}
@@ -62,7 +61,6 @@ angular.module('taskManagerApp')
 
 		modalInstance.result.then(function(result){
 			$scope.language = result.language;
-			$scope.notifications = result.notifications;
 			$scope.sharing = result.sharing;
 		});
 	}
