@@ -6,7 +6,8 @@ angular
 	'ngResource',
 	'ngAnimate',
 	'ui.bootstrap',
-	'treeControl'
+	'treeControl',
+	'ngFileUpload'
 	])
 
 .factory('Projects', ['$resource', function($resource){
@@ -84,6 +85,10 @@ angular
 		},
 		'query':  	{ method:'GET', isArray:true },
 		'update': 	{ method:'PUT' },
+		'uploadPhoto': {
+			url: '/uploadPhoto',
+			method: 'POST',
+		},
 		'addProject': {
 			url: '/users/addProjectToSet/:userId/:projectId',
 			method: 'POST',

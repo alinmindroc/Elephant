@@ -1,18 +1,33 @@
 angular.module('taskManagerApp')
-.controller('profileCtrl', function ($scope, $rootScope, $http, $uibModal, Users, Tasks, Projects) {
+.controller('profileCtrl', function ($scope, $rootScope, $http, $uibModal, Users, Tasks, Projects, Upload) {
 	$rootScope.currentController = 'profile';
 
+	// upload on file select or drop
+    $scope.upload = function (file) {
+        Upload.upload({
+            url: 'users/uploadPhoto/',
+            data: {file: file, 'userId': $scope.crtUser._id}
+        }).then(function (resp) {
+            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+        }, function (resp) {
+            console.log('Error status: ' + resp.status);
+        }, function (evt) {
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+        });
+    };
+
 	function updateData(){
-		Users.get({id: '569573981f8727630b873a27'}, function(user){
+		Users.get({id: '56958ff81f8727630b873a29'}, function(user){
 			$scope.crtUser = user;
 			Projects.findMany(user.projects, function(projects){
 				$scope.crtProjects = projects;
-			//mapping from project id to project name to use in tasks table
-			$scope.projectMap = {};
-			for(var i in projects){
-				$scope.projectMap[projects[i]._id] = projects[i].name;
-			}
-		});
+				//mapping from project id to project name to use in tasks table
+				$scope.projectMap = {};
+				for(var i in projects){
+					$scope.projectMap[projects[i]._id] = projects[i].name;
+				}
+			});
 
 			$scope.tasks = Tasks.findMany(user.tasks);
 			$scope.filteredTasks = $scope.tasks;
