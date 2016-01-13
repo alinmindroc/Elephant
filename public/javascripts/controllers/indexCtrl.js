@@ -7,7 +7,8 @@ angular
 	'ngAnimate',
 	'ui.bootstrap',
 	'treeControl',
-	'ngFileUpload'
+	'ngFileUpload',
+	'LocalStorageModule'
 	])
 
 .factory('Projects', ['$resource', function($resource){
@@ -169,6 +170,24 @@ angular
 		when('/tasks/:projectId/:taskId', {templateUrl: 'views/tasks.html', controller: 'tasksCtrl'}).
 		otherwise({redirectTo: '/profile'});
 	}])
-.controller('indexCtrl', function($scope, $rootScope){
+.controller('indexCtrl', function($scope, $rootScope, $location, localStorageService){
 	$rootScope.currentController = 'login';// hack to make sure header is not drawn for login and signup pages
+	
+	function getLoggedUser(imagePath){
+		$scope.loggedUser = localStorageService.get('loggedUser');
+		if(imagePath){
+			$scope.loggedUser.picturePath = imagePath;
+		}
+	};
+
+	$rootScope.$on("setHeaderUser", function(event, imagePath){
+		getLoggedUser(imagePath);
+	});
+
+	getLoggedUser();
+
+	$scope.logOut = function(){
+		localStorageService.remove('loggedUser');
+		$location.url('/login');
+	};
 });

@@ -1,6 +1,10 @@
 angular.module('taskManagerApp')
-.controller('loginCtrl', function ($scope, $rootScope, $location, Users) {
+.controller('loginCtrl', function ($scope, localStorageService, $rootScope, $location, Users) {
 	$rootScope.currentController = 'login';
+
+	if(localStorageService.get('loggedUser') != undefined){
+		$location.url('/profile');
+	}
 
 	$scope.login = function(){
 		var user = {};
@@ -11,9 +15,9 @@ angular.module('taskManagerApp')
 			if(res.error){
 				alert(res.error);
 			} else {
-				//simulate logged user
-				$rootScope.loggedUser = res;
-				$location.url("/profile");
+				localStorageService.set('loggedUser', res);
+				$location.url('/profile');
+				$rootScope.$emit("setHeaderUser");
 			}
 		})
 	};

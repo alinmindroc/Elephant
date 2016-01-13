@@ -17,6 +17,7 @@
 	<script src="javascripts/bootstrap.min.js"></script>
 
 	<script src="javascripts/ng-file-upload.min.js"></script>
+	<script src="javascripts/angular-local-storage.min.js"></script>
 
 	<script src="/javascripts/controllers/indexCtrl.js"></script>
 	<script src="/javascripts/controllers/profileCtrl.js"></script>
@@ -38,13 +39,19 @@
 </head>
 <body ng-app="taskManagerApp" ng-controller="indexCtrl">
 	<div class="header" ng-show="currentController!='login' && currentController!='signup'">
-		<img src="/images/elephant.png" class="header_logo">
-
-		<div style="float: right">
-			<img src="/images/profile_pic.png" class="header_profilePic">
-			<a href="#/profile" class="header_nameURL">{{$root.loggedUser.fullName}}</a>
-
-			<a href="#/projects" class="header_projectsURL">Projects</a>
+		<div class="col-md-1">
+			<img src="/images/elephant.png" class="header_logo">
+		</div>
+		<div class="col-md-11">
+			<div class="pull-right">
+				<a href="#/profile">
+					<img
+					ng-src="{{loggedUser.picturePath ? loggedUser.picturePath : 'images/default_profile.png'}}"
+					class="header_profilePic">
+					{{loggedUser.fullName}}
+					<a href="#/login" ng-click="logOut()" style="margin-left: 10px; font-size: 15px">(Log Out)</a>
+				</a>
+			</div>
 		</div>
 	</div>
 

@@ -33,7 +33,7 @@
 					<tr>
 						<td class="coloredText">Profile Picture:</td>
 						<td><img style="height: 40px" ng-src="{{crtUser.picturePath}}"></td>
-					</tr>                            
+					</tr>
 				</table>
 			</div>
 		</div>
@@ -72,7 +72,7 @@
 							'bg-success' : (task.status=='completed'),
 							'bg-info' : (task.status=='in progress')}"
 							>{{task.status}}</td>
-							<td><a href="#/tasks/{{task.project}}">{{projectMap[task.project]}}</a></td>
+							<td><a href="#/projects">{{projectMap[task.project]}}</a></td>
 						</tr>
 					</tbody>
 				</table>
