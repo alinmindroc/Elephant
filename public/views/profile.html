@@ -23,10 +23,6 @@
 						<td>{{crtUser.fullName}}</td>
 					</tr>
 					<tr>
-						<td class="coloredText">Password:</td>
-						<td><a>Change Password</a></td>
-					</tr>
-					<tr>
 						<td class="coloredText">Email:</td>
 						<td>{{crtUser.email}}</td>
 					</tr>
@@ -75,7 +71,11 @@
 							'bg-success' : (task.status=='completed'),
 							'bg-info' : (task.status=='in progress')}"
 							>{{task.status}}</td>
-							<td><a href="#/projects">{{projectMap[task.project]}}</a></td>
+							<td>
+								<a href="#/projects">
+								{{projectMap[task.project] ? projectMap[task.project] : 'You are not assigned on this project'}}
+								</a>
+							</td>
 						</tr>
 					</tbody>
 				</table>
