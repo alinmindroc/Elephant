@@ -2,8 +2,6 @@ angular.module('taskManagerApp')
 .controller('projectsCtrl', function ($scope, $rootScope, Projects, Users, Tasks, $uibModal) {
 	$rootScope.currentController = 'projects';
 
-	$scope.fullName = "Adriana Ene";
-	$scope.notNumber = 6;
 	$scope.projectStatus = "in progress";
 	$scope.sortField = "name";
 	$scope.sortAsc = true;

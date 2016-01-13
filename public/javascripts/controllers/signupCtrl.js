@@ -6,6 +6,7 @@ angular.module('taskManagerApp')
 		if($scope.password != $scope.confirmPassword){
 			alert("Password Mismatch!");
 		}
+		
 		else if($scope.firstName == '' || 
 			$scope.lastName == '' || $scope.userName == '' || 
 			$scope.email == '' || $scope.password == '' || $scope.confirmPassword == ''){

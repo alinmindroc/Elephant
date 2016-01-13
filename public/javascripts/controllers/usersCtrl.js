@@ -42,4 +42,14 @@ angular.module('taskManagerApp')
 			return fullName.indexOf(filter) != -1 || userName.indexOf(filter) != -1;
 		})
 	};
+
+	$scope.filterTasks = function(status){
+		if(status == 'all'){
+			$scope.filteredTasks = $scope.tasks;
+			return;
+		}
+		$scope.filteredTasks = $scope.tasks.filter(function(x){
+			return x.status.localeCompare(status) == 0;
+		});
+	};
 });

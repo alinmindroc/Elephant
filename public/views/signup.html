@@ -10,16 +10,12 @@
 <form class="signupForm">
 	<table class="authTable">
 		<tr>
-			<td>First Name</td>
-			<td><input type="text" ng-model="firstName" value=""></td>
-		</tr>
-		<tr>
-			<td>Last Name</td>
-			<td><input type="password" ng-model="lastName" value=""></td>
+			<td>Name</td>
+			<td><input type="text" ng-model="fullName" value=""></td>
 		</tr>
 		<tr>
 			<td>User Name</td>
-			<td><input type="password" ng-model="userName" value=""></td>
+			<td><input type="text" ng-model="userName" value=""></td>
 		</tr>
 		<tr>
 			<td>Email</td>
@@ -27,11 +23,11 @@
 		</tr>
 		<tr>
 			<td>Password</td>
-			<td><input type="text" ng-model="password" value=""></td>
+			<td><input type="password" ng-model="password" value=""></td>
 		</tr>
 		<tr>
 			<td>Confirm Password</td>
-			<td><input type="text" ng-model="confirmPassword" value=""></td>
+			<td><input type="password" ng-model="confirmPassword" value=""></td>
 		</tr>								
 	</table>
 	<button class="authButton" ng-click="joinPressed()">Join Elephants</button>

@@ -20,7 +20,7 @@ angular.module('taskManagerApp')
 			$scope.tasks = Tasks.findMany(user.tasks);
 			$scope.filteredTasks = $scope.tasks;
 		});
-	}
+	};
 
 	updateData();
 
@@ -39,7 +39,7 @@ angular.module('taskManagerApp')
 			//cache bust for the profile picture
 			updateData("?" + new Date().getTime());
 		});
-	}
+	};
 
 	$scope.filterTasks = function(status){
 		if(status == 'all'){
@@ -49,5 +49,5 @@ angular.module('taskManagerApp')
 		$scope.filteredTasks = $scope.tasks.filter(function(x){
 			return x.status.localeCompare(status) == 0;
 		});
-	}
+	};
 });
