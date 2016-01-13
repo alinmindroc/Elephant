@@ -1,5 +1,5 @@
 angular.module('taskManagerApp')
-.controller('taskDetailsCtrl', function ($scope, $uibModal, $uibModalInstance, Tasks, Users, taskId, userIds) {
+.controller('taskDetailsCtrl', function ($scope, $uibModal, $uibModalInstance, Tasks, Users, Upload, taskId, userIds) {
 
     function cleanResponse(resp) {
         return JSON.parse(angular.toJson(resp));
@@ -26,6 +26,26 @@ angular.module('taskManagerApp')
             }
         });
     });
+
+    // upload on file select or drop
+    $scope.upload = function (file) {
+        $scope.uploadSuccess = false;
+        $scope.uploadFailed = false;
+        Upload.upload({
+            url: 'tasks/uploadFile/',
+            data: {file: file, 'taskId': taskId}
+        }).then(function (resp) {
+            $scope.uploadSuccess = true;
+            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+        }, function (resp) {
+            $scope.uploadFailed = true;
+            $scope.uploadStatus = resp.status;
+            console.log('Error status: ' + resp.status);
+        }, function (evt) {
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+        });
+    };
 
     $scope.cancel = function(){
     	$uibModalInstance.dismiss();

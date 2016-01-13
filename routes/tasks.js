@@ -120,6 +120,37 @@ router.delete('/removeSubTask/:taskId/:subTaskId', function(req, res, next){
 		);
 });
 
+var fs = require('fs');
+var config = require('../config');
+var multiparty = require('connect-multiparty');
+var multipartyMiddleware = multiparty();
+
+router.post('/uploadFile', multipartyMiddleware, function(req, res, next) {
+	var fileDir = config.taskAttachmentDir;
+	//create results dir if it doesn't exist
+	try {
+		fs.mkdirSync(fileDir);
+	} catch(e) {
+		if ( e.code != 'EEXIST' ) throw e;
+	}
+
+	if(req.files.file){// If the Image exists
+		var filePath = fileDir + '/' + req.body.taskId;
+		fs.rename(req.files.file.path, filePath);
+
+		Task.findByIdAndUpdate(
+			{_id: req.body.taskId},
+			{filePath: config.taskAttachmentPath + req.body.taskId, fileName: req.files.file.originalFilename},
+			function(err, user) {
+				if(err) return next(err);
+				res.json(user);
+			}
+			);
+	} else {
+		res.json(HttpStatus.BAD_REQUEST,{error:"Error in file upload"});
+	}
+});
+
 router.get('/:id', function(req, res, next) {
 	Task.findById(req.params.id, function(err, get){
 		if(err) return next(err);

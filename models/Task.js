@@ -8,6 +8,9 @@ var TaskSchema = new mongoose.Schema({
 	description:	String,
 	start_date: 	{type: Date, default: Date.now},
 
+	filePath: 		String,
+	fileName: 		String,
+	
 	project:  		{type: mongoose.Schema.Types.ObjectId, ref: 'Project'},
 	users: 			[{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
 	

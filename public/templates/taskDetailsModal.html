@@ -27,7 +27,7 @@
 
 	<hr>
 
-	Assignees: 
+	<h4>Assignees:</h4>
 	<ul>
 		<li ng-repeat="user in assignedUsers">
 			{{user.fullName}}
@@ -47,6 +47,21 @@
 	</label>
 </uib-accordion-group>
 </uib-accordion>
+
+<hr>
+
+<div class="form-group">
+	<h4>Attachment: {{task.fileName}}</h4>
+	<button class="btn btn-primary btn-sm" ngf-select="upload($file)">
+		{{task.fileName==undefined ? 'Add' : 'Change'}}
+		<span class="glyphicon glyphicon-paperclip">
+		</button>
+	</input>
+	<span class="text-success" ng-show="uploadSuccess">Success</span>
+	<span class="text-danger" ng-show="uploadFailed">Error: {{uploadStatus}}</span>
+</div>    
+
+<hr>
 
 <button ng-disabled="!task || !task.date" type="submit" class="btn btn-success" ng-click="ok()">OK</button>
 <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
