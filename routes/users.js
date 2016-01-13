@@ -162,7 +162,6 @@ router.post('/uploadPhoto', multipartyMiddleware, function(req, res, next) {
 	}
 
 	if(req.files.file){   // If the Image exists
-		console.log(req.files.file);
 		var picturePath = photoDir + '/' + req.body.userId + '.png';
 		fs.rename(req.files.file.path, picturePath);
 		User.findByIdAndUpdate(

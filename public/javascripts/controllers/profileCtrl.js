@@ -2,9 +2,11 @@ angular.module('taskManagerApp')
 .controller('profileCtrl', function ($scope, $rootScope, $http, $uibModal, Users, Tasks, Projects) {
 	$rootScope.currentController = 'profile';
 
-	function updateData(){
+	function updateData(cacheBuster){
 		Users.get({id: '569621a02a29e2c92db82628'}, function(user){
 			$scope.crtUser = user;
+			if(cacheBuster)
+				$scope.crtUser.picturePath += cacheBuster;
 
 			Projects.findMany(user.projects, function(projects){
 				$scope.crtProjects = projects;
@@ -34,8 +36,8 @@ angular.module('taskManagerApp')
 		});
 
 		modalInstance.result.then(function(result){
-			$scope.crtUser.picturePath += '?v=1';
-			updateData();
+			//cache bust for the profile picture
+			updateData("?" + new Date().getTime());
 		});
 	}
 
