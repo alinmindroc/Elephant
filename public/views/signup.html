@@ -32,3 +32,5 @@
 	</table>
 	<button class="authButton" ng-click="signup()">Join Elephants</button>
 </form>
+
+<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout=4000>{{alert.msg}}</uib-alert>

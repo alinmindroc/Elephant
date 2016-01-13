@@ -16,3 +16,5 @@
 	<button class="authButton" ng-click="login()">Log in</button>
 	<div class="signupText">New user? Register <a href="#/signup">here!</a></div>
 </form>
+
+<uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout=4000>{{alert.msg}}</uib-alert>
