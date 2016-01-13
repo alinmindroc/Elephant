@@ -3,4 +3,7 @@ var config = {};
 config.profilePicturesDir = 'public/photos/';
 config.profilePicturesPath = 'photos/';
 
+config.taskAttachmentDir = 'public/attach/';
+config.taskAttachmentPath = 'attach/';
+
 module.exports = config;

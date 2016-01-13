@@ -4,7 +4,6 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var User = require('../models/User.js');
 var Task = require('../models/Task.js');
-var config = require('../config');
 
 router.get('/', function(req, res, next) {
 	User.find(function(err, users){
@@ -148,13 +147,12 @@ router.delete('/removeProjectTaskTreeFromAllUsers/:projectId', function(req, res
 	});
 });
 
-multiparty = require('connect-multiparty'),
-multipartyMiddleware = multiparty();
-
 var fs = require('fs');
+var config = require('../config');
+var multiparty = require('connect-multiparty');
+var multipartyMiddleware = multiparty();
 
 router.post('/uploadPhoto', multipartyMiddleware, function(req, res, next) {
-	console.log("\n\n\n", config, "\n\n\n");
 	var photoDir = config.profilePicturesDir;
 	//create results dir if it doesn't exist
 	try {
@@ -164,6 +162,7 @@ router.post('/uploadPhoto', multipartyMiddleware, function(req, res, next) {
 	}
 
 	if(req.files.file){   // If the Image exists
+		console.log(req.files.file);
 		var picturePath = photoDir + '/' + req.body.userId + '.png';
 		fs.rename(req.files.file.path, picturePath);
 		User.findByIdAndUpdate(
