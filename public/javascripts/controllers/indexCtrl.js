@@ -154,6 +154,7 @@ angular
 		when('/notifications', {templateUrl: 'views/notifications.html', controller: 'notificationsCtrl'}).
 		when('/signup', {templateUrl: 'views/signup.html', controller: 'signupCtrl'}).
 		when('/login', {templateUrl: 'views/login.html', controller: 'loginCtrl'}).
+		when('/users', {templateUrl: 'views/user.html', controller: 'usersCtrl'}).
 		when('/users/:userId', {templateUrl: 'views/user.html', controller: 'usersCtrl'}).
 		
 		when('/tasks/:projectId', {templateUrl: 'views/tasks.html', controller: 'tasksCtrl'}).

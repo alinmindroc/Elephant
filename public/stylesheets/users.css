@@ -1,0 +1,10 @@
+.userDataPanel {
+	border-color: #A6A6A6;
+	border-style: solid;
+	margin-top: 20px;
+	border-radius: 10px;
+}
+
+.bigText {
+	font-size: 18px;
+}
