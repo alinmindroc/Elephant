@@ -4,6 +4,7 @@ angular.module('taskManagerApp').controller('profileDetailsCtrl', function ($sco
 	// upload on file select or drop
 	$scope.upload = function (file) {
 		$scope.uploadSuccess = false;
+		$scope.uploadFailed = false;
 		Upload.upload({
 			url: 'users/uploadPhoto/',
 			data: {file: file, 'userId': $scope.userData._id}
@@ -11,6 +12,8 @@ angular.module('taskManagerApp').controller('profileDetailsCtrl', function ($sco
 			$scope.uploadSuccess = true;
 			console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
 		}, function (resp) {
+			$scope.uploadFailed = true;
+			$scope.uploadStatus = resp.status;
 			console.log('Error status: ' + resp.status);
 		}, function (evt) {
 			var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);

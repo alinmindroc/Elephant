@@ -1,0 +1,6 @@
+var config = {};
+
+config.profilePicturesDir = 'public/photos/';
+config.profilePicturesPath = 'photos/';
+
+module.exports = config;

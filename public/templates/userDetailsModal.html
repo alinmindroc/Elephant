@@ -17,6 +17,7 @@
     Change profile picture
   </div>
   <span class="text-success" ng-show="uploadSuccess">Success</span>
+  <span class="text-danger" ng-show="uploadFailed">Error: {{uploadStatus}}</span>
 </div>       
 <button type="submit" class="btn btn-success" ng-click="ok()">OK</button>
 <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>

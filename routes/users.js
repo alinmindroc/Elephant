@@ -4,7 +4,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var User = require('../models/User.js');
 var Task = require('../models/Task.js');
-
+var config = require('../config');
 
 router.get('/', function(req, res, next) {
 	User.find(function(err, users){
@@ -154,7 +154,8 @@ multipartyMiddleware = multiparty();
 var fs = require('fs');
 
 router.post('/uploadPhoto', multipartyMiddleware, function(req, res, next) {
-	var photoDir = 'public/photos';
+	console.log("\n\n\n", config, "\n\n\n");
+	var photoDir = config.profilePicturesDir;
 	//create results dir if it doesn't exist
 	try {
 		fs.mkdirSync(photoDir);
@@ -167,7 +168,7 @@ router.post('/uploadPhoto', multipartyMiddleware, function(req, res, next) {
 		fs.rename(req.files.file.path, picturePath);
 		User.findByIdAndUpdate(
 			{_id: req.body.userId},
-			{picturePath: 'photos/' + req.body.userId + '.png'},
+			{picturePath: config.profilePicturesPath + req.body.userId + '.png'},
 			function(err, user) {
 				if(err) return next(err);
 				res.json(user);
