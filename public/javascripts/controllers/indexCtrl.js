@@ -11,15 +11,15 @@ angular
 	])
 
 .factory('Projects', ['$resource', function($resource){
-	return $resource('/api/projects/:id', {id: '@id'}, {
+	return $resource('/projects/:id', {id: '@id'}, {
 		'update': { method:'PUT' },
 		'findMany': {
-			url: '/api/projects/findMany/:id',
+			url: '/projects/findMany/:id',
 			method: 'GET',
 			isArray: true
 		},
 		'addTask': {
-			url: '/api/projects/addTask/:projectId/:taskId',
+			url: '/projects/addTask/:projectId/:taskId',
 			method: 'POST',
 			params: {
 				projectId: '@projectId',
@@ -27,7 +27,7 @@ angular
 			}
 		},
 		'removeTask': {
-			url: '/api/projects/removeTask/:projectId/:taskId',
+			url: '/projects/removeTask/:projectId/:taskId',
 			method: 'DELETE',
 			params: {
 				projectId: '@projectId',
@@ -154,6 +154,8 @@ angular
 		when('/notifications', {templateUrl: 'views/notifications.html', controller: 'notificationsCtrl'}).
 		when('/signup', {templateUrl: 'views/signup.html', controller: 'signupCtrl'}).
 		when('/login', {templateUrl: 'views/login.html', controller: 'loginCtrl'}).
+		when('/users/:userId', {templateUrl: 'views/user.html', controller: 'usersCtrl'}).
+		
 		when('/tasks/:projectId', {templateUrl: 'views/tasks.html', controller: 'tasksCtrl'}).
 		when('/tasks/:projectId/:taskId', {templateUrl: 'views/tasks.html', controller: 'tasksCtrl'}).
 		otherwise({redirectTo: '/profile'});

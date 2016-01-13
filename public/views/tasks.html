@@ -63,7 +63,7 @@
 		<td>
 			<ul>
 				<li ng-repeat="user in assignedUsers">
-					{{user.fullName}}
+					<a href="#/users/{{user._id}}">{{user.fullName}}</a>
 				</li>
 			</ul>
 		</td>

@@ -26,7 +26,7 @@ angular.module('taskManagerApp')
 
 	$scope.openDetailsModal = function(){
 		var modalInstance = $uibModal.open({      
-			templateUrl: '/templates/userDetailsModal.html',
+			templateUrl: '/templates/profileDetailsModal.html',
 			controller: 'profileDetailsCtrl',
 			resolve: {
 				userData: function(){

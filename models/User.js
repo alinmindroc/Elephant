@@ -5,9 +5,11 @@ var Project = require('./Project.js');
 var UserSchema = new mongoose.Schema({
 	username: 		String,
 	fullName: 		String,
+	
 	password: 		String,
 	email: 			String,
 	picturePath:  	String,
+
 	projects: 		[{type: mongoose.Schema.Types.ObjectId, ref: 'Project'}],
 	tasks: 			[{type: mongoose.Schema.Types.ObjectId, ref: 'Task'}]
 });
