@@ -150,22 +150,29 @@ router.delete('/removeProjectTaskTreeFromAllUsers/:projectId', function(req, res
 
 multiparty = require('connect-multiparty'),
 multipartyMiddleware = multiparty();
-var fs = require('node-fs');
+
+var fs = require('fs');
 
 router.post('/uploadPhoto', multipartyMiddleware, function(req, res, next) {
+	var photoDir = 'public/photos';
+	//create results dir if it doesn't exist
+	try {
+		fs.mkdirSync(photoDir);
+	} catch(e) {
+		if ( e.code != 'EEXIST' ) throw e;
+	}
+
 	if(req.files.file){   // If the Image exists
-		fs.readFile(req.files.file.path, function (dataErr, data) {
-			if(data) {
-				User.findByIdAndUpdate(
-					{_id: req.body.userId},
-					{photo: data},
-					function(err, user) {
-						if(err) return next(err);
-						res.json(user);
-					}
-					);
+		var picturePath = photoDir + '/' + req.body.userId + '.png';
+		fs.rename(req.files.file.path, picturePath);
+		User.findByIdAndUpdate(
+			{_id: req.body.userId},
+			{picturePath: 'photos/' + req.body.userId + '.png'},
+			function(err, user) {
+				if(err) return next(err);
+				res.json(user);
 			}
-		});
+			);
 	}
 	
 	// res.json(HttpStatus.BAD_REQUEST,{error:"Error in file upload"});
