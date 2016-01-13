@@ -110,12 +110,6 @@ angular.module('taskManagerApp')
 		}
 	}
 
-	$scope.fullName = "Adriana Ene";
-	$scope.notNumber = 6;
-	$scope.search = {value : ''};
-	$scope.notifications = [{ value : 'Deadline Task 2 from Project Pizza Shop Online is tomorrow'}
-	];
-
 	$scope.addSubTask = function($event, node){
 		$scope.addTaskModal(node, "task");
 		$event.stopPropagation();

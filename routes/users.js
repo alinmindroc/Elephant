@@ -4,6 +4,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var User = require('../models/User.js');
 var Task = require('../models/Task.js');
+var bcrypt   = require('bcrypt-nodejs');
 
 router.get('/', function(req, res, next) {
 	User.find(function(err, users){
@@ -13,7 +14,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/findMany', function(req, res, next){
-
 	var ids = [];
 
 	for(key in req.query){
@@ -43,6 +43,42 @@ router.post('/addProjectToSet/:userId/:projectId', function(req, res, next){
 					res.json(post);
 				}
 				);
+		}
+	});
+});
+
+generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+// checking if password is valid
+validPassword = function(password, user) {
+    return bcrypt.compareSync(password, user.password);
+};
+
+router.post('/login', function(req, res, next){
+	User.findOne({ 'username': req.body.username }, function(err, user){
+		if(user == null){
+			res.json({'error' : 'User ' + req.body.username + ' not registered!'});
+		} else if(validPassword(req.body.password, user)){
+			res.json(user);
+		} else {
+			res.json({'error' : 'Wrong password!'});
+		}
+	});
+});
+
+router.post('/signup', function(req, res, next){
+	User.findOne({ 'username': req.body.username }, function(err, user){
+		if(user != null){
+			res.json({'error': 'Username ' + req.body.username + ' already registered!'});
+		} else {
+			var newUser = req.body;
+			newUser.password = generateHash(req.body.password);
+			User.create(newUser, function(err, resp){
+				if(err) return next(err);
+				res.json(resp);
+			});
 		}
 	});
 });

@@ -1,9 +1,14 @@
 angular.module('taskManagerApp')
-.controller('profileCtrl', function ($scope, $rootScope, $http, $uibModal, Users, Tasks, Projects) {
+.controller('profileCtrl', function ($scope, $rootScope, $http, $uibModal, $location, Users, Tasks, Projects) {
 	$rootScope.currentController = 'profile';
 
+	console.log($rootScope.loggedUser);
+	if($rootScope.loggedUser === undefined || $rootScope.loggedUser._id === undefined){
+		$location.url('/login');
+	};
+
 	function updateData(cacheBuster){
-		Users.get({id: '569621a02a29e2c92db82628'}, function(user){
+		Users.get({id: $rootScope.loggedUser._id}, function(user){
 			$scope.crtUser = user;
 			if(cacheBuster)
 				$scope.crtUser.picturePath += cacheBuster;

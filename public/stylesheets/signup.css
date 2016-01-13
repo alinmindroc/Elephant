@@ -18,4 +18,9 @@ body {
 	color:  #acac86;
   	margin-top: -100px;
   	margin-left: 50%;
+  	width: 500px;
+}
+
+.signupForm input {
+	width: 300px;
 }

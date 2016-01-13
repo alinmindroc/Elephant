@@ -79,6 +79,14 @@ angular
 
 .factory('Users', ['$resource', function($resource){
 	return $resource('/users/:id', {id: '@id'}, {
+		'signup': {
+			url: '/users/signup',
+			method: 'POST'
+		},
+		'login': {
+			url: '/users/login',
+			method: 'POST'
+		},
 		'findMany': {
 			url: '/users/findMany/:id',
 			method: 'GET',
@@ -163,7 +171,4 @@ angular
 	}])
 .controller('indexCtrl', function($scope, $rootScope){
 	$rootScope.currentController = 'login';// hack to make sure header is not drawn for login and signup pages
-
-	$scope.fullName = "Adriana Ene";
-	$scope.notificationsNumber = 6;
 });

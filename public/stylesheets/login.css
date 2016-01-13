@@ -15,16 +15,15 @@ body {
   font-size: 35px;
 }
 
+.signupText {
+  font-size: 20px;
+  margin-left: 38px;
+  margin-top: 50px;
+}
+
 .appText {	
   margin-left: 220px;
   margin-top: -75px;
-}
-
-.loginText {
-	font-size: 35px;
-	color: #8080ff;
-  margin-left: 220px;
-  margin-top: 100px;
 }
 
 .loginForm {
