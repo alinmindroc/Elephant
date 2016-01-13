@@ -34,6 +34,7 @@ angular.module('taskManagerApp')
 		});
 
 		modalInstance.result.then(function(result){
+			$scope.crtUser.picturePath += '?v=1';
 			updateData();
 		});
 	}
