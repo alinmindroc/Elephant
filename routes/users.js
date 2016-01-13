@@ -173,46 +173,9 @@ router.post('/uploadPhoto', multipartyMiddleware, function(req, res, next) {
 				res.json(user);
 			}
 			);
+	} else {
+		res.json(HttpStatus.BAD_REQUEST,{error:"Error in file upload"});
 	}
-	
-	// res.json(HttpStatus.BAD_REQUEST,{error:"Error in file upload"});
-
-
-	// We are able to access req.files.file thanks to 
-	// the multiparty middleware
-	var file = req.files.file;
-	console.log(file.name);
-	console.log(file.type);
-	console.log(file);
-	console.log(req.body.userId);
-	
-	
-
-	/*
-	var form = new multiparty.Form();
-	form.parse(req, function(err, fields, files) {
-		var file = files.file[0];
-		var contentType = file.headers['content-type'];
-		var extension = file.path.substring(file.path.lastIndexOf('.'));
-		var destPath = '/' + user.id + '/profile' + '/' + uuid.v4() + extension;
-
-		var headers = {
-			'x-amz-acl': 'public-read',
-			'Content-Length': file.size,
-			'Content-Type': contentType
-		};
-		var uploader = s3Client.upload(file.path, destPath, headers);
-
-		uploader.on('error', function(err) {
-		//TODO handle this
-	});
-
-		uploader.on('end', function(url) {
-		//TODO do something with the url
-		console.log('file opened:', url);
-	});
-	});
-*/
 });
 
 router.get('/:id', function(req, res, next) {
