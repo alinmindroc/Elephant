@@ -45,7 +45,7 @@ angular.module('taskManagerApp')
 
 	function dfsSetStringDate(node){
 		function dfs(node){
-			node.stringDate = new Date(node.created_at).toDateString();
+			node.stringDate = new Date(node.start_date).toDateString();
 			for(var i in node.children){
 				dfs(node.children[i]);
 			}
@@ -129,6 +129,27 @@ angular.module('taskManagerApp')
 		$location.url('/tasks/' + $scope.project._id + '/' + node._id);
 	}
 
+	$scope.openTaskDetailsModal = function(){
+		var modalInstance = $uibModal.open({
+			templateUrl: '/templates/taskDetailsModal.html',
+			controller: 'taskDetailsCtrl',
+			resolve: {
+				taskId: function(){
+					return $scope.selectedNode._id;
+				},
+				userIds: function(){
+					return $scope.project.users;
+				}
+			}
+		});
+
+		modalInstance.result.then(function(){
+			updateTasks();
+		});
+	}
+
+	/*
+	abandoned
 	$scope.delete = function(){
 		var task = $scope.selectedNode;
 
@@ -153,4 +174,5 @@ angular.module('taskManagerApp')
 		updateTasks();
 		$scope.selectedNode = undefined;
 	}
+	*/
 });

@@ -3,7 +3,7 @@ angular.module('taskManagerApp')
 	$rootScope.currentController = 'profile';
 
 	function updateData(){
-		Users.get({id: '5696136d1b047ebe607b5a1b'}, function(user){
+		Users.get({id: '569621a02a29e2c92db82628'}, function(user){
 			$scope.crtUser = user;
 
 			Projects.findMany(user.projects, function(projects){

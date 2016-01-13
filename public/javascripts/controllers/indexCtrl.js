@@ -40,6 +40,7 @@ angular
 .factory('Tasks', ['$resource', function($resource){
 	return $resource('/tasks/:id', {id: '@id'}, {
 		'query':  { method:'GET', isArray:true },
+		'update': { method:'PUT' },
 		'findMany': {
 			url: '/tasks/findMany/:id',
 			method: 'GET',

@@ -17,8 +17,6 @@ angular.module('taskManagerApp')
 		$uibModalInstance.dismiss();
 	}
 
-	$scope.taskType = "feature";
-
 	function addTaskToProject(taskId){
 		Projects.addTask({
 			projectId: $scope.parent._id,
@@ -49,7 +47,7 @@ angular.module('taskManagerApp')
 			project: projectId,
 			parent: $scope.parent._id,
 			status: $scope.taskStatus,
-			created_at: new Date($scope.taskDate).toISOString()
+			start_date: new Date($scope.taskDate).toISOString()
 		});
 
 		task.$save(function(){

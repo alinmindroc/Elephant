@@ -40,9 +40,9 @@
 		<div class="col-md-9">
 			<div class="panel panel-default">
 				<div class="panel-heading" style="background-color: #CCFFE6">
-					Assigned Tasks
+					{{tasks.length != 0 ? 'Assigned Tasks' : 'No Tasks Assigned'}}
 				</div>
-				<table class="table table-bordered">
+				<table ng-hide="tasks.length == 0" class="table table-bordered">
 					<thead>
 						<tr>
 							<th style="width: 33%">Task</th>
