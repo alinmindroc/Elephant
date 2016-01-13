@@ -9,6 +9,7 @@ angular.module('taskManagerApp')
 			if(cacheBuster){
 				$scope.crtUser.picturePath += cacheBuster;
 				//emit event so that header controller updates picture
+				localStorageService.set('loggedUser', $scope.crtUser);
 				$rootScope.$emit("setHeaderUser", $scope.crtUser.picturePath);
 			}
 

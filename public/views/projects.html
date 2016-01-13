@@ -1,31 +1,20 @@
-<style>
-	.headerForm {
-		z-index: -1;
-		margin-top: -50px; 
-		padding-bottom: 50px; 
-		margin-left: 160px;
-	}
-	.searchInput {
-		border-radius: 10px 10px 10px 10px;
-		text-align: center;
-		outline: 0;
-	}
-</style>
-
-<form class="headerForm">
-	<input
-	ng-model="searchFilter"
-	type="text"
-	placeholder="Search for project..." 
-	class="searchInput"
-	ng-change=filterTableData()>
-	<span class="glyphicon glyphicon-search" style="margin-left: -25px"></span>
-</form>
-
 <div class="content">
 	<div class="panel panel-default" style="margin:20 20">
 		<!-- Default panel contents -->
-		<div class="panel-heading">Projects</div>
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col-md-4">
+					Projects
+				</div>
+				<div class="col-md-3 pull-right">
+					<div class="has-feedback">
+						<input type="text" class="form-control" 
+						placeholder="Search" ng-model="searchFilter" ng-change="filterTableData()"/>
+						<i class="glyphicon glyphicon-search form-control-feedback"></i>
+					</div>					
+				</div>
+			</div>
+		</div>
 		<!-- Table -->
 		<table class="table table-bordered">
 			<thead>

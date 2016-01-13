@@ -42,6 +42,9 @@
 				<div class="panel-heading" style="background-color: #E1E1E1">
 					{{tasks.length != 0 ? 'Assigned Tasks' : 'No Tasks Assigned'}}
 				</div>
+				<div ng-show="tasks.length == 0" class="panel-body">
+					<a href="/#projects">Go to projects</a>
+				</div>
 				<table ng-hide="tasks.length == 0" class="table table-bordered">
 					<thead>
 						<tr>
