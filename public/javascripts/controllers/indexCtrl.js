@@ -168,7 +168,7 @@ angular
 		
 		when('/tasks/:projectId', {templateUrl: 'views/tasks.html', controller: 'tasksCtrl'}).
 		when('/tasks/:projectId/:taskId', {templateUrl: 'views/tasks.html', controller: 'tasksCtrl'}).
-		otherwise({redirectTo: '/profile'});
+		otherwise({redirectTo: '/login'});
 	}])
 .controller('indexCtrl', function($scope, $rootScope, $location, localStorageService){
 	$rootScope.currentController = 'login';// hack to make sure header is not drawn for login and signup pages
